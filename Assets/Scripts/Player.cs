@@ -4,21 +4,29 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] private float moveSpeed, jumpForce, fallMultiplier;
     [SerializeField] private Transform leftFoot, rightFoot;
     [SerializeField] private LayerMask whatIsGround;
 
-    private float horizontalValue;
+    private float originalGravity;
     private float rayDistance = 0.1f;
-    private bool doubleJump;
-
-    private Vector2 vecGravity;
 
     private Rigidbody2D rgdb;
     private SpriteRenderer rend;
 
-    //Dash
-    [SerializeField] private float dashingPower, dashingTime, dashingCoolDown;
+    [Header("Movement")]
+    [SerializeField] private float moveSpeed = 150f;
+    private float horizontalValue;
+
+    [Header("Jump")]
+    [SerializeField] private float jumpForce = 6f;
+    [SerializeField] private float fallSpeedMuliplier = 1.01f;
+    [SerializeField] private float maxFallSpeed = 4f;
+    private bool doubleJump;
+
+    [Header("Dash")]
+    [SerializeField] private float dashingPower = 12f;
+    [SerializeField] private float dashingTime = 0.2f;
+    [SerializeField] private float dashingCoolDown = 0.5f;
     private bool canDash = true;
     private bool isDashing;
 
@@ -26,17 +34,15 @@ public class Player : MonoBehaviour
     {
         rgdb = GetComponent<Rigidbody2D>();
         rend = GetComponent<SpriteRenderer>();
+
+        originalGravity = rgdb.gravityScale;
     }
 
     void Update()
     {
-        if (isDashing)
-        {
-            return;
-        }
+        if (isDashing) return;
 
         horizontalValue = Input.GetAxis("Horizontal");
-        vecGravity = new Vector2(0, -Physics2D.gravity.y);
 
         if (horizontalValue < 0)
         {
@@ -53,13 +59,8 @@ public class Player : MonoBehaviour
             Jump();
         }
 
-        // Fall faster
-        if (rgdb.velocity.y < 0)
-        {
-            rgdb.velocity -= vecGravity * fallMultiplier * Time.deltaTime;
-        }
+        FallSpeedRegulator();
 
-        // Dash
         if (Input.GetKeyDown(KeyCode.LeftShift) && canDash)
         {
             StartCoroutine(Dash());
@@ -68,10 +69,7 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (isDashing)
-        {
-            return;
-        }
+        if (isDashing) return;
 
         rgdb.velocity = new Vector2(horizontalValue * moveSpeed * Time.deltaTime, rgdb.velocity.y);
     }
@@ -93,7 +91,19 @@ public class Player : MonoBehaviour
             rgdb.velocity = new Vector2(rgdb.velocity.x, jumpForce * 0.8f);
             doubleJump = false;
         }
+    }
 
+    private void FallSpeedRegulator()
+    {
+        // Higher fall gravity with a cap on maximum fallspeed
+        if (rgdb.velocity.y < 0 && rgdb.velocity.y >= -maxFallSpeed)
+        {
+            rgdb.gravityScale *= fallSpeedMuliplier;
+        }
+        else
+        {
+            rgdb.gravityScale = originalGravity;
+        }
     }
 
     private IEnumerator Dash()

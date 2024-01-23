@@ -541,7 +541,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 150
   jumpForce: 6
-  fallMultiplier: 1
   leftFoot: {fileID: 1284471476}
   rightFoot: {fileID: 1249129703}
   whatIsGround:
