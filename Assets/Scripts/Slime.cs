@@ -14,18 +14,33 @@ public class Slime : MonoBehaviour
     [SerializeField] private LayerMask whatIsGround;
     private float rayDistance = 0.1f;
 
+    [Header("Health")]
+    [SerializeField] private int startingHealth = 20;
+    private int currentHealth;
+    private bool isDead = false;
+
     [Header("Jump")]
     [SerializeField] private float vForce = 5f;
     [SerializeField] private float hForce = 2f;
-    [SerializeField] private float fallSpeedMultiplier = 1.01f;
-    [SerializeField] private float maxFallSpeed = 4;
     private bool canJump = true;
+
+    [Header("Combat")]
+    [SerializeField] private float giveBounceForce = 7f;
+    [SerializeField] private float giveVKnockback = 3f;
+    [SerializeField] private float giveHKnockback = 3f;
+    [SerializeField] private int damageGiven = 4;
+
+    [Header("Colliders")]
+    [SerializeField] private BoxCollider2D boxCollider;
+    [SerializeField] private CapsuleCollider2D capsuleCollider;
 
     void Start()
     {
         rgdb = GetComponent<Rigidbody2D>();
         rend = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
+
+        currentHealth = startingHealth;
     }
 
     void Update()
@@ -42,8 +57,6 @@ public class Slime : MonoBehaviour
         {
             StartCoroutine(Jump());
         }
-
-        FallSpeedRegulator();
     }
 
     private void FlipSprite(bool direction)
@@ -58,34 +71,25 @@ public class Slime : MonoBehaviour
         yield return new WaitForSeconds(0.3f);
         rgdb.velocity = new Vector2(hForce, vForce);
         yield return new WaitForSeconds(Random.Range(1f, 8f));
-        canJump = true;
+
+        if (!isDead)
+        {
+            canJump = true;
+        }
     }
 
     private bool IsGrounded()
     {
         RaycastHit2D hit = Physics2D.Raycast(ray.position, Vector2.down, rayDistance, whatIsGround);
 
-        if (hit.collider != null && hit.collider.CompareTag("Ground"))
+        if (hit.collider != null && hit.collider.CompareTag("Ground") && !isDead)
         {
+            boxCollider.enabled = true;
             return true;
         }
-        else
-        {
-            return false;
-        }
-    }
-    private void FallSpeedRegulator()
-    {
-        // Higher fall gravity with a cap on maximum fallspeed
-        float originalGravity = rgdb.gravityScale;
-        if (rgdb.velocity.y < 0 && rgdb.velocity.y >= -maxFallSpeed)
-        {
-            rgdb.gravityScale *= fallSpeedMultiplier;
-        }
-        else
-        {
-            rgdb.gravityScale = originalGravity;
-        }
+
+        boxCollider.enabled = false;
+        return false;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -103,6 +107,52 @@ public class Slime : MonoBehaviour
             {
                 FlipSprite(false);
             }
+        }
+
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            Player player = collision.gameObject.GetComponent<Player>();
+
+            player.TakeDamage(damageGiven);
+
+            if (collision.transform.position.x > transform.position.x)
+            {
+                player.TakeKnockback(giveHKnockback, giveVKnockback);
+            }
+            else
+            {
+                player.TakeKnockback(-giveHKnockback, giveVKnockback);
+            }
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            collision.GetComponent<Rigidbody2D>().velocity = new Vector2(collision.GetComponent<Rigidbody2D>().velocity.x, giveBounceForce);
+            TakeDamage(10);
+        }
+    }
+
+    private void Die()
+    {
+        canJump = false;
+        boxCollider.enabled = false;
+        capsuleCollider.enabled = false;
+        rgdb.gravityScale = 0;
+        rgdb.velocity = Vector2.zero;
+        anim.Play("SmallSlime_Defeated");
+    }
+
+    private void TakeDamage(int damageTaken)
+    {
+        currentHealth -= damageTaken;
+
+        if (currentHealth <= 0)
+        {
+            isDead = true;
+            Die();
         }
     }
 }

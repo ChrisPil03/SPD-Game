@@ -13,9 +13,14 @@ public class Player : MonoBehaviour
     private Rigidbody2D rgdb;
     private SpriteRenderer rend;
 
+    [Header("Health")]
+    [SerializeField] private int startingHealth = 100;
+    private int currentHealth;
+
     [Header("Movement")]
     [SerializeField] private float moveSpeed = 150f;
     private float horizontalValue;
+    private bool canMove = true;
 
     [Header("Jump")]
     [SerializeField] private float jumpForce = 6f;
@@ -36,11 +41,12 @@ public class Player : MonoBehaviour
         rend = GetComponent<SpriteRenderer>();
 
         originalGravity = rgdb.gravityScale;
+        currentHealth = startingHealth;
     }
 
     void Update()
     {
-        if (isDashing) return;
+        if (isDashing || !canMove) return;
 
         horizontalValue = Input.GetAxis("Horizontal");
 
@@ -69,7 +75,7 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (isDashing) return;
+        if (isDashing || !canMove) return;
 
         rgdb.velocity = new Vector2(horizontalValue * moveSpeed * Time.deltaTime, rgdb.velocity.y);
     }
@@ -147,5 +153,22 @@ public class Player : MonoBehaviour
         {
             return false;
         }
+    }
+
+    private void CanMove()
+    {
+        canMove = true;
+    }
+
+    public void TakeDamage(int damageTaken)
+    {
+        currentHealth -= damageTaken;
+    }
+
+    public void TakeKnockback(float hKnockbackForce, float vKnockbackforce)
+    {
+        canMove = false;
+        rgdb.velocity = new Vector2(hKnockbackForce, vKnockbackforce);
+        Invoke("CanMove", 0.3f);
     }
 }
