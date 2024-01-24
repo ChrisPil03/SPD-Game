@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
 
     private Rigidbody2D rgdb;
     private SpriteRenderer rend;
+    private Animator anim;
 
     [Header("Health")]
     [SerializeField] private int startingHealth = 100;
@@ -23,13 +24,13 @@ public class Player : MonoBehaviour
     private bool canMove = true;
 
     [Header("Jump")]
-    [SerializeField] private float jumpForce = 6f;
+    [SerializeField] private float jumpForce = 9.5f;
     [SerializeField] private float fallSpeedMuliplier = 1.01f;
-    [SerializeField] private float maxFallSpeed = 4f;
+    [SerializeField] private float maxFallSpeed = 6f;
     private bool doubleJump;
 
     [Header("Dash")]
-    [SerializeField] private float dashingPower = 12f;
+    [SerializeField] private float dashingPower = 12.5f;
     [SerializeField] private float dashingTime = 0.2f;
     [SerializeField] private float dashingCoolDown = 0.5f;
     private bool canDash = true;
@@ -39,6 +40,7 @@ public class Player : MonoBehaviour
     {
         rgdb = GetComponent<Rigidbody2D>();
         rend = GetComponent<SpriteRenderer>();
+        anim = GetComponent<Animator>();
 
         originalGravity = rgdb.gravityScale;
         currentHealth = startingHealth;
@@ -48,6 +50,10 @@ public class Player : MonoBehaviour
     {
         if (isDashing || !canMove) return;
 
+        anim.SetFloat("MoveSpeed", Mathf.Abs(rgdb.velocity.x));
+        anim.SetFloat("VerticalSpeed", rgdb.velocity.y);
+        anim.SetBool("IsGrounded", IsGrounded());
+        anim.SetBool("TakingKnockback", false);
         horizontalValue = Input.GetAxis("Horizontal");
 
         if (horizontalValue < 0)
@@ -94,6 +100,7 @@ public class Player : MonoBehaviour
         }
         else if (doubleJump)
         {
+            PlayDoubleJumpAnim();
             rgdb.velocity = new Vector2(rgdb.velocity.x, jumpForce * 0.8f);
             doubleJump = false;
         }
@@ -160,6 +167,18 @@ public class Player : MonoBehaviour
         canMove = true;
     }
 
+    private void PlayDoubleJumpAnim()
+    {
+        if (rgdb.velocity.y == -maxFallSpeed + 1)
+        {
+            anim.Play("FallReversedNoSword");
+        }
+        else
+        {
+            anim.Play("JumpNoSword");
+        }
+    }
+
     public void TakeDamage(int damageTaken)
     {
         currentHealth -= damageTaken;
@@ -167,6 +186,7 @@ public class Player : MonoBehaviour
 
     public void TakeKnockback(float hKnockbackForce, float vKnockbackforce)
     {
+        anim.SetBool("TakingKnockback", true);
         canMove = false;
         rgdb.velocity = new Vector2(hKnockbackForce, vKnockbackforce);
         Invoke("CanMove", 0.3f);
