@@ -29,6 +29,7 @@ public class Slime : MonoBehaviour
     [SerializeField] private float giveVKnockback = 3f;
     [SerializeField] private float giveHKnockback = 3f;
     [SerializeField] private int damageGiven = 4;
+    [SerializeField] private int damageTaken = 10;
 
     [Header("Colliders")]
     [SerializeField] private BoxCollider2D boxCollider;
@@ -130,8 +131,9 @@ public class Slime : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
+            collision.GetComponent<Animator>().Play("FallReversedNoSword");
             collision.GetComponent<Rigidbody2D>().velocity = new Vector2(collision.GetComponent<Rigidbody2D>().velocity.x, giveBounceForce);
-            TakeDamage(10);
+            TakeDamage(damageTaken);
         }
     }
 

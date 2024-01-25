@@ -70,7 +70,7 @@ public class Player : MonoBehaviour
         {
             Jump();
         }
-
+        
         FallSpeedRegulator();
 
         if (Input.GetKeyDown(KeyCode.LeftShift) && canDash)
