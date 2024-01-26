@@ -25,9 +25,7 @@ public class Player : MonoBehaviour
 
     [Header("Jump")]
     [SerializeField] private float jumpForce = 9.5f;
-    [SerializeField] private float fallSpeedMuliplier = 1.01f;
-    [SerializeField] private float maxFallSpeed = 6f;
-    private bool doubleJump;
+    private bool canDoubleJump;
 
     [Header("Dash")]
     [SerializeField] private float dashingPower = 12.5f;
@@ -50,10 +48,6 @@ public class Player : MonoBehaviour
     {
         if (isDashing || !canMove) return;
 
-        anim.SetFloat("MoveSpeed", Mathf.Abs(rgdb.velocity.x));
-        anim.SetFloat("VerticalSpeed", rgdb.velocity.y);
-        anim.SetBool("IsGrounded", IsGrounded());
-        anim.SetBool("TakingKnockback", false);
         horizontalValue = Input.GetAxis("Horizontal");
 
         if (horizontalValue < 0)
@@ -70,13 +64,21 @@ public class Player : MonoBehaviour
         {
             Jump();
         }
-        
-        FallSpeedRegulator();
+
+        if (Input.GetButtonUp("Jump") || rgdb.velocity.y < 0)
+        {
+            ResetGravity();
+        }
 
         if (Input.GetKeyDown(KeyCode.LeftShift) && canDash)
         {
             StartCoroutine(Dash());
         }
+
+        anim.SetFloat("MoveSpeed", Mathf.Abs(rgdb.velocity.x));
+        anim.SetFloat("VerticalSpeed", rgdb.velocity.y);
+        anim.SetBool("IsGrounded", IsGrounded());
+        anim.SetBool("TakingKnockback", false);
     }
 
     private void FixedUpdate()
@@ -95,35 +97,28 @@ public class Player : MonoBehaviour
     {
         if (IsGrounded())
         {
+            rgdb.gravityScale = originalGravity * 0.5f;
             rgdb.velocity = new Vector2(rgdb.velocity.x, jumpForce);
-            doubleJump = true;
+            canDoubleJump = true;
         }
-        else if (doubleJump)
+        else if (canDoubleJump)
         {
-            PlayDoubleJumpAnim();
-            rgdb.velocity = new Vector2(rgdb.velocity.x, jumpForce * 0.8f);
-            doubleJump = false;
+            DoubleJump();
         }
     }
 
-    private void FallSpeedRegulator()
+    private void DoubleJump()
     {
-        // Higher fall gravity with a cap on maximum fallspeed
-        if (rgdb.velocity.y < 0 && rgdb.velocity.y >= -maxFallSpeed)
-        {
-            rgdb.gravityScale *= fallSpeedMuliplier;
-        }
-        else
-        {
-            rgdb.gravityScale = originalGravity;
-        }
+        ResetGravity();
+        PlayDoubleJumpAnim();
+        rgdb.velocity = new Vector2(rgdb.velocity.x, jumpForce * 1.4f);
+        canDoubleJump = false;
     }
 
     private IEnumerator Dash()
     {
         canDash = false;
         isDashing = true;
-        float originalGravity = rgdb.gravityScale;
         rgdb.gravityScale = 0f;
         if (rend.flipX)
         {
@@ -134,7 +129,7 @@ public class Player : MonoBehaviour
             rgdb.velocity = new Vector2(transform.localScale.x * dashingPower, 0f);
         }
         yield return new WaitForSeconds(dashingTime);
-        rgdb.gravityScale = originalGravity;
+        ResetGravity();
         isDashing = false;
         if (IsGrounded())
         {
@@ -145,6 +140,11 @@ public class Player : MonoBehaviour
             yield return new WaitUntil(IsGrounded);
         }
         canDash = true;
+    }
+
+    private void ResetGravity()
+    {
+        rgdb.gravityScale = originalGravity;
     }
 
     private bool IsGrounded()
@@ -169,7 +169,7 @@ public class Player : MonoBehaviour
 
     private void PlayDoubleJumpAnim()
     {
-        if (rgdb.velocity.y == -maxFallSpeed + 1)
+        if (rgdb.velocity.y < -2)
         {
             anim.Play("FallReversedNoSword");
         }

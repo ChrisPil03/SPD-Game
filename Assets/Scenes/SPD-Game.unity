@@ -656,7 +656,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 2
+  m_GravityScale: 2.2
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -687,9 +687,7 @@ MonoBehaviour:
     m_Bits: 8
   startingHealth: 100
   moveSpeed: 160
-  jumpForce: 9.5
-  fallSpeedMuliplier: 1.01
-  maxFallSpeed: 6
+  jumpForce: 7
   dashingPower: 12.5
   dashingTime: 0.2
   dashingCoolDown: 0.5
@@ -889,6 +887,7 @@ MonoBehaviour:
   giveVKnockback: 3
   giveHKnockback: 3
   damageGiven: 4
+  damageTaken: 10
   boxCollider: {fileID: 1683979679}
   capsuleCollider: {fileID: 1683979674}
 --- !u!61 &1683979679

@@ -139,11 +139,11 @@ public class Slime : MonoBehaviour
 
     private void Die()
     {
+        rgdb.velocity = Vector2.zero;
+        rgdb.gravityScale = 0;
         canJump = false;
         boxCollider.enabled = false;
         capsuleCollider.enabled = false;
-        rgdb.gravityScale = 0;
-        rgdb.velocity = Vector2.zero;
         anim.Play("SmallSlime_Defeated");
     }
 
