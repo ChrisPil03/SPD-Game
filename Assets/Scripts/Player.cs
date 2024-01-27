@@ -119,6 +119,7 @@ public class Player : MonoBehaviour
     {
         canDash = false;
         isDashing = true;
+        anim.SetBool("IsDashing", true);
         rgdb.gravityScale = 0f;
         if (rend.flipX)
         {
@@ -131,6 +132,7 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(dashingTime);
         ResetGravity();
         isDashing = false;
+        anim.SetBool("IsDashing", false);
         if (IsGrounded())
         {
             yield return new WaitForSeconds(dashingCoolDown);
