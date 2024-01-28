@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -15,10 +16,16 @@ public class Player : MonoBehaviour
     private SpriteRenderer rend;
     private Animator anim;
 
+    //Player level
+    [SerializeField] private XPBar xpBar;
+    private int currentLevel;
+    private int xpToLevelUp = 100;
+    private int currentXP;
+
     [Header("Health")]
     [SerializeField] private int startingHealth = 100;
     [SerializeField] private HealthBar healthbar;
-    public int currentHealth;
+    [HideInInspector] public int currentHealth;
 
     [Header("Movement")]
     [SerializeField] private float moveSpeed = 150f;
@@ -188,19 +195,18 @@ public class Player : MonoBehaviour
         rgdb.velocity = Vector2.zero;
         transform.position = spawnPosition.position;
         currentHealth = startingHealth;
-        healthbar.UpdateHealthBar(currentHealth);
     }
 
     public void TakeDamage(int damageTaken)
     {
         currentHealth -= damageTaken;
-        print(currentHealth);
-        healthbar.UpdateHealthBar(currentHealth);
 
         if (currentHealth <= 0)
         {
             Respawn();
         }
+
+        healthbar.UpdateHealthBar(currentHealth);
     }
 
     public void TakeKnockback(float hKnockbackForce, float vKnockbackforce)
@@ -209,5 +215,21 @@ public class Player : MonoBehaviour
         canMove = false;
         rgdb.velocity = new Vector2(hKnockbackForce, vKnockbackforce);
         Invoke("CanMove", 0.3f);
+    }
+
+    public void GainXP(int xpAmount)
+    {
+        if ((currentXP + xpAmount) >= xpToLevelUp)
+        {
+            currentLevel++;
+            currentXP = (currentXP + xpAmount) % xpToLevelUp;
+        }
+        else 
+        {
+            currentXP += xpAmount;
+        }
+
+        print(currentXP);
+        xpBar.UpdateXPBar(currentXP);
     }
 }

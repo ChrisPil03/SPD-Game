@@ -9,6 +9,9 @@ public class Slime : MonoBehaviour
     private SpriteRenderer rend;
     private Animator anim;
 
+    [SerializeField] private int giveXp = 10;
+    [SerializeField] private Player player;
+
     //Groundcheck
     [SerializeField] private Transform ray;
     [SerializeField] private LayerMask whatIsGround;
@@ -112,8 +115,6 @@ public class Slime : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Player"))
         {
-            Player player = collision.gameObject.GetComponent<Player>();
-
             player.TakeDamage(damageGiven);
 
             if (collision.transform.position.x > transform.position.x)
@@ -145,6 +146,7 @@ public class Slime : MonoBehaviour
         boxCollider.enabled = false;
         capsuleCollider.enabled = false;
         anim.Play("SmallSlime_Defeated");
+        player.GainXP(giveXp);
     }
 
     private void TakeDamage(int damageTaken)

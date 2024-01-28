@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HealthBar : MonoBehaviour
+public class XPBar : MonoBehaviour
 {
     private Animator anim;
 
@@ -11,17 +11,17 @@ public class HealthBar : MonoBehaviour
         anim = GetComponent<Animator>();
     }
 
-    public void UpdateHealthBar(int playerHealth)
+    public void UpdateXPBar(int playerXP)
     {
-        float totalFramesInAnimation = 17;
+        float totalFramesInAnimation = 15f;
 
         for (int frame = 1; frame <= totalFramesInAnimation; frame++)
         {
             float normalizedTime = frame / totalFramesInAnimation;
 
-            if (1 - (playerHealth / 100f) <= normalizedTime)
+            if ((playerXP / 100f) <= normalizedTime)
             {
-                anim.Play("Health bar", 0, normalizedTime);
+                anim.Play("XP bar", 0, normalizedTime);
                 return;
             }
         }
