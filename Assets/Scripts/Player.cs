@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    [SerializeField] private Transform spawnPosition;
     [SerializeField] private Transform leftFoot, rightFoot;
     [SerializeField] private LayerMask whatIsGround;
 
@@ -16,7 +17,8 @@ public class Player : MonoBehaviour
 
     [Header("Health")]
     [SerializeField] private int startingHealth = 100;
-    private int currentHealth;
+    [SerializeField] private HealthBar healthbar;
+    public int currentHealth;
 
     [Header("Movement")]
     [SerializeField] private float moveSpeed = 150f;
@@ -181,9 +183,24 @@ public class Player : MonoBehaviour
         }
     }
 
+    private void Respawn()
+    {
+        rgdb.velocity = Vector2.zero;
+        transform.position = spawnPosition.position;
+        currentHealth = startingHealth;
+        healthbar.UpdateHealthBar(currentHealth);
+    }
+
     public void TakeDamage(int damageTaken)
     {
         currentHealth -= damageTaken;
+        print(currentHealth);
+        healthbar.UpdateHealthBar(currentHealth);
+
+        if (currentHealth <= 0)
+        {
+            Respawn();
+        }
     }
 
     public void TakeKnockback(float hKnockbackForce, float vKnockbackforce)
