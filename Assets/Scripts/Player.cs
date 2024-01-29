@@ -229,7 +229,6 @@ public class Player : MonoBehaviour
             currentXP += xpAmount;
         }
 
-        print(currentXP);
         xpBar.UpdateXPBar(currentXP);
     }
 }
