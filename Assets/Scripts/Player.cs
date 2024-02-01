@@ -15,6 +15,7 @@ public class Player : MonoBehaviour
     private Rigidbody2D rgdb;
     private SpriteRenderer rend;
     private Animator anim;
+    private Hotbar hotbar;
 
     //Player level
     [SerializeField] private XPBar xpBar;
@@ -26,6 +27,7 @@ public class Player : MonoBehaviour
     [SerializeField] private int startingHealth = 100;
     [SerializeField] private HealthBar healthbar;
     [HideInInspector] public int currentHealth;
+    private int healthPotions;
 
     [Header("Movement")]
     [SerializeField] private float moveSpeed = 150f;
@@ -48,6 +50,7 @@ public class Player : MonoBehaviour
         rgdb = GetComponent<Rigidbody2D>();
         rend = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
+        hotbar = GetComponent<Hotbar>();
 
         originalGravity = rgdb.gravityScale;
         currentHealth = startingHealth;
@@ -82,6 +85,12 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.LeftShift) && canDash)
         {
             StartCoroutine(Dash());
+        }
+
+        if (Input.GetKeyDown(KeyCode.R) && hotbar.isFull[0])
+        {
+            UseHealthPotion();
+            hotbar.RemoveItem();
         }
 
         anim.SetFloat("MoveSpeed", Mathf.Abs(rgdb.velocity.x));
@@ -195,6 +204,12 @@ public class Player : MonoBehaviour
         rgdb.velocity = Vector2.zero;
         transform.position = spawnPosition.position;
         currentHealth = startingHealth;
+    }
+
+    private void UseHealthPotion()
+    {
+        currentHealth = startingHealth;
+        healthbar.UpdateHealthBar(currentHealth);
     }
 
     public void TakeDamage(int damageTaken)
