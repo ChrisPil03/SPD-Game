@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using UnityEngine;
+using TMPro;
 
 public class Player : MonoBehaviour
 {
@@ -17,8 +18,9 @@ public class Player : MonoBehaviour
     private Animator anim;
     private Hotbar hotbar;
 
-    //Player level
+    [Header("Level")]
     [SerializeField] private XPBar xpBar;
+    [SerializeField] private TMP_Text level;
     private int currentLevel;
     private int xpToLevelUp = 100;
     private int currentXP;
@@ -26,13 +28,13 @@ public class Player : MonoBehaviour
     [Header("Health")]
     [SerializeField] private int startingHealth = 100;
     [SerializeField] private HealthBar healthbar;
+    [SerializeField] private TMP_Text healthCounter;
     [HideInInspector] public int currentHealth;
-    private int healthPotions;
 
     [Header("Movement")]
     [SerializeField] private float moveSpeed = 150f;
     private float horizontalValue;
-    private bool canMove = true;
+    private bool canMove = false;
 
     [Header("Jump")]
     [SerializeField] private float jumpForce = 9.5f;
@@ -54,6 +56,8 @@ public class Player : MonoBehaviour
 
         originalGravity = rgdb.gravityScale;
         currentHealth = startingHealth;
+
+        Invoke("CanMove", 2f);
     }
 
     void Update()
@@ -87,7 +91,7 @@ public class Player : MonoBehaviour
             StartCoroutine(Dash());
         }
 
-        if (Input.GetKeyDown(KeyCode.R) && hotbar.isFull[0])
+        if (Input.GetKeyDown(KeyCode.R) && hotbar.isFull[0] && currentHealth != startingHealth)
         {
             UseHealthPotion();
             hotbar.RemoveItem();
@@ -201,15 +205,19 @@ public class Player : MonoBehaviour
 
     private void Respawn()
     {
-        rgdb.velocity = Vector2.zero;
+        canMove = false;
         transform.position = spawnPosition.position;
+        rgdb.velocity = Vector2.zero;
         currentHealth = startingHealth;
+        anim.Play("SpawningNoSword");
+        Invoke("CanMove", 2f);
     }
 
     private void UseHealthPotion()
     {
         currentHealth = startingHealth;
         healthbar.UpdateHealthBar(currentHealth);
+        healthCounter.text = currentHealth + "/" + startingHealth;
     }
 
     public void TakeDamage(int damageTaken)
@@ -222,14 +230,19 @@ public class Player : MonoBehaviour
         }
 
         healthbar.UpdateHealthBar(currentHealth);
+        healthCounter.text = currentHealth + "/" + startingHealth;
     }
 
     public void TakeKnockback(float hKnockbackForce, float vKnockbackforce)
     {
-        anim.SetBool("TakingKnockback", true);
-        canMove = false;
-        rgdb.velocity = new Vector2(hKnockbackForce, vKnockbackforce);
-        Invoke("CanMove", 0.3f);
+
+        if (currentHealth != startingHealth)
+        {
+            anim.SetBool("TakingKnockback", true);
+            canMove = false;
+            rgdb.velocity = new Vector2(hKnockbackForce, vKnockbackforce);
+            Invoke("CanMove", 0.3f);
+        }
     }
 
     public void GainXP(int xpAmount)
@@ -237,6 +250,7 @@ public class Player : MonoBehaviour
         if ((currentXP + xpAmount) >= xpToLevelUp)
         {
             currentLevel++;
+            level.text = "lv."+currentLevel;
             currentXP = (currentXP + xpAmount) % xpToLevelUp;
         }
         else 

@@ -21,5 +21,10 @@ public class CameraFollowX : MonoBehaviour
             tempVector3.x = target.position.x;
             transform.position = tempVector3;
         }
+        else if (target.position.x < 1)
+        {
+            tempVector3.x = 1;
+            transform.position = tempVector3;
+        }
     }
 }
