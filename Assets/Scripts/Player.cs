@@ -120,6 +120,15 @@ public class Player : MonoBehaviour
         rgdb.velocity = new Vector2(horizontalValue * moveSpeed * Time.deltaTime, rgdb.velocity.y);
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Sword"))
+        {
+            hasSword = true;
+            Destroy(collision.gameObject);
+        }
+    }
+
     private void FlipSprite(bool direction)
     {
         rend.flipX = direction;

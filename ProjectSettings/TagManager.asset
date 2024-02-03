@@ -15,6 +15,7 @@ TagManager:
   - Skill_Dash
   - Skill_HeavyAttack
   - Skill_TwoSwords
+  - Sword
   layers:
   - Default
   - TransparentFX
