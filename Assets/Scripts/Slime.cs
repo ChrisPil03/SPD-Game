@@ -128,7 +128,14 @@ public class Slime : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            collision.GetComponent<Animator>().Play("FallReversedNoSword");
+            if (player.hasSword)
+            {
+                collision.GetComponent<Animator>().Play("FallReversedWithSword");
+            }
+            else
+            {
+                collision.GetComponent<Animator>().Play("FallReversedNoSword");
+            }
             collision.GetComponent<Rigidbody2D>().velocity = new Vector2(collision.GetComponent<Rigidbody2D>().velocity.x, giveBounceForce);
             TakeDamage(damageTaken);
         }

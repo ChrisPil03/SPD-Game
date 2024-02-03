@@ -113,9 +113,9 @@ TextureImporter:
       name: Spawning_0
       rect:
         serializedVersion: 2
-        x: 0
+        x: 8
         y: 16
-        width: 80
+        width: 48
         height: 48
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -134,9 +134,9 @@ TextureImporter:
       name: Spawning_1
       rect:
         serializedVersion: 2
-        x: 80
+        x: 88
         y: 16
-        width: 80
+        width: 48
         height: 48
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -155,9 +155,9 @@ TextureImporter:
       name: Spawning_2
       rect:
         serializedVersion: 2
-        x: 160
+        x: 168
         y: 16
-        width: 80
+        width: 48
         height: 48
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -176,9 +176,9 @@ TextureImporter:
       name: Spawning_3
       rect:
         serializedVersion: 2
-        x: 240
+        x: 248
         y: 16
-        width: 80
+        width: 48
         height: 48
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -197,9 +197,9 @@ TextureImporter:
       name: Spawning_4
       rect:
         serializedVersion: 2
-        x: 320
+        x: 328
         y: 16
-        width: 80
+        width: 48
         height: 48
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -218,9 +218,9 @@ TextureImporter:
       name: Spawning_5
       rect:
         serializedVersion: 2
-        x: 400
+        x: 408
         y: 16
-        width: 80
+        width: 48
         height: 48
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -239,9 +239,9 @@ TextureImporter:
       name: Spawning_6
       rect:
         serializedVersion: 2
-        x: 480
+        x: 488
         y: 16
-        width: 80
+        width: 48
         height: 48
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -260,9 +260,9 @@ TextureImporter:
       name: Spawning_7
       rect:
         serializedVersion: 2
-        x: 560
+        x: 568
         y: 16
-        width: 80
+        width: 48
         height: 48
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -281,9 +281,9 @@ TextureImporter:
       name: Spawning_8
       rect:
         serializedVersion: 2
-        x: 640
+        x: 648
         y: 16
-        width: 80
+        width: 48
         height: 48
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -302,9 +302,9 @@ TextureImporter:
       name: Spawning_9
       rect:
         serializedVersion: 2
-        x: 720
+        x: 728
         y: 16
-        width: 80
+        width: 48
         height: 48
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -323,9 +323,9 @@ TextureImporter:
       name: Spawning_10
       rect:
         serializedVersion: 2
-        x: 800
+        x: 808
         y: 16
-        width: 80
+        width: 48
         height: 48
       alignment: 7
       pivot: {x: 0.5, y: 0}

@@ -125,6 +125,7 @@ public class Player : MonoBehaviour
         if (collision.CompareTag("Sword"))
         {
             hasSword = true;
+            anim.SetBool("HasSword", true);
             Destroy(collision.gameObject);
         }
     }
@@ -221,11 +222,25 @@ public class Player : MonoBehaviour
     {
         if (rgdb.velocity.y < -2)
         {
-            anim.Play("FallReversedNoSword");
+            if (hasSword)
+            {
+                anim.Play("FallReversedWithSword");
+            }
+            else
+            {
+                anim.Play("FallReversedNoSword");
+            }
         }
         else
         {
-            anim.Play("JumpNoSword");
+            if (hasSword)
+            {
+                anim.Play("JumpWithSword");
+            }
+            else
+            {
+                anim.Play("JumpNoSword");
+            }
         }
     }
 
@@ -235,7 +250,14 @@ public class Player : MonoBehaviour
         transform.position = spawnPosition.position;
         rgdb.velocity = Vector2.zero;
         currentHealth = startingHealth;
-        anim.Play("SpawningNoSword");
+        if (hasSword)
+        {
+            anim.Play("SpawningWithSword");
+        }
+        else
+        {
+            anim.Play("SpawningNoSword");
+        }
         Invoke("CanMove", 2f);
     }
 
