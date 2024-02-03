@@ -57,7 +57,7 @@ public class Slime : MonoBehaviour
     {
         if (!canJump) return;
 
-        if (IsGrounded())
+        if (IsGrounded() && !isDead)
         {
             StartCoroutine(Jump());
         }
@@ -75,11 +75,7 @@ public class Slime : MonoBehaviour
         yield return new WaitForSeconds(0.3f);
         rgdb.velocity = new Vector2(hForce, vForce);
         yield return new WaitForSeconds(Random.Range(1f, 8f));
-
-        if (!isDead)
-        {
-            canJump = true;
-        }
+        canJump = true;
     }
 
     private bool IsGrounded()
@@ -147,6 +143,7 @@ public class Slime : MonoBehaviour
         capsuleCollider.enabled = false;
         anim.Play("SmallSlime_Defeated");
         player.GainXP(giveXp);
+        Destroy(gameObject, 1f);
     }
 
     private void TakeDamage(int damageTaken)

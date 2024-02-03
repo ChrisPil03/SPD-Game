@@ -8,6 +8,13 @@ TagManager:
   - EnemyBlock
   - Enemy
   - HealthPotion
+  - SkillTree
+  - Skill_Locked
+  - Skill_HighJump
+  - Skill_DoubleJump
+  - Skill_Dash
+  - Skill_HeavyAttack
+  - Skill_TwoSwords
   layers:
   - Default
   - TransparentFX

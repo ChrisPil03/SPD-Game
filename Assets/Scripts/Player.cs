@@ -18,6 +18,10 @@ public class Player : MonoBehaviour
     private Animator anim;
     private Hotbar hotbar;
 
+    //Skill
+    [SerializeField] private TMP_Text SkillTokensText;
+    [HideInInspector] public int skillTokens = 0;
+
     [Header("Level")]
     [SerializeField] private XPBar xpBar;
     [SerializeField] private TMP_Text level;
@@ -38,14 +42,20 @@ public class Player : MonoBehaviour
 
     [Header("Jump")]
     [SerializeField] private float jumpForce = 9.5f;
-    private bool canDoubleJump;
+    [HideInInspector] public bool canJumpHigh = false;
+    [HideInInspector] public bool canDoubleJump = false;
+    private bool doubleJump;
 
     [Header("Dash")]
     [SerializeField] private float dashingPower = 12.5f;
     [SerializeField] private float dashingTime = 0.2f;
     [SerializeField] private float dashingCoolDown = 0.5f;
+    [SerializeField] public bool hasDashSkill = false;
     private bool canDash = true;
     private bool isDashing;
+
+    //Combat
+    [HideInInspector] public bool hasSword = false;
 
     void Start()
     {
@@ -81,12 +91,12 @@ public class Player : MonoBehaviour
             Jump();
         }
 
-        if (Input.GetButtonUp("Jump") || rgdb.velocity.y < 0)
+        if ((Input.GetButtonUp("Jump") || rgdb.velocity.y < 0) && canJumpHigh)
         {
             ResetGravity();
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftShift) && canDash)
+        if (Input.GetKeyDown(KeyCode.LeftShift) && canDash && hasDashSkill)
         {
             StartCoroutine(Dash());
         }
@@ -119,11 +129,18 @@ public class Player : MonoBehaviour
     {
         if (IsGrounded())
         {
-            rgdb.gravityScale = originalGravity * 0.5f;
+            if (canJumpHigh)
+            {
+                rgdb.gravityScale = originalGravity * 0.5f;
+            }
             rgdb.velocity = new Vector2(rgdb.velocity.x, jumpForce);
-            canDoubleJump = true;
+
+            if (canDoubleJump)
+            {
+                doubleJump = true;
+            }
         }
-        else if (canDoubleJump)
+        else if (doubleJump)
         {
             DoubleJump();
         }
@@ -134,7 +151,7 @@ public class Player : MonoBehaviour
         ResetGravity();
         PlayDoubleJumpAnim();
         rgdb.velocity = new Vector2(rgdb.velocity.x, jumpForce * 1.4f);
-        canDoubleJump = false;
+        doubleJump = false;
     }
 
     private IEnumerator Dash()
@@ -252,6 +269,8 @@ public class Player : MonoBehaviour
             currentLevel++;
             level.text = "lv."+currentLevel;
             currentXP = (currentXP + xpAmount) % xpToLevelUp;
+            skillTokens++;
+            UpdateSkillTokensText();
         }
         else 
         {
@@ -259,5 +278,10 @@ public class Player : MonoBehaviour
         }
 
         xpBar.UpdateXPBar(currentXP);
+    }
+
+    public void UpdateSkillTokensText()
+    {
+        SkillTokensText.text = skillTokens.ToString();
     }
 }
