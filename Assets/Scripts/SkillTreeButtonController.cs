@@ -36,9 +36,9 @@ public class SkillTreeButtonController : MonoBehaviour
             errorText.text = "-- You need a sword to learn this skill --";
             return false;
         }
-        else if (player.skillTokens >= 1)
+        else if (Player.skillTokens >= 1)
         {
-            player.skillTokens--;
+            Player.skillTokens--;
             player.UpdateSkillTokensText();
             return true;
         }

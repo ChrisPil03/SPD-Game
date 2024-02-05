@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class Player : MonoBehaviour
     [SerializeField] private Transform leftFoot, rightFoot;
     [SerializeField] private LayerMask whatIsGround;
 
+    public static bool keepValues = false;
     private float originalGravity;
     private float rayDistance = 0.1f;
 
@@ -20,20 +22,18 @@ public class Player : MonoBehaviour
 
     //Skill
     [SerializeField] private TMP_Text SkillTokensText;
-    [HideInInspector] public int skillTokens = 0;
+    [HideInInspector] public static int skillTokens = 0;
 
     [Header("Level")]
     [SerializeField] private XPBar xpBar;
-    [SerializeField] private TMP_Text level;
-    private int currentLevel;
     private int xpToLevelUp = 100;
-    private int currentXP;
+    private static int currentXP;
 
     [Header("Health")]
     [SerializeField] private int startingHealth = 100;
     [SerializeField] private HealthBar healthbar;
     [SerializeField] private TMP_Text healthCounter;
-    [HideInInspector] public int currentHealth;
+    [HideInInspector] public static int currentHealth;
 
     [Header("Movement")]
     [SerializeField] private float moveSpeed = 150f;
@@ -65,7 +65,17 @@ public class Player : MonoBehaviour
         hotbar = GetComponent<Hotbar>();
 
         originalGravity = rgdb.gravityScale;
-        currentHealth = startingHealth;
+        if (!keepValues)
+        {
+            currentHealth = startingHealth;
+        }
+        if (keepValues)
+        {
+            healthbar.UpdateHealthBar(currentHealth);
+            healthCounter.text = currentHealth + "/" + startingHealth;
+            xpBar.UpdateXPBar(currentXP);
+            UpdateSkillTokensText();
+        }
 
         Invoke("CanMove", 2f);
     }
@@ -297,8 +307,6 @@ public class Player : MonoBehaviour
     {
         if ((currentXP + xpAmount) >= xpToLevelUp)
         {
-            currentLevel++;
-            level.text = "lv."+currentLevel;
             currentXP = (currentXP + xpAmount) % xpToLevelUp;
             skillTokens++;
             UpdateSkillTokensText();
