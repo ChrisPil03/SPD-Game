@@ -16,6 +16,7 @@ TagManager:
   - Skill_HeavyAttack
   - Skill_TwoSwords
   - Sword
+  - Hotbar
   layers:
   - Default
   - TransparentFX

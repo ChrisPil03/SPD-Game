@@ -7,6 +7,21 @@ public class Hotbar : MonoBehaviour
 {
     public bool[] isFull;
     public GameObject[] slots;
+    public GameObject healthPotionImage;
+
+    public void AddHealtPotion()
+    {
+        for (int i = 0; i < slots.Length; i++)
+        {
+            if (!isFull[i])
+            {
+                isFull[i] = true;
+                Instantiate(healthPotionImage, slots[i].transform, false);
+
+                return;
+            }
+        }
+    }
 
     public void RemoveItem()
     {

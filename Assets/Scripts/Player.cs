@@ -62,7 +62,7 @@ public class Player : MonoBehaviour
         rgdb = GetComponent<Rigidbody2D>();
         rend = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
-        hotbar = GetComponent<Hotbar>();
+        hotbar = GameObject.FindGameObjectWithTag("Hotbar").GetComponent<Hotbar>();
 
         originalGravity = rgdb.gravityScale;
         if (!keepValues)
