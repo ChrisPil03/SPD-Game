@@ -42,7 +42,6 @@ public class Player : MonoBehaviour
 
     [Header("Jump")]
     [SerializeField] private float jumpForce = 9.5f;
-    [HideInInspector] public bool canJumpHigh = false;
     [HideInInspector] public bool canDoubleJump = false;
     private bool doubleJump;
 
@@ -50,7 +49,6 @@ public class Player : MonoBehaviour
     [SerializeField] private float dashingPower = 12.5f;
     [SerializeField] private float dashingTime = 0.2f;
     [SerializeField] private float dashingCoolDown = 0.5f;
-    [SerializeField] public bool hasDashSkill = false;
     private bool canDash = true;
     private bool isDashing;
 
@@ -101,12 +99,12 @@ public class Player : MonoBehaviour
             Jump();
         }
 
-        if ((Input.GetButtonUp("Jump") || rgdb.velocity.y < 0) && canJumpHigh)
+        if (Input.GetButtonUp("Jump") || rgdb.velocity.y < 0)
         {
             ResetGravity();
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftShift) && canDash && hasDashSkill)
+        if (Input.GetKeyDown(KeyCode.LeftShift) && canDash)
         {
             StartCoroutine(Dash());
         }
@@ -149,10 +147,7 @@ public class Player : MonoBehaviour
     {
         if (IsGrounded())
         {
-            if (canJumpHigh)
-            {
-                rgdb.gravityScale = originalGravity * 0.5f;
-            }
+            rgdb.gravityScale = originalGravity * 0.5f;
             rgdb.velocity = new Vector2(rgdb.velocity.x, jumpForce);
 
             if (canDoubleJump)

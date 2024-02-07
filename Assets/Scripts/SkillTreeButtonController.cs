@@ -48,14 +48,6 @@ public class SkillTreeButtonController : MonoBehaviour
 
     private void AcquireSkill(Button button)
     {
-        if (button.CompareTag("Skill_HighJump"))
-        {
-            player.canJumpHigh = true;
-        }
-        if (button.CompareTag("Skill_Dash"))
-        {
-            player.hasDashSkill = true;
-        }
         if (button.CompareTag("Skill_DoubleJump"))
         {
             player.canDoubleJump = true;
@@ -64,17 +56,9 @@ public class SkillTreeButtonController : MonoBehaviour
 
     private void ShowSkillInfo(Button button)
     {
-        if (button.CompareTag("Skill_HighJump"))
-        {
-            infoText.text = "Manipulate gravity to jump greater heights by holding [space]";
-        }
-        else if (button.CompareTag("Skill_DoubleJump"))
+        if (button.CompareTag("Skill_DoubleJump"))
         {
             infoText.text = "Jump once more while in the air by pressing [space] after a jump";
-        }
-        else if (button.CompareTag("Skill_Dash"))
-        {
-            infoText.text = "Dash";
         }
         else if (button.CompareTag("Skill_HeavyAttack"))
         {
