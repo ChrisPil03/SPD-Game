@@ -31,7 +31,7 @@ public class SkillTree : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E) && canAccessSkillTree)
+        if (Input.GetKeyDown(KeyCode.E) && canAccessSkillTree && skillTree != null)
         {
             infoText.text = "Use skill tokens to learn new skills\r\nAcquire skill tokens by leveling up";
             skillTree.SetActive(true);
@@ -40,7 +40,13 @@ public class SkillTree : MonoBehaviour
 
     public void ExitSkillTree()
     {
-        skillTree.SetActive(false);
-        errorText.text = "";
+        if (skillTree != null)
+        {
+            skillTree.SetActive(false);
+        }
+        if (errorText != null)
+        {
+            errorText.text = "";
+        }
     }
 }

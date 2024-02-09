@@ -93,7 +93,7 @@ Transform:
   m_GameObject: {fileID: 8580520805780224321}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.38, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -120,20 +120,16 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   SkillTokensText: {fileID: 0}
-  skillTokens: 0
   xpBar: {fileID: 0}
   startingHealth: 100
   healthbar: {fileID: 0}
   healthCounter: {fileID: 0}
-  currentHealth: 0
   moveSpeed: 160
   jumpForce: 7
-  canJumpHigh: 0
   canDoubleJump: 0
   dashingPower: 12.5
   dashingTime: 0.2
   dashingCoolDown: 0.5
-  hasDashSkill: 0
   hasSword: 0
 --- !u!114 &7432140352499285448
 MonoBehaviour:
@@ -152,6 +148,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  healthPotionImage: {fileID: 0}
 --- !u!212 &3251839416015756445
 SpriteRenderer:
   m_ObjectHideFlags: 0

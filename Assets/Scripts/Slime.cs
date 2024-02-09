@@ -11,6 +11,9 @@ public class Slime : MonoBehaviour
 
     [SerializeField] private int giveXp = 10;
     [SerializeField] private Player player;
+    [SerializeField] private float smoothing;
+
+    private Color alphaColor;
 
     //Groundcheck
     [SerializeField] private Transform ray;
@@ -44,6 +47,9 @@ public class Slime : MonoBehaviour
         rend = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
 
+        alphaColor = rend.material.color;
+        alphaColor.a = 0;
+
         currentHealth = startingHealth;
     }
 
@@ -63,6 +69,15 @@ public class Slime : MonoBehaviour
         }
     }
 
+    private void LateUpdate()
+    {
+        if (isDead)
+        {
+            Invoke("FloatToPlayer", 1f);
+            Invoke("FadeAway", 1f);
+        }
+    }
+
     private void FlipSprite(bool direction)
     {
         rend.flipX = direction;
@@ -73,9 +88,12 @@ public class Slime : MonoBehaviour
         canJump = false;
         anim.Play("SmallSlime_Jump");
         yield return new WaitForSeconds(0.3f);
-        rgdb.velocity = new Vector2(hForce, vForce);
-        yield return new WaitForSeconds(Random.Range(1f, 8f));
-        canJump = true;
+        if (!isDead)
+        {
+            rgdb.velocity = new Vector2(hForce, vForce);
+            yield return new WaitForSeconds(Random.Range(1f, 8f));
+            canJump = true;
+        }
     }
 
     private bool IsGrounded()
@@ -150,7 +168,7 @@ public class Slime : MonoBehaviour
         capsuleCollider.enabled = false;
         anim.Play("SmallSlime_Defeated");
         player.GainXP(giveXp);
-        Destroy(gameObject, 1f);
+        Destroy(gameObject, 2f);
     }
 
     private void TakeDamage(int damageTaken)
@@ -162,5 +180,21 @@ public class Slime : MonoBehaviour
             isDead = true;
             Die();
         }
+        else
+        {
+            anim.Play("SmallSlime_TakingDamage");
+        }
+    }
+
+    private void FloatToPlayer()
+    {
+        Vector3 newPosition = Vector3.Lerp(transform.position, player.transform.position, smoothing * Time.deltaTime);
+        transform.position = newPosition;
+
+    }
+
+    private void FadeAway()
+    {
+        rend.material.color = Color.Lerp(rend.material.color, alphaColor, smoothing * Time.deltaTime);
     }
 }

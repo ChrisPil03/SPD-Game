@@ -14,6 +14,7 @@ public class Player : MonoBehaviour
     public static bool keepValues = false;
     private float originalGravity;
     private float rayDistance = 0.1f;
+    private bool takeContinousDamage = false;
 
     private Rigidbody2D rgdb;
     private SpriteRenderer rend;
@@ -38,7 +39,7 @@ public class Player : MonoBehaviour
     [Header("Movement")]
     [SerializeField] private float moveSpeed = 150f;
     private float horizontalValue;
-    private bool canMove = false;
+    [HideInInspector] public bool canMove = false;
 
     [Header("Jump")]
     [SerializeField] private float jumpForce = 9.5f;
@@ -135,6 +136,20 @@ public class Player : MonoBehaviour
             hasSword = true;
             anim.SetBool("HasSword", true);
             Destroy(collision.gameObject);
+        }
+        if (collision.CompareTag("Vines"))
+        {
+            takeContinousDamage = true;
+            StartCoroutine(ContinueTakeDamage());
+        }
+    }
+
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Vines"))
+        {
+            takeContinousDamage = false;
         }
     }
 
@@ -271,6 +286,15 @@ public class Player : MonoBehaviour
         currentHealth = startingHealth;
         healthbar.UpdateHealthBar(currentHealth);
         healthCounter.text = currentHealth + "/" + startingHealth;
+    }
+
+    private IEnumerator ContinueTakeDamage()
+    {
+        while (takeContinousDamage)
+        {
+            TakeDamage(20);
+            yield return new WaitForSeconds(0.35f);
+        }
     }
 
     public void TakeDamage(int damageTaken)

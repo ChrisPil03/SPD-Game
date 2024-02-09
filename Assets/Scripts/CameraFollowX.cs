@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 
 public class CameraFollowX : MonoBehaviour
 {
     [SerializeField] private Transform target;
+    [SerializeField] private float start, end, bottom;
 
     private Vector3 tempVector3 = new Vector3();
 
@@ -16,15 +18,19 @@ public class CameraFollowX : MonoBehaviour
 
     private void Update()
     {
-        if (target.position.x > 1 && target.position.x < 10)
+        if (target.position.x > start && target.position.x < end)
         {
             tempVector3.x = target.position.x;
             transform.position = tempVector3;
         }
-        else if (target.position.x < 1)
+
+        if (target.position.y > 8)
         {
-            tempVector3.x = 1;
-            transform.position = tempVector3;
+            tempVector3.y = target.position.y;
+        }
+        else if (target.position.y < 8)
+        {
+            tempVector3.y = 2.7f;
         }
     }
 }
