@@ -10,7 +10,9 @@ public class Slime : MonoBehaviour
     private Animator anim;
 
     [SerializeField] private int giveXp = 10;
-    [SerializeField] private Player player;
+    [SerializeField] private float smoothing = 2f;
+    private Color alphaColor;
+    private Player player;
 
     //Groundcheck
     [SerializeField] private Transform ray;
@@ -44,6 +46,11 @@ public class Slime : MonoBehaviour
         rend = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
 
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+
+        alphaColor = rend.material.color;
+        alphaColor.a = 0f;
+
         currentHealth = startingHealth;
     }
 
@@ -63,6 +70,15 @@ public class Slime : MonoBehaviour
         }
     }
 
+    private void LateUpdate()
+    {
+        if (isDead)
+        {
+            Invoke("FloatToPlayer", 0.65f);
+            Invoke("FadeAway", 0.65f);
+        }
+    }
+
     private void FlipSprite(bool direction)
     {
         rend.flipX = direction;
@@ -71,11 +87,17 @@ public class Slime : MonoBehaviour
     private IEnumerator Jump()
     {
         canJump = false;
-        anim.Play("SmallSlime_Jump");
-        yield return new WaitForSeconds(0.3f);
-        rgdb.velocity = new Vector2(hForce, vForce);
         yield return new WaitForSeconds(Random.Range(1f, 8f));
-        canJump = true;
+        if (!isDead)
+        {
+            anim.Play("SmallSlime_Jump");
+            yield return new WaitForSeconds(0.3f);
+            if (!isDead)
+            {
+                rgdb.velocity = new Vector2(hForce, vForce);
+            }
+            canJump = true;
+        }
     }
 
     private bool IsGrounded()
@@ -150,7 +172,7 @@ public class Slime : MonoBehaviour
         capsuleCollider.enabled = false;
         anim.Play("SmallSlime_Defeated");
         player.GainXP(giveXp);
-        Destroy(gameObject, 1f);
+        Destroy(gameObject, 4f);
     }
 
     private void TakeDamage(int damageTaken)
@@ -162,5 +184,19 @@ public class Slime : MonoBehaviour
             isDead = true;
             Die();
         }
+        else
+        {
+            anim.Play("SmallSlime_TakingDamage");
+        }
+    }
+
+    private void FloatToPlayer()
+    {
+        transform.position = Vector3.Lerp(transform.position, player.transform.position, smoothing * Time.deltaTime);
+    }
+
+    private void FadeAway()
+    {
+        rend.material.color = Color.Lerp(rend.material.color, alphaColor, smoothing * Time.deltaTime);
     }
 }

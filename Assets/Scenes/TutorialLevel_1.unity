@@ -3232,6 +3232,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   giveXp: 10
+  smoothing: 2
   ray: {fileID: 807093830}
   whatIsGround:
     serializedVersion: 2

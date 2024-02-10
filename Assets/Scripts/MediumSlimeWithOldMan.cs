@@ -9,6 +9,8 @@ public class MediumSlimeWithOldMan : MonoBehaviour
     private Animator anim;
 
     [SerializeField] private int giveXp = 10;
+    [SerializeField] private float smoothing = 2f;
+    private Color alphaColor;
     private Player player;
 
     //Groundcheck
@@ -45,6 +47,9 @@ public class MediumSlimeWithOldMan : MonoBehaviour
 
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
 
+        alphaColor = rend.material.color;
+        alphaColor.a = 0f;
+
         currentHealth = startingHealth;
     }
 
@@ -64,6 +69,15 @@ public class MediumSlimeWithOldMan : MonoBehaviour
         }
     }
 
+    private void LateUpdate()
+    {
+        if (isDead)
+        {
+            Invoke("FloatToPlayer", 0.65f);
+            Invoke("FadeAway", 0.65f);
+        }
+    }
+
     private void FlipSprite(bool direction)
     {
         rend.flipX = direction;
@@ -72,11 +86,17 @@ public class MediumSlimeWithOldMan : MonoBehaviour
     private IEnumerator Jump()
     {
         canJump = false;
-        anim.Play("Jump_WithOldMan");
-        yield return new WaitForSeconds(0.3f);
-        rgdb.velocity = new Vector2(hForce, vForce);
         yield return new WaitForSeconds(Random.Range(1f, 8f));
-        canJump = true;
+        if (!isDead)
+        {
+            anim.Play("Jump_WithOldMan");
+            yield return new WaitForSeconds(0.3f);
+            if (!isDead)
+            {
+                rgdb.velocity = new Vector2(hForce, vForce);
+            }
+            canJump = true;
+        }
     }
 
     private bool IsGrounded()
@@ -151,7 +171,7 @@ public class MediumSlimeWithOldMan : MonoBehaviour
         capsuleCollider.enabled = false;
         anim.Play("Defeated_WithOldMan");
         player.GainXP(giveXp);
-        Destroy(gameObject, 1f);
+        Destroy(gameObject, 4f);
     }
 
     private void TakeDamage(int damageTaken)
@@ -163,6 +183,20 @@ public class MediumSlimeWithOldMan : MonoBehaviour
             isDead = true;
             Die();
         }
+        else
+        {
+            anim.Play("TakingDamage_WithOldMan");
+        }
+    }
+
+    private void FloatToPlayer()
+    {
+        transform.position = Vector3.Lerp(transform.position, player.transform.position, smoothing * Time.deltaTime);
+    }
+
+    private void FadeAway()
+    {
+        rend.material.color = Color.Lerp(rend.material.color, alphaColor, smoothing * Time.deltaTime);
     }
 }
 
