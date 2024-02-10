@@ -17,6 +17,8 @@ TagManager:
   - Skill_TwoSwords
   - Sword
   - Hotbar
+  - SceneManager
+  - OldMan
   layers:
   - Default
   - TransparentFX

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class MediumSlimeWithOldMan : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class MediumSlimeWithOldMan : MonoBehaviour
     private SpriteRenderer rend;
     private Animator anim;
 
+    [SerializeField] private GameObject oldMan;
     [SerializeField] private int giveXp = 10;
     [SerializeField] private float smoothing = 2f;
     private Color alphaColor;
@@ -171,6 +173,7 @@ public class MediumSlimeWithOldMan : MonoBehaviour
         capsuleCollider.enabled = false;
         anim.Play("Defeated_WithOldMan");
         player.GainXP(giveXp);
+        Invoke("SpawnOldMan", 0.25f);
         Destroy(gameObject, 4f);
     }
 
@@ -197,6 +200,12 @@ public class MediumSlimeWithOldMan : MonoBehaviour
     private void FadeAway()
     {
         rend.material.color = Color.Lerp(rend.material.color, alphaColor, smoothing * Time.deltaTime);
+    }
+
+    private void SpawnOldMan()
+    {
+        Instantiate(oldMan, transform.position, oldMan.transform.rotation);
+        GameObject.FindGameObjectWithTag("SceneManager").GetComponent<TutorialLevel1Complete>().StartOldManDialogue();
     }
 }
 
