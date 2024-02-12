@@ -13,7 +13,7 @@ public class Pickup : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+        if (collision.CompareTag("Player") && !hotbar.isFull[2])
         {
             hotbar.AddHealtPotion();
             Destroy(gameObject);
