@@ -87,7 +87,7 @@ public class Slime : MonoBehaviour
     private IEnumerator Jump()
     {
         canJump = false;
-        yield return new WaitForSeconds(Random.Range(1f, 8f));
+        yield return new WaitForSeconds(Random.Range(1f, 6f));
         if (!isDead)
         {
             anim.Play("SmallSlime_Jump");

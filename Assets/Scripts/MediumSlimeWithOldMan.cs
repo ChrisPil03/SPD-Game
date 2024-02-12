@@ -36,6 +36,7 @@ public class MediumSlimeWithOldMan : MonoBehaviour
     [SerializeField] private float giveHKnockback = 3f;
     [SerializeField] private int damageGiven = 4;
     [SerializeField] private int damageTaken = 10;
+    private bool tookDamage = false;
 
     [Header("Colliders")]
     [SerializeField] private BoxCollider2D boxCollider;
@@ -78,6 +79,10 @@ public class MediumSlimeWithOldMan : MonoBehaviour
             Invoke("FloatToPlayer", 0.65f);
             Invoke("FadeAway", 0.65f);
         }
+        if (tookDamage)
+        {
+            StartCoroutine(SlideBack());
+        }
     }
 
     private void FlipSprite(bool direction)
@@ -88,7 +93,7 @@ public class MediumSlimeWithOldMan : MonoBehaviour
     private IEnumerator Jump()
     {
         canJump = false;
-        yield return new WaitForSeconds(Random.Range(1f, 8f));
+        yield return new WaitForSeconds(Random.Range(1f, 5f));
         if (!isDead)
         {
             anim.Play("Jump_WithOldMan");
@@ -189,7 +194,18 @@ public class MediumSlimeWithOldMan : MonoBehaviour
         else
         {
             anim.Play("TakingDamage_WithOldMan");
+            tookDamage = true;
         }
+    }
+
+    private IEnumerator SlideBack()
+    {
+        yield return new WaitForSeconds(0.2f);
+        Vector3 desiredPosition = new Vector3(transform.position.x + 3, transform.position.y, transform.position.z);
+        Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothing * Time.deltaTime);
+        transform.position = smoothedPosition;
+        yield return new WaitForSeconds(0.3f);
+        tookDamage = false;
     }
 
     private void FloatToPlayer()
