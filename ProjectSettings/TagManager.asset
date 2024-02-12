@@ -19,6 +19,7 @@ TagManager:
   - Hotbar
   - SceneManager
   - OldMan
+  - Vines
   layers:
   - Default
   - TransparentFX

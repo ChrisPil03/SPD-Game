@@ -14,6 +14,7 @@ public class Player : MonoBehaviour
     public static bool keepValues = false;
     private float originalGravity;
     private float rayDistance = 0.1f;
+    private bool takeDamageFromVines;
 
     private Rigidbody2D rgdb;
     private SpriteRenderer rend;
@@ -34,6 +35,7 @@ public class Player : MonoBehaviour
     [SerializeField] private HealthBar healthbar;
     [SerializeField] private TMP_Text healthCounter;
     [HideInInspector] public static int currentHealth;
+    [SerializeField] private int getHealth = 30;
 
     [Header("Movement")]
     [SerializeField] private float moveSpeed = 150f;
@@ -109,7 +111,7 @@ public class Player : MonoBehaviour
             StartCoroutine(Dash());
         }
 
-        if (Input.GetKeyDown(KeyCode.R) && hotbar.isFull[0] && currentHealth != startingHealth)
+        if (Input.GetKeyDown(KeyCode.R) && hotbar.isFull[0] && currentHealth < startingHealth)
         {
             UseHealthPotion();
             hotbar.RemoveItem();
@@ -135,6 +137,19 @@ public class Player : MonoBehaviour
             hasSword = true;
             anim.SetBool("HasSword", true);
             Destroy(collision.gameObject);
+        }
+        if (collision.CompareTag("Vines"))
+        {
+            takeDamageFromVines = true;
+            StartCoroutine(TakeDamageFromVines());
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Vines"))
+        {
+            takeDamageFromVines = false;
         }
     }
 
@@ -268,9 +283,25 @@ public class Player : MonoBehaviour
 
     private void UseHealthPotion()
     {
-        currentHealth = startingHealth;
+        if (currentHealth + getHealth >= startingHealth)
+        {
+            currentHealth = startingHealth;
+        }
+        else
+        {
+            currentHealth += getHealth;
+        }
         healthbar.UpdateHealthBar(currentHealth);
         healthCounter.text = currentHealth + "/" + startingHealth;
+    }
+
+    private IEnumerator TakeDamageFromVines()
+    {
+        while (takeDamageFromVines)
+        {
+            TakeDamage(10);
+            yield return new WaitForSeconds(0.4f);
+        }
     }
 
     public void TakeDamage(int damageTaken)

@@ -81,8 +81,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5e3a9d6c057773479733642ef2c19ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  giveXp: 120
-  player: {fileID: 0}
+  giveXp: 4
+  smoothing: 2
   ray: {fileID: 7765826464264926211}
   whatIsGround:
     serializedVersion: 2
@@ -93,7 +93,7 @@ MonoBehaviour:
   giveBounceForce: 7
   giveVKnockback: 3
   giveHKnockback: 3
-  damageGiven: 20
+  damageGiven: 8
   damageTaken: 10
   boxCollider: {fileID: 4313020623487215299}
   capsuleCollider: {fileID: 4368106899119789530}
