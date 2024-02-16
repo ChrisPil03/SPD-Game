@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 using UnityEngine.VFX;
 
 public class MediumSlimeWithOldMan : MonoBehaviour
@@ -36,7 +37,6 @@ public class MediumSlimeWithOldMan : MonoBehaviour
     [SerializeField] private float giveHKnockback = 3f;
     [SerializeField] private int damageGiven = 4;
     [SerializeField] private int damageTaken = 10;
-    private bool tookDamage = false;
 
     [Header("Colliders")]
     [SerializeField] private BoxCollider2D boxCollider;
@@ -60,6 +60,15 @@ public class MediumSlimeWithOldMan : MonoBehaviour
     {
         anim.SetFloat("VerticalSpeed", rgdb.velocity.y);
         anim.SetBool("IsGrounded", IsGrounded());
+
+        if (player.transform.position.x > transform.position.x)
+        {
+            FlipSprite(false);
+        }
+        else
+        {
+            FlipSprite(true);
+        }
     }
 
     private void FixedUpdate()
@@ -68,7 +77,7 @@ public class MediumSlimeWithOldMan : MonoBehaviour
 
         if (IsGrounded() && !isDead)
         {
-            StartCoroutine(Jump());
+            StartCoroutine(RandomJump());
         }
     }
 
@@ -79,10 +88,6 @@ public class MediumSlimeWithOldMan : MonoBehaviour
             Invoke("FloatToPlayer", 0.65f);
             Invoke("FadeAway", 0.65f);
         }
-        if (tookDamage)
-        {
-            StartCoroutine(SlideBack());
-        }
     }
 
     private void FlipSprite(bool direction)
@@ -90,18 +95,32 @@ public class MediumSlimeWithOldMan : MonoBehaviour
         rend.flipX = direction;
     }
 
-    private IEnumerator Jump()
+    private IEnumerator RandomJump()
     {
         canJump = false;
-        yield return new WaitForSeconds(Random.Range(1f, 5f));
-        if (!isDead)
+        yield return new WaitForSeconds(Random.Range(3f, 6f));
+        if (!isDead && IsGrounded())
         {
-            anim.Play("Jump_WithOldMan");
-            yield return new WaitForSeconds(0.3f);
-            if (!isDead)
-            {
-                rgdb.velocity = new Vector2(hForce, vForce);
-            }
+            StartCoroutine(Jump(hForce, vForce));
+        }
+    }
+
+    private IEnumerator Jump(float hForce, float vForce)
+    {
+        if (player.transform.position.x < transform.position.x && hForce != -hForce)
+        {
+            hForce = -hForce;
+        }
+        else if (player.transform.position.x > transform.position.x && hForce != Mathf.Abs(hForce))
+        {
+            hForce = Mathf.Abs(hForce);
+        }
+
+        anim.Play("Jump_WithOldMan");
+        yield return new WaitForSeconds(0.3f);
+        if (!isDead && IsGrounded())
+        {
+            rgdb.velocity = new Vector2(hForce, vForce);
             canJump = true;
         }
     }
@@ -122,21 +141,6 @@ public class MediumSlimeWithOldMan : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("EnemyBlock"))
-        {
-            hForce = -hForce;
-
-            if (hForce < 0)
-            {
-                FlipSprite(true);
-            }
-
-            if (hForce > 0)
-            {
-                FlipSprite(false);
-            }
-        }
-
         if (collision.gameObject.CompareTag("Player"))
         {
             player.TakeDamage(damageGiven);
@@ -194,18 +198,9 @@ public class MediumSlimeWithOldMan : MonoBehaviour
         else
         {
             anim.Play("TakingDamage_WithOldMan");
-            tookDamage = true;
+            canJump = false;
+            StartCoroutine(Jump(hForce * 2, vForce * 0.75f));
         }
-    }
-
-    private IEnumerator SlideBack()
-    {
-        yield return new WaitForSeconds(0.2f);
-        Vector3 desiredPosition = new Vector3(transform.position.x + 3, transform.position.y, transform.position.z);
-        Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothing * Time.deltaTime);
-        transform.position = smoothedPosition;
-        yield return new WaitForSeconds(0.3f);
-        tookDamage = false;
     }
 
     private void FloatToPlayer()

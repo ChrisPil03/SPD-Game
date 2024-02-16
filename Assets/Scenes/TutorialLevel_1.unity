@@ -6729,12 +6729,12 @@ MonoBehaviour:
   whatIsGround:
     serializedVersion: 2
     m_Bits: 8
-  startingHealth: 30
+  startingHealth: 50
   vForce: 8
-  hForce: -3
-  giveBounceForce: 7
-  giveVKnockback: 3
-  giveHKnockback: 3
+  hForce: 3
+  giveBounceForce: 8
+  giveVKnockback: 4
+  giveHKnockback: 4
   damageGiven: 16
   damageTaken: 10
   boxCollider: {fileID: 1311009042}
@@ -7278,7 +7278,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 93.034904, y: 9.194681}
+  m_Offset: {x: 93.034904, y: 10.049067}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -7289,7 +7289,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.12025452, y: 1.4810038}
+  m_Size: {x: 0.12025452, y: 3.1897745}
   m_EdgeRadius: 0
 --- !u!61 &1417229174
 BoxCollider2D:
@@ -31198,11 +31198,11 @@ PrefabInstance:
       objectReference: {fileID: 6200000, guid: 65f2599981ab84b4db043f1d57795976, type: 2}
     - target: {fileID: 3045732928448825696, guid: d113a9c64b04e2c4a9bd1399999919d9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.4
+      value: 74.2
       objectReference: {fileID: 0}
     - target: {fileID: 3045732928448825696, guid: d113a9c64b04e2c4a9bd1399999919d9, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 10.6
       objectReference: {fileID: 0}
     - target: {fileID: 3045732928448825696, guid: d113a9c64b04e2c4a9bd1399999919d9, type: 3}
       propertyPath: m_LocalPosition.z

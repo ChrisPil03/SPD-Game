@@ -87,7 +87,7 @@ MonoBehaviour:
   whatIsGround:
     serializedVersion: 2
     m_Bits: 8
-  startingHealth: 20
+  startingHealth: 10
   vForce: 6
   hForce: 2
   giveBounceForce: 7
