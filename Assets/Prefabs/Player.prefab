@@ -72,7 +72,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3045732928448825696}
   - component: {fileID: 8553631846548754366}
-  - component: {fileID: 7432140352499285448}
   - component: {fileID: 3251839416015756445}
   - component: {fileID: 1150951128095927673}
   - component: {fileID: 6638547899169467465}
@@ -120,38 +119,18 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   SkillTokensText: {fileID: 0}
-  skillTokens: 0
   xpBar: {fileID: 0}
   startingHealth: 100
   healthbar: {fileID: 0}
   healthCounter: {fileID: 0}
-  currentHealth: 0
+  getHealth: 25
   moveSpeed: 160
   jumpForce: 7
-  canJumpHigh: 0
   canDoubleJump: 0
   dashingPower: 12.5
   dashingTime: 0.2
   dashingCoolDown: 0.5
-  hasDashSkill: 0
   hasSword: 0
---- !u!114 &7432140352499285448
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8580520805780224321}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9aee05ddd3947f64e9ed713a223d6739, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isFull: 000000
-  slots:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
 --- !u!212 &3251839416015756445
 SpriteRenderer:
   m_ObjectHideFlags: 0
