@@ -20,6 +20,7 @@ public class Player : MonoBehaviour
     private SpriteRenderer rend;
     private Animator anim;
     private Hotbar hotbar;
+    private Color originalColor;
 
     //Skill
     [SerializeField] private TMP_Text SkillTokensText;
@@ -65,6 +66,8 @@ public class Player : MonoBehaviour
         hotbar = GameObject.FindGameObjectWithTag("Hotbar").GetComponent<Hotbar>();
 
         originalGravity = rgdb.gravityScale;
+        originalColor = rend.material.color;
+
         if (!keepValues)
         {
             currentHealth = startingHealth;
@@ -266,6 +269,13 @@ public class Player : MonoBehaviour
 
     private void Respawn()
     {
+        if (GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraController>().isInBossBattle == true)
+        {
+            GameObject.FindGameObjectWithTag("StartBossBattle").GetComponent<StartBossBattle>().playerBlock.enabled = false;
+            GameObject.FindGameObjectWithTag("Boss").GetComponent<MediumSlimeWithOldMan>().startJumping = false;
+            GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraController>().isInBossBattle = false;
+        }
+
         canMove = false;
         transform.position = spawnPosition.position;
         rgdb.velocity = Vector2.zero;
@@ -307,6 +317,7 @@ public class Player : MonoBehaviour
     public void TakeDamage(int damageTaken)
     {
         currentHealth -= damageTaken;
+        StartCoroutine(FlashRed());
 
         if (currentHealth <= 0)
         {
@@ -315,6 +326,13 @@ public class Player : MonoBehaviour
 
         healthbar.UpdateHealthBar(currentHealth);
         healthCounter.text = currentHealth + "/" + startingHealth;
+    }
+
+    private IEnumerator FlashRed()
+    {
+        rend.material.color = Color.red;
+        yield return new WaitForSeconds(0.1f);
+        rend.material.color = originalColor;
     }
 
     public void TakeKnockback(float hKnockbackForce, float vKnockbackforce)

@@ -8,6 +8,7 @@ public class Slime : MonoBehaviour
     private Rigidbody2D rgdb;
     private SpriteRenderer rend;
     private Animator anim;
+    private Color originalColor;
 
     [SerializeField] private int giveXp = 10;
     [SerializeField] private float smoothing = 2f;
@@ -47,6 +48,8 @@ public class Slime : MonoBehaviour
         anim = GetComponent<Animator>();
 
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+
+        originalColor = rend.material.color;
 
         alphaColor = rend.material.color;
         alphaColor.a = 0f;
@@ -178,6 +181,7 @@ public class Slime : MonoBehaviour
     private void TakeDamage(int damageTaken)
     {
         currentHealth -= damageTaken;
+        StartCoroutine(FlashRed());
 
         if (currentHealth <= 0)
         {
@@ -188,6 +192,13 @@ public class Slime : MonoBehaviour
         {
             anim.Play("SmallSlime_TakingDamage");
         }
+    }
+
+    private IEnumerator FlashRed()
+    {
+        rend.material.color = Color.red;
+        yield return new WaitForSeconds(0.1f);
+        rend.material.color = originalColor;
     }
 
     private void FloatToPlayer()

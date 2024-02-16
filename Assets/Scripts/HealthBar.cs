@@ -19,6 +19,12 @@ public class HealthBar : MonoBehaviour
         {
             float normalizedTime = frame / totalFramesInAnimation;
 
+            if (frame == 17)
+            {
+                anim.Play("Health bar", 0, 16/17f);
+                return;
+            }
+
             if (1 - (playerHealth / 100f) <= normalizedTime)
             {
                 anim.Play("Health bar", 0, normalizedTime);

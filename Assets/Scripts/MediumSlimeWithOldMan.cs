@@ -9,6 +9,7 @@ public class MediumSlimeWithOldMan : MonoBehaviour
     private Rigidbody2D rgdb;
     private SpriteRenderer rend;
     private Animator anim;
+    private Color originalColor;
 
     [SerializeField] private GameObject oldMan;
     [SerializeField] private int giveXp = 10;
@@ -50,6 +51,8 @@ public class MediumSlimeWithOldMan : MonoBehaviour
         anim = GetComponent<Animator>();
 
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+
+        originalColor = rend.material.color;
 
         alphaColor = rend.material.color;
         alphaColor.a = 0f;
@@ -99,11 +102,12 @@ public class MediumSlimeWithOldMan : MonoBehaviour
     private IEnumerator RandomJump()
     {
         canJump = false;
-        yield return new WaitForSeconds(Random.Range(3f, 6f));
         if (!isDead && IsGrounded())
         {
             StartCoroutine(Jump(hForce, vForce));
         }
+        yield return new WaitForSeconds(Random.Range(3f, 6f));
+        canJump = true;
     }
 
     private IEnumerator Jump(float hForce, float vForce)
@@ -122,8 +126,8 @@ public class MediumSlimeWithOldMan : MonoBehaviour
         if (!isDead && IsGrounded())
         {
             rgdb.velocity = new Vector2(hForce, vForce);
-            canJump = true;
         }
+
     }
 
     private bool IsGrounded()
@@ -190,6 +194,7 @@ public class MediumSlimeWithOldMan : MonoBehaviour
     private void TakeDamage(int damageTaken)
     {
         currentHealth -= damageTaken;
+        StartCoroutine(FlashRed());
 
         if (currentHealth <= 0)
         {
@@ -199,9 +204,15 @@ public class MediumSlimeWithOldMan : MonoBehaviour
         else
         {
             anim.Play("TakingDamage_WithOldMan");
-            canJump = false;
             StartCoroutine(Jump(hForce * 2, vForce * 0.75f));
         }
+    }
+
+    private IEnumerator FlashRed()
+    {
+        rend.material.color = Color.red;
+        yield return new WaitForSeconds(0.1f);
+        rend.material.color = originalColor;
     }
 
     private void FloatToPlayer()

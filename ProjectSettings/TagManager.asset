@@ -21,6 +21,8 @@ TagManager:
   - OldMan
   - Vines
   - PlayerBlock
+  - StartBossBattle
+  - Boss
   layers:
   - Default
   - TransparentFX

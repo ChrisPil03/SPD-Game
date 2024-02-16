@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class StartBossBattle : MonoBehaviour
 {
-    [SerializeField] private BoxCollider2D playerBlock;
+    [SerializeField] public BoxCollider2D playerBlock;
     [SerializeField] private GameObject boss;
 
     private void OnTriggerEnter2D(Collider2D collision)
