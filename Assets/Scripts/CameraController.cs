@@ -9,19 +9,41 @@ public class CameraController : MonoBehaviour
     [SerializeField] private float maxY; // Maximum Y value for the camera boundary
     [SerializeField] private float minY; // Minimum Y value for the camera boundary
 
+    [Header("Boss Battle Position")]
+    [SerializeField] private float x;
+    [SerializeField] private float y;
+    [SerializeField] private float z;
+    [HideInInspector] public bool isInBossBattle = false;
+    private bool inPosition;
+
     void LateUpdate()
     {
-        // Calculate the desired position for the camera
-        Vector3 desiredPosition = new Vector3(
-            Mathf.Clamp(playerTransform.position.x + 1, minX, maxX),
-            Mathf.Clamp(playerTransform.position.y + 2, minY, maxY),
-            transform.position.z
-        );
+        if (!isInBossBattle)
+        {
+            // Calculate the desired position for the camera
+            Vector3 desiredPosition = new Vector3(
+                Mathf.Clamp(playerTransform.position.x + 1, minX, maxX),
+                Mathf.Clamp(playerTransform.position.y + 2, minY, maxY),
+                transform.position.z
+            );
 
-        // Smoothly move the camera towards the desired position
-        Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothing * Time.deltaTime);
+            // Smoothly move the camera towards the desired position
+            Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothing * Time.deltaTime);
 
-        // Apply the smoothed position to the camera's transform
-        transform.position = smoothedPosition;
+            // Apply the smoothed position to the camera's transform
+            transform.position = smoothedPosition;
+        }
+        else if (isInBossBattle && !inPosition)
+        {
+            Vector3 bossBattlePosition = new Vector3(x, y, z);
+
+            transform.position = Vector3.Lerp(transform.position, bossBattlePosition, 0.5f * Mathf.Pow(Time.deltaTime, 0.8f));
+            
+            if (transform.position == bossBattlePosition)
+            {
+                inPosition = true;
+            }
+        }
+
     }
 }

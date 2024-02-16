@@ -13,6 +13,7 @@ public class MediumSlimeWithOldMan : MonoBehaviour
     [SerializeField] private GameObject oldMan;
     [SerializeField] private int giveXp = 10;
     [SerializeField] private float smoothing = 2f;
+    [HideInInspector] public bool startJumping = false;
     private Color alphaColor;
     private Player player;
 
@@ -73,7 +74,7 @@ public class MediumSlimeWithOldMan : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!canJump) return;
+        if (!canJump || !startJumping) return;
 
         if (IsGrounded() && !isDead)
         {
