@@ -180,6 +180,9 @@ public class MediumSlimeWithOldMan : MonoBehaviour
 
     private void Die()
     {
+        Player.jarsOfSlime += 2;
+        player.UpdateJarsOfSLime();
+
         rgdb.velocity = Vector2.zero;
         rgdb.gravityScale = 0;
         canJump = false;

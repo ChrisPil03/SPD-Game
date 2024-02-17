@@ -22,9 +22,11 @@ public class Player : MonoBehaviour
     private Hotbar hotbar;
     private Color originalColor;
 
-    //Skill
+    [Header("Collectables")]
     [SerializeField] private TMP_Text SkillTokensText;
     [HideInInspector] public static int skillTokens = 0;
+    [SerializeField] private TMP_Text jarsOfSlimeText;
+    [HideInInspector] public static int jarsOfSlime = 0;
 
     [Header("Level")]
     [SerializeField] private XPBar xpBar;
@@ -78,6 +80,7 @@ public class Player : MonoBehaviour
             healthCounter.text = currentHealth + "/" + startingHealth;
             xpBar.UpdateXPBar(currentXP);
             UpdateSkillTokensText();
+            UpdateJarsOfSLime();
         }
 
         Invoke("CanMove", 2f);
@@ -366,5 +369,10 @@ public class Player : MonoBehaviour
     public void UpdateSkillTokensText()
     {
         SkillTokensText.text = skillTokens.ToString();
+    }
+
+    public void UpdateJarsOfSLime()
+    {
+        jarsOfSlimeText.text = jarsOfSlime.ToString();
     }
 }
