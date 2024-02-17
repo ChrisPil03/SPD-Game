@@ -89,7 +89,7 @@ MonoBehaviour:
     m_Bits: 8
   startingHealth: 10
   vForce: 6
-  hForce: 2
+  hForce: -2
   giveBounceForce: 7
   giveVKnockback: 3
   giveHKnockback: 3
@@ -140,7 +140,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: 168578561, guid: 627fb6e6d35ef8b4786ff6a64e8c3746, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 1, y: 1}

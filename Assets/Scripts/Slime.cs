@@ -90,17 +90,17 @@ public class Slime : MonoBehaviour
     private IEnumerator Jump()
     {
         canJump = false;
-        yield return new WaitForSeconds(Random.Range(1f, 6f));
-        if (!isDead)
+        if (!isDead && IsGrounded())
         {
             anim.Play("SmallSlime_Jump");
             yield return new WaitForSeconds(0.3f);
-            if (!isDead)
+            if (!isDead && IsGrounded())
             {
                 rgdb.velocity = new Vector2(hForce, vForce);
             }
-            canJump = true;
         }
+        yield return new WaitForSeconds(Random.Range(1f, 6f));
+        canJump = true;
     }
 
     private bool IsGrounded()
