@@ -8384,6 +8384,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 407639787}
     - target: {fileID: 8553631846548754366, guid: d113a9c64b04e2c4a9bd1399999919d9, type: 3}
+      propertyPath: groundParticles
+      value: 
+      objectReference: {fileID: 1374396828455446285, guid: 9b5c1900012cecf4da41ff98f93af544, type: 3}
+    - target: {fileID: 8553631846548754366, guid: d113a9c64b04e2c4a9bd1399999919d9, type: 3}
       propertyPath: jarsOfSlimeText
       value: 
       objectReference: {fileID: 170577816}

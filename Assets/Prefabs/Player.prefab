@@ -118,7 +118,9 @@ MonoBehaviour:
   whatIsGround:
     serializedVersion: 2
     m_Bits: 8
+  hitBox: {fileID: 6638547899169467465}
   SkillTokensText: {fileID: 0}
+  jarsOfSlimeText: {fileID: 0}
   xpBar: {fileID: 0}
   startingHealth: 100
   healthbar: {fileID: 0}
@@ -131,6 +133,7 @@ MonoBehaviour:
   dashingTime: 0.2
   dashingCoolDown: 0.5
   hasSword: 0
+  groundParticles: {fileID: 1374396828455446285, guid: 9b5c1900012cecf4da41ff98f93af544, type: 3}
 --- !u!212 &3251839416015756445
 SpriteRenderer:
   m_ObjectHideFlags: 0
