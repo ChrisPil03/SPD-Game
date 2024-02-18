@@ -11,6 +11,7 @@ public class MediumSlimeWithOldMan : MonoBehaviour
     private Animator anim;
     private Color originalColor;
 
+    [SerializeField] private GameObject slimeParticles;
     [SerializeField] private GameObject oldMan;
     [SerializeField] private int giveXp = 10;
     [SerializeField] private float smoothing = 2f;
@@ -125,6 +126,7 @@ public class MediumSlimeWithOldMan : MonoBehaviour
         yield return new WaitForSeconds(0.3f);
         if (!isDead && IsGrounded())
         {
+            Instantiate(slimeParticles, transform.position, slimeParticles.transform.rotation);
             rgdb.velocity = new Vector2(hForce, vForce);
         }
 
@@ -198,6 +200,7 @@ public class MediumSlimeWithOldMan : MonoBehaviour
     {
         currentHealth -= damageTaken;
         StartCoroutine(FlashRed());
+        Instantiate(slimeParticles, transform.position, slimeParticles.transform.rotation);
 
         if (currentHealth <= 0)
         {

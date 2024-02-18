@@ -81,6 +81,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5e3a9d6c057773479733642ef2c19ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  slimeParticles: {fileID: 1374396828455446285, guid: 649acdd01756d0c4a9a45d4308fcf836, type: 3}
   giveXp: 4
   smoothing: 2
   ray: {fileID: 7765826464264926211}

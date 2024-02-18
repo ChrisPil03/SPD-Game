@@ -62,6 +62,9 @@ public class Player : MonoBehaviour
     //Combat
     [HideInInspector] public bool hasSword = false;
 
+    [Header("Particales")]
+    [SerializeField] private GameObject groundParticles;
+
     void Start()
     {
         rgdb = GetComponent<Rigidbody2D>();
@@ -173,6 +176,7 @@ public class Player : MonoBehaviour
         {
             rgdb.gravityScale = originalGravity * 0.5f;
             rgdb.velocity = new Vector2(rgdb.velocity.x, jumpForce);
+            Instantiate(groundParticles, transform.position, groundParticles.transform.rotation);
 
             if (canDoubleJump)
             {

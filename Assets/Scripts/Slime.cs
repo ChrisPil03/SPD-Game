@@ -10,6 +10,7 @@ public class Slime : MonoBehaviour
     private Animator anim;
     private Color originalColor;
 
+    [SerializeField] private GameObject slimeParticles;
     [SerializeField] private int giveXp = 10;
     [SerializeField] private float smoothing = 2f;
     private Color alphaColor;
@@ -96,6 +97,7 @@ public class Slime : MonoBehaviour
             yield return new WaitForSeconds(0.3f);
             if (!isDead && IsGrounded())
             {
+                Instantiate(slimeParticles, transform.position, slimeParticles.transform.rotation);
                 rgdb.velocity = new Vector2(hForce, vForce);
             }
         }
@@ -185,6 +187,7 @@ public class Slime : MonoBehaviour
     {
         currentHealth -= damageTaken;
         StartCoroutine(FlashRed());
+        Instantiate(slimeParticles, transform.position, slimeParticles.transform.rotation);
 
         if (currentHealth <= 0)
         {
