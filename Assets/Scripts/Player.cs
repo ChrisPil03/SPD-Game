@@ -15,6 +15,7 @@ public class Player : MonoBehaviour
     private float originalGravity;
     private float rayDistance = 0.1f;
     private bool takeDamageFromVines;
+    private bool takingDamageFromVines;
 
     private Rigidbody2D rgdb;
     private SpriteRenderer rend;
@@ -156,6 +157,7 @@ public class Player : MonoBehaviour
         if (collision.CompareTag("Vines"))
         {
             takeDamageFromVines = false;
+            takingDamageFromVines = false;
         }
     }
 
@@ -166,7 +168,7 @@ public class Player : MonoBehaviour
 
     private void Jump()
     {
-        if (IsGrounded())
+        if (IsGrounded() || takingDamageFromVines)
         {
             rgdb.gravityScale = originalGravity * 0.5f;
             rgdb.velocity = new Vector2(rgdb.velocity.x, jumpForce);
@@ -313,6 +315,11 @@ public class Player : MonoBehaviour
         while (takeDamageFromVines)
         {
             TakeDamage(10);
+            if (IsGrounded())
+            {
+                takingDamageFromVines = true;
+                rgdb.velocity = new Vector2(rgdb.velocity.x, 1f);
+            }
             yield return new WaitForSeconds(0.4f);
         }
     }
