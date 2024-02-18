@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
     [SerializeField] private Transform spawnPosition;
     [SerializeField] private Transform leftFoot, rightFoot;
     [SerializeField] private LayerMask whatIsGround;
+    [SerializeField] private CapsuleCollider2D hitBox;
 
     public static bool keepValues = false;
     private float originalGravity;
@@ -272,19 +273,32 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void Respawn()
+    private IEnumerator Respawn()
     {
-        if (GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraController>().isInBossBattle == true)
+        CameraController cameraController = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraController>();
+
+        if (cameraController.isInBossBattle == true)
         {
             GameObject.FindGameObjectWithTag("StartBossBattle").GetComponent<StartBossBattle>().playerBlock.enabled = false;
             GameObject.FindGameObjectWithTag("Boss").GetComponent<MediumSlimeWithOldMan>().startJumping = false;
-            GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraController>().isInBossBattle = false;
+            cameraController.isInBossBattle = false;
         }
 
-        canMove = false;
-        transform.position = spawnPosition.position;
+        hitBox.enabled = true;
         rgdb.velocity = Vector2.zero;
+        rgdb.gravityScale = originalGravity;
+        transform.position = spawnPosition.position;
+        FlipSprite(false);
+
+        while (cameraController.transform.position.x >= 5)
+        {
+            yield return null;
+        }
+
         currentHealth = startingHealth;
+        healthbar.UpdateHealthBar(currentHealth);
+        healthCounter.text = currentHealth + "/" + startingHealth;
+
         if (hasSword)
         {
             anim.Play("SpawningWithSword");
@@ -293,7 +307,31 @@ public class Player : MonoBehaviour
         {
             anim.Play("SpawningNoSword");
         }
+
         Invoke("CanMove", 2f);
+    }
+
+    private IEnumerator Die()
+    {
+        canMove = false;
+        yield return new WaitForSeconds(0.31f);
+        if (canMove)
+        {
+            canMove = false;
+        }
+        hitBox.enabled = false;
+        rgdb.gravityScale = 0;
+        rgdb.velocity = new Vector2(0, 0.5f);
+        if (hasSword)
+        {
+            anim.Play("DeathWithSword");
+        }
+        else
+        {
+            anim.Play("DeathNoSword");
+        }
+        yield return new WaitForSeconds(1.8f);
+        StartCoroutine(Respawn());
     }
 
     private void UseHealthPotion()
@@ -315,7 +353,7 @@ public class Player : MonoBehaviour
         while (takeDamageFromVines)
         {
             TakeDamage(10);
-            if (IsGrounded())
+            if (IsGrounded() && canMove)
             {
                 takingDamageFromVines = true;
                 rgdb.velocity = new Vector2(rgdb.velocity.x, 1f);
@@ -331,7 +369,7 @@ public class Player : MonoBehaviour
 
         if (currentHealth <= 0)
         {
-            Respawn();
+            StartCoroutine(Die());
         }
 
         healthbar.UpdateHealthBar(currentHealth);

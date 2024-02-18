@@ -14180,6 +14180,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 846c39010596bee469340eed73ce3961, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!70 &1347007265 stripped
+CapsuleCollider2D:
+  m_CorrespondingSourceObject: {fileID: 6638547899169467465, guid: d113a9c64b04e2c4a9bd1399999919d9, type: 3}
+  m_PrefabInstance: {fileID: 6313098120539019382}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1364345643
 GameObject:
   m_ObjectHideFlags: 0
@@ -53527,6 +53532,10 @@ PrefabInstance:
       propertyPath: xpBar
       value: 
       objectReference: {fileID: 373846685}
+    - target: {fileID: 8553631846548754366, guid: d113a9c64b04e2c4a9bd1399999919d9, type: 3}
+      propertyPath: hitBox
+      value: 
+      objectReference: {fileID: 1347007265}
     - target: {fileID: 8553631846548754366, guid: d113a9c64b04e2c4a9bd1399999919d9, type: 3}
       propertyPath: getHealth
       value: 30
