@@ -140,7 +140,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 403981967bb81ba4aa3aaa85d6c47249, type: 3}
   - {fileID: 8300000, guid: 8484a211ad622e148ac0789084496a0b, type: 3}
   hitFromVines: {fileID: 8300000, guid: 833c00624df4d2a42bd8c0b5fbf512c7, type: 3}
-  healthPotion: {fileID: 8300000, guid: d97ed24d097e6d94e9b62c640ddbd185, type: 3}
+  healthPotion: {fileID: 8300000, guid: 131430a01eda46c4bb4feed41b7c392f, type: 3}
 --- !u!212 &3251839416015756445
 SpriteRenderer:
   m_ObjectHideFlags: 0

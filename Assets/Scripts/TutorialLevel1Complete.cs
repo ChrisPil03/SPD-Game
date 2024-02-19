@@ -8,12 +8,12 @@ public class TutorialLevel1Complete : MonoBehaviour
     [SerializeField] private GameObject dialogueBox;
     [SerializeField] private TMP_Text dialogue;
 
-    private int camp = 0;
+    private int camp = 1;
 
     public void StartOldManDialogue()
     {
         StartCoroutine(SetDialogueActive());
-        dialogue.text = "Hello there";
+        dialogue.text = "Dialogue missing";
 
         Invoke("GoToCamp", 6f);
     }

@@ -160,6 +160,14 @@ public class Player : MonoBehaviour
         anim.SetFloat("VerticalSpeed", rgdb.velocity.y);
         anim.SetBool("IsGrounded", IsGrounded());
         anim.SetBool("TakingKnockback", false);
+
+
+
+        //Might want to remove after creating a real exit method
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
     }
 
     private void FixedUpdate()
@@ -190,12 +198,6 @@ public class Player : MonoBehaviour
         {
             takeDamageFromVines = false;
             takingDamageFromVines = false;
-        }
-
-        if (collision.CompareTag("HealthPotion"))
-        {
-            audioSource.pitch = Random.Range(0.8f, 1.2f);
-            audioSource.PlayOneShot(healthPotion, 0.1f);
         }
     }
 

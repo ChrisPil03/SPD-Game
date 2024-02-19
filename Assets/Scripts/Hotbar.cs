@@ -8,6 +8,13 @@ public class Hotbar : MonoBehaviour
     public bool[] isFull;
     public GameObject[] slots;
     public GameObject healthPotionImage;
+    [SerializeField] private AudioClip healthPotion;
+    private AudioSource audioSource;
+
+    private void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
 
     public void AddHealtPotion()
     {
@@ -16,6 +23,8 @@ public class Hotbar : MonoBehaviour
             if (!isFull[i])
             {
                 isFull[i] = true;
+                audioSource.pitch = Random.Range(0.8f, 1.2f);
+                audioSource.PlayOneShot(healthPotion, 0.1f);
                 Instantiate(healthPotionImage, slots[i].transform, false);
 
                 return;
