@@ -8,7 +8,7 @@ public class TutorialLevel1Complete : MonoBehaviour
     [SerializeField] private GameObject dialogueBox;
     [SerializeField] private TMP_Text dialogue;
 
-    private int camp = 1;
+    private int camp = 0;
 
     public void StartOldManDialogue()
     {
