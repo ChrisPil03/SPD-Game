@@ -22,6 +22,7 @@ public class Player : MonoBehaviour
     private SpriteRenderer rend;
     private Animator anim;
     private Hotbar hotbar;
+    private AudioSource audioSource;
     private Color originalColor;
 
     [Header("Collectables")]
@@ -65,15 +66,28 @@ public class Player : MonoBehaviour
     [Header("Particales")]
     [SerializeField] private GameObject groundParticles;
 
+    [Header("SoundEffects")]
+    [SerializeField] private AudioClip[] stepsOnGrass;
+    [SerializeField] private AudioClip hitFromVines;
+    [SerializeField] private AudioClip healthPotion;
+    private float futureTimeWalk;
+    private float currentTimeWalk;
+    private float intervalTimeWalk = 0.4f;
+    private int step = 0;
+
     void Start()
     {
         rgdb = GetComponent<Rigidbody2D>();
         rend = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
         hotbar = GameObject.FindGameObjectWithTag("Hotbar").GetComponent<Hotbar>();
 
         originalGravity = rgdb.gravityScale;
         originalColor = rend.material.color;
+
+        futureTimeWalk = Time.time + intervalTimeWalk;
+        currentTimeWalk = Time.time;
 
         if (!keepValues)
         {
@@ -125,7 +139,21 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R) && hotbar.isFull[0] && currentHealth < startingHealth)
         {
             UseHealthPotion();
+            audioSource.pitch = Random.Range(0.8f, 1.2f);
+            audioSource.PlayOneShot(healthPotion, 0.1f);
             hotbar.RemoveItem();
+        }
+
+        currentTimeWalk = Time.time;
+        if ((currentTimeWalk >= futureTimeWalk) && IsGrounded() && Mathf.Abs(rgdb.velocity.x) > 0.1)
+        {
+            futureTimeWalk = Time.time + intervalTimeWalk;
+            audioSource.PlayOneShot(stepsOnGrass[step], 0.03f);
+            step++;
+            if (step > 1)
+            {
+                step = 0;
+            }
         }
 
         anim.SetFloat("MoveSpeed", Mathf.Abs(rgdb.velocity.x));
@@ -162,6 +190,12 @@ public class Player : MonoBehaviour
         {
             takeDamageFromVines = false;
             takingDamageFromVines = false;
+        }
+
+        if (collision.CompareTag("HealthPotion"))
+        {
+            audioSource.pitch = Random.Range(0.8f, 1.2f);
+            audioSource.PlayOneShot(healthPotion, 0.1f);
         }
     }
 
@@ -357,6 +391,9 @@ public class Player : MonoBehaviour
         while (takeDamageFromVines)
         {
             TakeDamage(10);
+            audioSource.pitch = Random.Range(0.8f, 1.2f);
+            audioSource.PlayOneShot(hitFromVines, 0.1f);
+
             if (IsGrounded() && canMove)
             {
                 takingDamageFromVines = true;

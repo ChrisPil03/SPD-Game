@@ -133,4 +133,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f6d8ba0e305f1d49a2950f36c8a4bd4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthPotionImage: {fileID: 1723966589491436096, guid: b6499af33947f994db9bfd3157bcd91d, type: 3}
