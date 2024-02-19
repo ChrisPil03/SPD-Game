@@ -9,8 +9,10 @@ public class MediumSlimeWithOldMan : MonoBehaviour
     private Rigidbody2D rgdb;
     private SpriteRenderer rend;
     private Animator anim;
+    private AudioSource audioSource;
     private Color originalColor;
 
+    [SerializeField] private AudioClip slimeSound;
     [SerializeField] private GameObject slimeParticles;
     [SerializeField] private GameObject oldMan;
     [SerializeField] private int giveXp = 10;
@@ -50,6 +52,7 @@ public class MediumSlimeWithOldMan : MonoBehaviour
         rgdb = GetComponent<Rigidbody2D>();
         rend = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
 
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
 
@@ -126,6 +129,7 @@ public class MediumSlimeWithOldMan : MonoBehaviour
         yield return new WaitForSeconds(0.3f);
         if (!isDead && IsGrounded())
         {
+            PlaySlimeSound();
             Instantiate(slimeParticles, transform.position, slimeParticles.transform.rotation);
             rgdb.velocity = new Vector2(hForce, vForce);
         }
@@ -201,6 +205,7 @@ public class MediumSlimeWithOldMan : MonoBehaviour
         currentHealth -= damageTaken;
         StartCoroutine(FlashRed());
         Instantiate(slimeParticles, transform.position, slimeParticles.transform.rotation);
+        PlaySlimeSound();
 
         if (currentHealth <= 0)
         {
@@ -235,6 +240,12 @@ public class MediumSlimeWithOldMan : MonoBehaviour
     {
         Instantiate(oldMan, transform.position, oldMan.transform.rotation);
         GameObject.FindGameObjectWithTag("SceneManager").GetComponent<TutorialLevel1Complete>().StartOldManDialogue();
+    }
+
+    private void PlaySlimeSound()
+    {
+        audioSource.pitch = Random.Range(0.6f, 1f);
+        audioSource.PlayOneShot(slimeSound, 0.5f);
     }
 }
 

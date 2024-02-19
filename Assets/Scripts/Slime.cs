@@ -8,8 +8,10 @@ public class Slime : MonoBehaviour
     private Rigidbody2D rgdb;
     private SpriteRenderer rend;
     private Animator anim;
+    private AudioSource audioSource;
     private Color originalColor;
 
+    [SerializeField] private AudioClip slimeSound;
     [SerializeField] private GameObject slimeParticles;
     [SerializeField] private int giveXp = 10;
     [SerializeField] private float smoothing = 2f;
@@ -47,6 +49,7 @@ public class Slime : MonoBehaviour
         rgdb = GetComponent<Rigidbody2D>();
         rend = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
 
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
 
@@ -98,6 +101,7 @@ public class Slime : MonoBehaviour
             if (!isDead && IsGrounded())
             {
                 Instantiate(slimeParticles, transform.position, slimeParticles.transform.rotation);
+                PlaySlimeSound();
                 rgdb.velocity = new Vector2(hForce, vForce);
             }
         }
@@ -188,6 +192,7 @@ public class Slime : MonoBehaviour
         currentHealth -= damageTaken;
         StartCoroutine(FlashRed());
         Instantiate(slimeParticles, transform.position, slimeParticles.transform.rotation);
+        PlaySlimeSound();
 
         if (currentHealth <= 0)
         {
@@ -215,5 +220,11 @@ public class Slime : MonoBehaviour
     private void FadeAway()
     {
         rend.material.color = Color.Lerp(rend.material.color, alphaColor, smoothing * Time.deltaTime);
+    }
+
+    private void PlaySlimeSound()
+    {
+        audioSource.pitch = Random.Range(0.6f, 1f);
+        audioSource.PlayOneShot(slimeSound, 0.5f);
     }
 }
