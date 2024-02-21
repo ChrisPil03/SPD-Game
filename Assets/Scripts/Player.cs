@@ -17,10 +17,9 @@ public class Player : MonoBehaviour
     private float rayDistance = 0.1f;
     private bool takeDamageFromVines;
     private bool takingDamageFromVines;
-    [HideInInspector] public bool flipped;
 
-    private Rigidbody2D rgdb;
-    private SpriteRenderer rend;
+    [HideInInspector] public Rigidbody2D rgdb;
+    [HideInInspector] public SpriteRenderer rend;
     [HideInInspector] public Animator anim;
     private Hotbar hotbar;
     private AudioSource audioSource;
@@ -46,8 +45,9 @@ public class Player : MonoBehaviour
 
     [Header("Movement")]
     [SerializeField] private float moveSpeed = 150f;
+    private float originalMoveSpeed;
     private float horizontalValue;
-    private bool canMove = false;
+    [HideInInspector] public bool canMove = false;
 
     [Header("Jump")]
     [SerializeField] private float jumpForce = 9.5f;
@@ -58,8 +58,8 @@ public class Player : MonoBehaviour
     [SerializeField] private float dashingPower = 12.5f;
     [SerializeField] private float dashingTime = 0.2f;
     [SerializeField] private float dashingCoolDown = 0.5f;
-    private bool canDash = true;
-    private bool isDashing;
+    [HideInInspector] public bool canDash = true;
+    [HideInInspector] public bool isDashing;
 
     //Combat
     [HideInInspector] static public bool hasSword;
@@ -86,6 +86,7 @@ public class Player : MonoBehaviour
 
         originalGravity = rgdb.gravityScale;
         originalColor = rend.material.color;
+        originalMoveSpeed = moveSpeed;
 
         futureTimeWalk = Time.time + intervalTimeWalk;
         currentTimeWalk = Time.time;
@@ -120,13 +121,11 @@ public class Player : MonoBehaviour
         if (horizontalValue < 0)
         {
             FlipSprite(true);
-            flipped = true;
         }
 
         if (horizontalValue > 0)
         {
             FlipSprite(false);
-            flipped = false;
         }
 
         if (Input.GetButtonDown("Jump"))
@@ -150,6 +149,21 @@ public class Player : MonoBehaviour
             audioSource.pitch = Random.Range(0.8f, 1.2f);
             audioSource.PlayOneShot(healthPotion, 0.1f);
             hotbar.RemoveItem();
+        }
+
+        if (hasSword && IsGrounded())
+        {
+            if (Input.GetKeyDown(KeyCode.Return))
+            {
+                StartCoroutine(AttackingWithSword());
+            }
+
+            if (Input.GetKeyDown(KeyCode.RightControl))
+            {
+                canMove = false;
+                rgdb.velocity = Vector2.zero;
+                Invoke("CanMove", 0.6f);
+            }
         }
 
         currentTimeWalk = Time.time;
@@ -270,12 +284,26 @@ public class Player : MonoBehaviour
         canDash = true;
     }
 
-    private void ResetGravity()
+    private IEnumerator AttackingWithSword()
+    {
+        moveSpeed *= 0.3f;
+        yield return new WaitForSeconds(0.26f);
+        if (!canMove)
+        {
+            CanMove();
+        }
+        if (moveSpeed != originalMoveSpeed)
+        {
+            moveSpeed = originalMoveSpeed;
+        }
+    }
+
+    public void ResetGravity()
     {
         rgdb.gravityScale = originalGravity;
     }
 
-    private bool IsGrounded()
+    public bool IsGrounded()
     {
         RaycastHit2D leftHit = Physics2D.Raycast(leftFoot.position, Vector2.down, rayDistance, whatIsGround);
         RaycastHit2D rightHit = Physics2D.Raycast(rightFoot.position, Vector2.down, rayDistance, whatIsGround);

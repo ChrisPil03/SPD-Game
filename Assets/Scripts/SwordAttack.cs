@@ -8,10 +8,14 @@ public class SwordAttack : MonoBehaviour
 
     private Player player;
     private PolygonCollider2D polygonCollider;
- 
+
     private bool isAttacking;
     private bool hasFlippedCollider;
     private float timer = 0;
+
+    private float dashingPower = 18f;
+    private float dashingTime = 0.15f;
+    private float dashingCoolDown = 0.5f;
 
     private void Start()
     {
@@ -24,12 +28,14 @@ public class SwordAttack : MonoBehaviour
 
     private void Update()
     {
-        if (player.flipped && !hasFlippedCollider)
+        if (!Player.hasSword) return;
+
+        if (player.rend.flipX && !hasFlippedCollider)
         {
             FlipCollider();
             hasFlippedCollider = true;
         }
-        else if (!player.flipped && hasFlippedCollider)
+        else if (!player.rend.flipX && hasFlippedCollider)
         {
             FlipCollider();
             hasFlippedCollider = false;
@@ -39,14 +45,14 @@ public class SwordAttack : MonoBehaviour
         if (isAttacking)
         {
             timer += Time.deltaTime;
-            if (timer > 0.35f)
+            if (timer > 0.26f)
             {
                 timer = 0;
                 isAttacking = false;
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.Return) && Player.hasSword)
+        if (Input.GetKeyDown(KeyCode.Return))
         {
             if (!isAttacking)
             {
@@ -56,11 +62,61 @@ public class SwordAttack : MonoBehaviour
             else if (isAttacking && timer > 0.1f)
             {
                 player.anim.Play("SwordAttackTwo");
+
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.RightControl))
+        {
+            if (player.IsGrounded())
+            {
+                player.anim.Play("HeavySwordAttackGrounded");
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.RightShift))
+        {
+            if (player.IsGrounded())
+            {
+                StartCoroutine(DashSwordAttackGrounded());
             }
         }
     }
 
-    void FlipCollider()
+    private IEnumerator DashSwordAttackGrounded()
+    {
+        player.canMove = false;
+        Invoke("PlayerCanMoveAgain", 0.717f);
+
+        player.canDash = false;
+        player.isDashing = true;
+        player.rgdb.gravityScale = 0f;
+        player.anim.Play("DashSwordAttackGrounded");
+
+        yield return new WaitForSeconds(0.06f);
+
+        player.GetComponent<CapsuleCollider2D>().enabled = false;
+        player.rgdb.velocity = new Vector2(transform.localScale.x * dashingPower, 0f);
+
+        yield return new WaitForSeconds(dashingTime);
+
+        player.GetComponent<CapsuleCollider2D>().enabled = true;
+        player.rgdb.velocity = Vector2.zero;
+        player.ResetGravity();
+        player.isDashing = false;
+
+        yield return new WaitForSeconds(dashingCoolDown);
+
+        player.canDash = true;
+    }
+
+    private void PlayerCanMoveAgain()
+    {
+        if (!player.canMove)
+        player.canMove = true;
+    }
+
+    private void FlipCollider()
     {
         // Flip the collider by inverting the x-scale
         polygonCollider.transform.localScale = new Vector3(
