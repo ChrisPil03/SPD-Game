@@ -17,10 +17,11 @@ public class Player : MonoBehaviour
     private float rayDistance = 0.1f;
     private bool takeDamageFromVines;
     private bool takingDamageFromVines;
+    [HideInInspector] public bool flipped;
 
     private Rigidbody2D rgdb;
     private SpriteRenderer rend;
-    private Animator anim;
+    [HideInInspector] public Animator anim;
     private Hotbar hotbar;
     private AudioSource audioSource;
     private Color originalColor;
@@ -61,7 +62,7 @@ public class Player : MonoBehaviour
     private bool isDashing;
 
     //Combat
-    [HideInInspector] public bool hasSword = false;
+    [HideInInspector] static public bool hasSword;
 
     [Header("Particales")]
     [SerializeField] private GameObject groundParticles;
@@ -100,9 +101,14 @@ public class Player : MonoBehaviour
             xpBar.UpdateXPBar(currentXP);
             UpdateSkillTokensText();
             UpdateJarsOfSLime();
+            if (hasSword)
+            {
+                anim.SetBool("HasSword", true);
+            }
         }
 
-        Invoke("CanMove", 2f);
+        Respawn();
+        Invoke("CanMove", 2);
     }
 
     void Update()
@@ -114,11 +120,13 @@ public class Player : MonoBehaviour
         if (horizontalValue < 0)
         {
             FlipSprite(true);
+            flipped = true;
         }
 
         if (horizontalValue > 0)
         {
             FlipSprite(false);
+            flipped = false;
         }
 
         if (Input.GetButtonDown("Jump"))
@@ -412,6 +420,7 @@ public class Player : MonoBehaviour
 
         if (currentHealth <= 0)
         {
+            currentHealth = 0;
             StartCoroutine(Die());
         }
 

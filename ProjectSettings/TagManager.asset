@@ -23,6 +23,7 @@ TagManager:
   - PlayerBlock
   - StartBossBattle
   - Boss
+  - SwordAttackOne
   layers:
   - Default
   - TransparentFX
@@ -35,7 +36,7 @@ TagManager:
   - EnemyBlock
   - PlayerBlock
   - Background
-  - 
+  - Attack
   - 
   - 
   - 

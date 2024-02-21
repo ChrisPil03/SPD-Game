@@ -31,7 +31,7 @@ public class SkillTreeButtonController : MonoBehaviour
 
     private bool CanAcquireSkill(Button button)
     {
-        if ((button.CompareTag("Skill_HeavyAttack") && !player.hasSword) || (button.CompareTag("Skill_TwoSwords") && !player.hasSword))
+        if ((button.CompareTag("Skill_HeavyAttack") && !Player.hasSword) || (button.CompareTag("Skill_TwoSwords") && !Player.hasSword))
         {
             errorText.text = "-- You need a sword to learn this skill --";
             return false;
