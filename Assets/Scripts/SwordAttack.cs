@@ -16,6 +16,7 @@ public class SwordAttack : MonoBehaviour
     private float dashingPower = 18f;
     private float dashingTime = 0.15f;
     private float dashingCoolDown = 0.5f;
+    private bool canDashAttack = true;
 
     private void Start()
     {
@@ -76,7 +77,7 @@ public class SwordAttack : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.RightShift))
         {
-            if (player.IsGrounded())
+            if (player.IsGrounded() && canDashAttack)
             {
                 StartCoroutine(DashSwordAttackGrounded());
             }
@@ -88,6 +89,7 @@ public class SwordAttack : MonoBehaviour
         player.canMove = false;
         Invoke("PlayerCanMoveAgain", 0.717f);
 
+        canDashAttack = false;
         player.canDash = false;
         player.isDashing = true;
         player.rgdb.gravityScale = 0f;
@@ -107,6 +109,7 @@ public class SwordAttack : MonoBehaviour
 
         yield return new WaitForSeconds(dashingCoolDown);
 
+        canDashAttack = true;
         player.canDash = true;
     }
 
