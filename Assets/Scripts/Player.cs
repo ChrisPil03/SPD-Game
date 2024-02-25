@@ -18,6 +18,9 @@ public class Player : MonoBehaviour
     private bool takeDamageFromVines;
     private bool takingDamageFromVines;
 
+    [HideInInspector] static public bool changeSceneOnRespawn;
+    [HideInInspector] static public int respawnScene;
+
     [HideInInspector] public Rigidbody2D rgdb;
     [HideInInspector] public SpriteRenderer rend;
     [HideInInspector] public Animator anim;
@@ -91,14 +94,12 @@ public class Player : MonoBehaviour
         futureTimeWalk = Time.time + intervalTimeWalk;
         currentTimeWalk = Time.time;
 
-        if (!keepValues)
-        {
-            currentHealth = startingHealth;
-        }
+        currentHealth = startingHealth;
+        healthbar.UpdateHealthBar(currentHealth);
+        healthCounter.text = currentHealth + "/" + startingHealth;
+
         if (keepValues)
         {
-            healthbar.UpdateHealthBar(currentHealth);
-            healthCounter.text = currentHealth + "/" + startingHealth;
             xpBar.UpdateXPBar(currentXP);
             UpdateSkillTokensText();
             UpdateJarsOfSLime();
@@ -407,7 +408,14 @@ public class Player : MonoBehaviour
             anim.Play("DeathNoSword");
         }
         yield return new WaitForSeconds(1.8f);
-        StartCoroutine(Respawn());
+        if (!changeSceneOnRespawn)
+        {
+            StartCoroutine(Respawn());
+        }
+        else
+        {
+            SceneManager.LoadScene(respawnScene);
+        }
     }
 
     private void UseHealthPotion()
