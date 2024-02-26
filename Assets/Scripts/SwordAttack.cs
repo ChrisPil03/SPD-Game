@@ -25,6 +25,7 @@ public class SwordAttack : MonoBehaviour
 
         Slime.damageTakenFromSword = damage;
         MediumSlimeWithOldMan.damageTakenFromSword = damage;
+        SmallSlimeShell.damageTakenFromSword = damage;
     }
 
     private void Update()

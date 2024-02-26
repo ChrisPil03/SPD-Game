@@ -1,9 +1,7 @@
 using System.Collections;
-using System.Collections.Generic;
-using System.Security.Cryptography;
 using UnityEngine;
 
-public class Slime : MonoBehaviour
+public class SmallSlimeShell : MonoBehaviour
 {
     private Rigidbody2D rgdb;
     private SpriteRenderer rend;
@@ -11,10 +9,9 @@ public class Slime : MonoBehaviour
     private AudioSource audioSource;
     private Color originalColor;
 
+    [SerializeField] private GameObject slime;
     [SerializeField] private AudioClip slimeSound;
     [SerializeField] private GameObject slimeParticles;
-    [SerializeField] private int giveXp = 4;
-    [SerializeField] private float smoothing = 2f;
     private Color alphaColor;
     private Player player;
 
@@ -24,7 +21,7 @@ public class Slime : MonoBehaviour
     private float rayDistance = 0.1f;
 
     [Header("Health")]
-    [SerializeField] private int startingHealth = 20;
+    [SerializeField] private int startingHealth = 30;
     private int currentHealth;
     private bool isDead = false;
 
@@ -34,13 +31,11 @@ public class Slime : MonoBehaviour
     private bool canJump = true;
 
     [Header("Combat")]
-    [SerializeField] private float giveBounceForce = 7f;
-    [SerializeField] private float giveVKnockback = 3f;
+    [SerializeField] private float giveBounceForce = 5f;
+    [SerializeField] private float giveVKnockback = 4f;
     [SerializeField] private float giveHKnockback = 3f;
-    [SerializeField] private int damageGiven = 4;
-    [SerializeField] private int damageTaken = 10;
+    [SerializeField] private int damageGiven = 10;
     [HideInInspector] static public int damageTakenFromSword;
-    [HideInInspector] public bool canTakeDamage = true;
 
     [Header("Colliders")]
     [SerializeField] private BoxCollider2D boxCollider;
@@ -61,12 +56,6 @@ public class Slime : MonoBehaviour
         alphaColor.a = 0f;
 
         currentHealth = startingHealth;
-
-        if (!canTakeDamage)
-        {
-            giveXp += giveXp;
-            Invoke("CanTakeDamageAgain", 0.4f);
-        }
     }
 
     void Update()
@@ -85,15 +74,6 @@ public class Slime : MonoBehaviour
         }
     }
 
-    private void LateUpdate()
-    {
-        if (isDead)
-        {
-            Invoke("FloatToPlayer", 0.65f);
-            Invoke("FadeAway", 0.65f);
-        }
-    }
-
     private void FlipSprite(bool direction)
     {
         rend.flipX = direction;
@@ -104,7 +84,7 @@ public class Slime : MonoBehaviour
         canJump = false;
         if (!isDead && IsGrounded())
         {
-            anim.Play("SmallSlime_Jump");
+            anim.Play("Jump");
             yield return new WaitForSeconds(0.3f);
             if (!isDead && IsGrounded())
             {
@@ -176,7 +156,7 @@ public class Slime : MonoBehaviour
                 collision.GetComponent<Animator>().Play("FallReversedNoSword");
             }
             collision.GetComponent<Rigidbody2D>().velocity = new Vector2(collision.GetComponent<Rigidbody2D>().velocity.x, giveBounceForce);
-            TakeDamage(damageTaken);
+            player.TakeDamage(damageGiven);
         }
 
         if (collision.CompareTag("SwordAttackOne"))
@@ -187,22 +167,20 @@ public class Slime : MonoBehaviour
 
     private void Die()
     {
-        Player.jarsOfSlime += 1;
-        player.UpdateJarsOfSLime();
-
         rgdb.velocity = Vector2.zero;
         rgdb.gravityScale = 0;
         canJump = false;
         boxCollider.enabled = false;
         capsuleCollider.enabled = false;
-        anim.Play("SmallSlime_Defeated");
-        player.GainXP(giveXp);
-        Destroy(gameObject, 4f);
+        anim.Play("ShellLost");
+        slime.GetComponent<Slime>().canTakeDamage = false;
+        Instantiate(slime, transform.position, slime.transform.rotation);
+        Destroy(gameObject, 0.25f);
     }
 
     private void TakeDamage(int damageTaken)
     {
-        if (canTakeDamage)
+        if (!isDead)
         {
             currentHealth -= damageTaken;
             StartCoroutine(FlashRed());
@@ -216,7 +194,7 @@ public class Slime : MonoBehaviour
             }
             else
             {
-                anim.Play("SmallSlime_TakingDamage");
+                anim.Play("TakingDamage");
             }
         }
     }
@@ -228,24 +206,9 @@ public class Slime : MonoBehaviour
         rend.material.color = originalColor;
     }
 
-    private void FloatToPlayer()
-    {
-        transform.position = Vector3.Lerp(transform.position, player.transform.position, smoothing * Time.deltaTime);
-    }
-
-    private void FadeAway()
-    {
-        rend.material.color = Color.Lerp(rend.material.color, alphaColor, smoothing * Time.deltaTime);
-    }
-
     private void PlaySlimeSound()
     {
         audioSource.pitch = Random.Range(0.6f, 1f);
         audioSource.PlayOneShot(slimeSound, 0.5f);
-    }
-
-    private void CanTakeDamageAgain()
-    {
-        canTakeDamage = true;
     }
 }
