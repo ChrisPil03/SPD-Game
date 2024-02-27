@@ -36,6 +36,7 @@ public class SmallSlimeShell : MonoBehaviour
     [SerializeField] private float giveHKnockback = 3f;
     [SerializeField] private int damageGiven = 10;
     [HideInInspector] static public int damageTakenFromSword;
+    private bool canTakeDamage = true;
 
     [Header("Colliders")]
     [SerializeField] private BoxCollider2D boxCollider;
@@ -180,8 +181,9 @@ public class SmallSlimeShell : MonoBehaviour
 
     private void TakeDamage(int damageTaken)
     {
-        if (!isDead)
+        if (!isDead && canTakeDamage)
         {
+            canTakeDamage = false;
             currentHealth -= damageTaken;
             StartCoroutine(FlashRed());
             Instantiate(slimeParticles, transform.position, slimeParticles.transform.rotation);
@@ -196,7 +198,13 @@ public class SmallSlimeShell : MonoBehaviour
             {
                 anim.Play("TakingDamage");
             }
+            Invoke("CanTakeDamageAgain", 0.05f);
         }
+    }
+
+    private void CanTakeDamageAgain()
+    {
+        canTakeDamage = true;
     }
 
     private IEnumerator FlashRed()

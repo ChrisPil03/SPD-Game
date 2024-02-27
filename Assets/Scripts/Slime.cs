@@ -204,6 +204,7 @@ public class Slime : MonoBehaviour
     {
         if (canTakeDamage)
         {
+            canTakeDamage = false;
             currentHealth -= damageTaken;
             StartCoroutine(FlashRed());
             Instantiate(slimeParticles, transform.position, slimeParticles.transform.rotation);
@@ -218,6 +219,7 @@ public class Slime : MonoBehaviour
             {
                 anim.Play("SmallSlime_TakingDamage");
             }
+            Invoke("CanTakeDamageAgain", 0.05f);
         }
     }
 

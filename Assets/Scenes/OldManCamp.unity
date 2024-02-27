@@ -288,7 +288,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!50 &34624372
 Rigidbody2D:
   serializedVersion: 4
@@ -32630,18 +32630,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 744025072596210917, guid: d113a9c64b04e2c4a9bd1399999919d9, type: 3}
-      propertyPath: dashSwordAttack
-      value: 
-      objectReference: {fileID: 8300000, guid: 007ea8230af7087418b24db4758234e3, type: 3}
-    - target: {fileID: 744025072596210917, guid: d113a9c64b04e2c4a9bd1399999919d9, type: 3}
-      propertyPath: heavySwordAttack
-      value: 
-      objectReference: {fileID: 8300000, guid: 6534c47fab66dc348abff335703ce712, type: 3}
-    - target: {fileID: 744025072596210917, guid: d113a9c64b04e2c4a9bd1399999919d9, type: 3}
-      propertyPath: normalSwordAttack
-      value: 
-      objectReference: {fileID: 8300000, guid: 690503961b625fd47840cc278742c973, type: 3}
     - target: {fileID: 3045732928448825696, guid: d113a9c64b04e2c4a9bd1399999919d9, type: 3}
       propertyPath: m_LocalPosition.x
       value: -3.23
@@ -32682,58 +32670,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3848886334264994223, guid: d113a9c64b04e2c4a9bd1399999919d9, type: 3}
-      propertyPath: m_Pitch
-      value: 0.9
-      objectReference: {fileID: 0}
-    - target: {fileID: 3848886334264994223, guid: d113a9c64b04e2c4a9bd1399999919d9, type: 3}
-      propertyPath: Priority
-      value: 201
-      objectReference: {fileID: 0}
-    - target: {fileID: 3848886334264994223, guid: d113a9c64b04e2c4a9bd1399999919d9, type: 3}
-      propertyPath: m_Volume
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3848886334264994223, guid: d113a9c64b04e2c4a9bd1399999919d9, type: 3}
-      propertyPath: BypassListenerEffects
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4775591212701123605, guid: d113a9c64b04e2c4a9bd1399999919d9, type: 3}
-      propertyPath: dashSwordAttack
-      value: 
-      objectReference: {fileID: 8300000, guid: 007ea8230af7087418b24db4758234e3, type: 3}
-    - target: {fileID: 4775591212701123605, guid: d113a9c64b04e2c4a9bd1399999919d9, type: 3}
-      propertyPath: heavySwordAttack
-      value: 
-      objectReference: {fileID: 8300000, guid: 6534c47fab66dc348abff335703ce712, type: 3}
-    - target: {fileID: 4775591212701123605, guid: d113a9c64b04e2c4a9bd1399999919d9, type: 3}
-      propertyPath: normalSwordAttack
-      value: 
-      objectReference: {fileID: 8300000, guid: 690503961b625fd47840cc278742c973, type: 3}
     - target: {fileID: 5396644517355112778, guid: d113a9c64b04e2c4a9bd1399999919d9, type: 3}
-      propertyPath: dashSwordAttack
-      value: 
-      objectReference: {fileID: 8300000, guid: 007ea8230af7087418b24db4758234e3, type: 3}
-    - target: {fileID: 5396644517355112778, guid: d113a9c64b04e2c4a9bd1399999919d9, type: 3}
-      propertyPath: heavySwordAttack
-      value: 
-      objectReference: {fileID: 8300000, guid: 6534c47fab66dc348abff335703ce712, type: 3}
-    - target: {fileID: 5396644517355112778, guid: d113a9c64b04e2c4a9bd1399999919d9, type: 3}
-      propertyPath: normalSwordAttack
-      value: 
-      objectReference: {fileID: 8300000, guid: 690503961b625fd47840cc278742c973, type: 3}
-    - target: {fileID: 8213110230116961567, guid: d113a9c64b04e2c4a9bd1399999919d9, type: 3}
-      propertyPath: dashSwordAttack
-      value: 
-      objectReference: {fileID: 8300000, guid: 007ea8230af7087418b24db4758234e3, type: 3}
-    - target: {fileID: 8213110230116961567, guid: d113a9c64b04e2c4a9bd1399999919d9, type: 3}
-      propertyPath: heavySwordAttack
-      value: 
-      objectReference: {fileID: 8300000, guid: 6534c47fab66dc348abff335703ce712, type: 3}
-    - target: {fileID: 8213110230116961567, guid: d113a9c64b04e2c4a9bd1399999919d9, type: 3}
-      propertyPath: normalSwordAttack
-      value: 
-      objectReference: {fileID: 8300000, guid: 690503961b625fd47840cc278742c973, type: 3}
+      propertyPath: normalDamage
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8553631846548754366, guid: d113a9c64b04e2c4a9bd1399999919d9, type: 3}
       propertyPath: xpBar
       value: 

@@ -112,7 +112,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9b24e099e59dda42aec2dba845f5cc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 10
+  normalDamage: 5
+  heavyDamage: 30
+  dashDamage: 15
+  canHeavyAttack: 1
+  normalSwordAttack: {fileID: 8300000, guid: 690503961b625fd47840cc278742c973, type: 3}
+  heavySwordAttack: {fileID: 8300000, guid: 6534c47fab66dc348abff335703ce712, type: 3}
 --- !u!60 &1521139681888267203
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -215,7 +220,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9b24e099e59dda42aec2dba845f5cc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 10
+  normalDamage: 5
+  heavyDamage: 30
+  dashDamage: 15
+  canHeavyAttack: 1
+  normalSwordAttack: {fileID: 8300000, guid: 690503961b625fd47840cc278742c973, type: 3}
+  heavySwordAttack: {fileID: 8300000, guid: 6534c47fab66dc348abff335703ce712, type: 3}
 --- !u!60 &6473857266018039096
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -318,7 +328,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9b24e099e59dda42aec2dba845f5cc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 20
+  normalDamage: 5
+  heavyDamage: 30
+  dashDamage: 15
+  canHeavyAttack: 1
+  normalSwordAttack: {fileID: 8300000, guid: 690503961b625fd47840cc278742c973, type: 3}
+  heavySwordAttack: {fileID: 8300000, guid: 6534c47fab66dc348abff335703ce712, type: 3}
 --- !u!60 &7442275913350872028
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -509,6 +524,7 @@ MonoBehaviour:
   rgdb: {fileID: 0}
   rend: {fileID: 0}
   anim: {fileID: 0}
+  audioSource: {fileID: 0}
   SkillTokensText: {fileID: 0}
   jarsOfSlimeText: {fileID: 0}
   xpBar: {fileID: 0}
@@ -519,7 +535,6 @@ MonoBehaviour:
   moveSpeed: 160
   canMove: 0
   jumpForce: 7
-  canDoubleJump: 0
   dashingPower: 12.5
   dashingTime: 0.2
   dashingCoolDown: 0.5
@@ -815,7 +830,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9b24e099e59dda42aec2dba845f5cc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 25
+  normalDamage: 5
+  heavyDamage: 30
+  dashDamage: 15
+  canHeavyAttack: 1
+  normalSwordAttack: {fileID: 8300000, guid: 690503961b625fd47840cc278742c973, type: 3}
+  heavySwordAttack: {fileID: 8300000, guid: 6534c47fab66dc348abff335703ce712, type: 3}
 --- !u!60 &5107919920516182628
 PolygonCollider2D:
   m_ObjectHideFlags: 0

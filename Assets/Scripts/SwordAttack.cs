@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SwordAttack : MonoBehaviour
 {
-    [SerializeField] private int damage = 10;
+    [SerializeField] private int normalDamage = 5, heavyDamage = 30, dashDamage = 15;
     [HideInInspector] static public bool hasHeavyAttackSkill;
     [HideInInspector] static public bool hasDashSwordAttackSkill;
 
@@ -12,6 +12,7 @@ public class SwordAttack : MonoBehaviour
     private PolygonCollider2D polygonCollider;
     private AudioSource audioSource;
 
+    private int damage;
     private bool isAttacking;
     private bool hasFlippedCollider;
     private float timer = 0;
@@ -31,14 +32,14 @@ public class SwordAttack : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         polygonCollider = gameObject.GetComponent<PolygonCollider2D>();
         audioSource = GameObject.FindGameObjectWithTag("Player").GetComponent<AudioSource>();
-
-        Slime.damageTakenFromSword = damage;
-        MediumSlimeWithOldMan.damageTakenFromSword = damage;
-        SmallSlimeShell.damageTakenFromSword = damage;
     }
 
     private void Update()
     {
+        Slime.damageTakenFromSword = damage;
+        MediumSlimeWithOldMan.damageTakenFromSword = damage;
+        SmallSlimeShell.damageTakenFromSword = damage;
+
         if (!Player.hasSword) return;
 
         if (player.rend.flipX && !hasFlippedCollider)
@@ -65,6 +66,7 @@ public class SwordAttack : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Return))
         {
+            damage = normalDamage;
             if (!isAttacking)
             {
                 isAttacking = true;
@@ -84,6 +86,7 @@ public class SwordAttack : MonoBehaviour
         {
             if (player.IsGrounded())
             {
+                damage = heavyDamage;
                 player.canMove = false;
                 player.rgdb.velocity = Vector2.zero;
                 Invoke("PlayerCanMoveAgain", 0.6f);
@@ -103,6 +106,7 @@ public class SwordAttack : MonoBehaviour
         {
             if (player.IsGrounded() && canDashAttack)
             {
+                damage = dashDamage;
                 StartCoroutine(DashSwordAttackGrounded());
             }
         }
