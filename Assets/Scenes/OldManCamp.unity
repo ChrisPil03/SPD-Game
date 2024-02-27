@@ -759,6 +759,7 @@ GameObject:
   - component: {fileID: 136037535}
   - component: {fileID: 136037534}
   - component: {fileID: 136037533}
+  - component: {fileID: 136037536}
   m_Layer: 5
   m_Name: NotUnlockeble (1)
   m_TagString: Skill_Locked
@@ -879,6 +880,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 136037531}
   m_CullTransparentMesh: 1
+--- !u!114 &136037536
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 136037531}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates: []
 --- !u!1 &137916445
 GameObject:
   m_ObjectHideFlags: 0
@@ -2241,6 +2255,7 @@ GameObject:
   - component: {fileID: 394792641}
   - component: {fileID: 394792640}
   - component: {fileID: 394792639}
+  - component: {fileID: 394792642}
   m_Layer: 5
   m_Name: DashSwordAttack
   m_TagString: Skill_Dash
@@ -2361,6 +2376,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 394792637}
   m_CullTransparentMesh: 1
+--- !u!114 &394792642
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 394792637}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates: []
 --- !u!1 &407639785
 GameObject:
   m_ObjectHideFlags: 0
@@ -4352,6 +4380,7 @@ GameObject:
   - component: {fileID: 645103700}
   - component: {fileID: 645103699}
   - component: {fileID: 645103698}
+  - component: {fileID: 645103701}
   m_Layer: 5
   m_Name: DoubleJump
   m_TagString: Skill_DoubleJump
@@ -4472,6 +4501,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 645103696}
   m_CullTransparentMesh: 1
+--- !u!114 &645103701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 645103696}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates: []
 --- !u!1 &660928886
 GameObject:
   m_ObjectHideFlags: 0
@@ -6868,10 +6910,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Use skill tokens to learn new skills
-
-    Acquire skill tokens by leveling
-    up'
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -7851,6 +7890,7 @@ GameObject:
   - component: {fileID: 1117663876}
   - component: {fileID: 1117663875}
   - component: {fileID: 1117663874}
+  - component: {fileID: 1117663877}
   m_Layer: 5
   m_Name: NotUnlockeble
   m_TagString: Skill_Locked
@@ -7971,6 +8011,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1117663872}
   m_CullTransparentMesh: 1
+--- !u!114 &1117663877
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1117663872}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates: []
 --- !u!1 &1121999817
 GameObject:
   m_ObjectHideFlags: 0
@@ -9280,6 +9333,7 @@ GameObject:
   - component: {fileID: 1312681985}
   - component: {fileID: 1312681984}
   - component: {fileID: 1312681983}
+  - component: {fileID: 1312681986}
   m_Layer: 5
   m_Name: DoubleSwordSkill
   m_TagString: Skill_Locked
@@ -9400,6 +9454,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1312681981}
   m_CullTransparentMesh: 1
+--- !u!114 &1312681986
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1312681981}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates: []
 --- !u!1 &1313570651
 GameObject:
   m_ObjectHideFlags: 0
@@ -9706,6 +9773,7 @@ GameObject:
   - component: {fileID: 1369903874}
   - component: {fileID: 1369903873}
   - component: {fileID: 1369903872}
+  - component: {fileID: 1369903875}
   m_Layer: 5
   m_Name: HeavySwordAttack
   m_TagString: Skill_HeavyAttack
@@ -9826,6 +9894,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1369903870}
   m_CullTransparentMesh: 1
+--- !u!114 &1369903875
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1369903870}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates: []
 --- !u!1 &1370833391
 GameObject:
   m_ObjectHideFlags: 0
@@ -30574,6 +30655,9 @@ MonoBehaviour:
   heavyAttack: {fileID: 1369903872}
   dashSwordAttack: {fileID: 394792639}
   doubleJump: {fileID: 645103698}
+  twoSwordAttack: {fileID: 1312681983}
+  mysterySkillOne: {fileID: 1117663874}
+  mysterySkillTwo: {fileID: 136037533}
 --- !u!1 &1817239464
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,7 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class SkillTreeButtonController : MonoBehaviour
@@ -9,12 +8,19 @@ public class SkillTreeButtonController : MonoBehaviour
     [SerializeField] private TMP_Text infoText, errorText;
     private Player player;
 
-    [SerializeField] private Button heavyAttack, dashSwordAttack, doubleJump;
+    [SerializeField] private Button heavyAttack, dashSwordAttack, doubleJump, twoSwordAttack, mysterySkillOne, mysterySkillTwo;
 
 
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+
+        InitializeButton(heavyAttack, "Skill_HeavyAttack");
+        InitializeButton(dashSwordAttack, "Skill_Dash");
+        InitializeButton(doubleJump, "Skill_DoubleJump");
+        InitializeButton(twoSwordAttack, "Skill_Locked");
+        InitializeButton(mysterySkillOne, "Skill_Locked");
+        InitializeButton(mysterySkillTwo, "Skill_Locked");
 
         if (SwordAttack.hasDashSwordAttackSkill)
         {
@@ -28,6 +34,34 @@ public class SkillTreeButtonController : MonoBehaviour
         {
             doubleJump.interactable = false;
         }
+
+        infoText.text = "Use skill tokens to learn new skills\r\nAcquire skill tokens by defeating slimes and receiving essence";
+    }
+
+    private void InitializeButton(Button button, string tag)
+    {
+        // Add event listeners for OnPointerEnter and OnPointerExit
+        EventTrigger.Entry entryPointerEnter = new EventTrigger.Entry();
+        entryPointerEnter.eventID = EventTriggerType.PointerEnter;
+        entryPointerEnter.callback.AddListener((eventData) => { OnPointerEnter(button, tag); });
+        button.GetComponent<EventTrigger>().triggers.Add(entryPointerEnter);
+
+        EventTrigger.Entry entryPointerExit = new EventTrigger.Entry();
+        entryPointerExit.eventID = EventTriggerType.PointerExit;
+        entryPointerExit.callback.AddListener((eventData) => { OnPointerExit(); });
+        button.GetComponent<EventTrigger>().triggers.Add(entryPointerExit);
+    }
+
+    private void OnPointerEnter(Button button, string tag)
+    {
+        ShowSkillInfo(button);
+        ShowSkillError(button);
+    }
+
+    private void OnPointerExit()
+    {
+        infoText.text = "Use skill tokens to learn new skills\r\nAcquire skill tokens by defeating slimes and receiving essence";
+        errorText.text = "";
     }
 
     public void DisableButton(Button button)
@@ -39,17 +73,12 @@ public class SkillTreeButtonController : MonoBehaviour
             button.interactable = false;
             AcquireSkill(button);
         }
-        else if (button.CompareTag("Skill_Locked"))
-        {
-            errorText.text = "-- This skill is locked --";
-        }
     }
 
     private bool CanAcquireSkill(Button button)
     {
         if ((button.CompareTag("Skill_HeavyAttack") && !Player.hasSword) || (button.CompareTag("Skill_TwoSwords") && !Player.hasSword) || (button.CompareTag("Skill_Dash") && !Player.hasSword))
         {
-            errorText.text = "-- You need a sword to learn this skill --";
             return false;
         }
         else if (Player.skillTokens >= 1)
@@ -58,7 +87,6 @@ public class SkillTreeButtonController : MonoBehaviour
             player.UpdateSkillTokensText();
             return true;
         }
-        errorText.text = "-- You need skill tokens to learn new skills --";
         return false;
     }
 
@@ -86,7 +114,7 @@ public class SkillTreeButtonController : MonoBehaviour
         }
         else if (button.CompareTag("Skill_HeavyAttack"))
         {
-            infoText.text = "Press [ Right Control ] to make a heavy attack";
+            infoText.text = "Do a heavy attack by pressing [ Right Control ]";
         }
         else if (button.CompareTag("Skill_Dash"))
         {
@@ -99,6 +127,26 @@ public class SkillTreeButtonController : MonoBehaviour
         else if (button.CompareTag("Skill_Locked"))
         {
             infoText.text = "Mystery skill";
+        }
+    }
+
+    private void ShowSkillError(Button button)
+    {
+        if ((button.CompareTag("Skill_HeavyAttack") && !Player.hasSword) || (button.CompareTag("Skill_TwoSwords") && !Player.hasSword) || (button.CompareTag("Skill_Dash") && !Player.hasSword))
+        {
+            errorText.text = "-- You need a sword to learn this skill --";
+        }
+        else if (Player.skillTokens < 1)
+        {
+            errorText.text = "-- You don't have enough skill tokens to learn this skill --";
+        }
+        else if (button.CompareTag("Skill_Locked"))
+        {
+            errorText.text = "-- This skill is locked --";
+        }
+        else
+        {
+            errorText.text = string.Empty;
         }
     }
 }
