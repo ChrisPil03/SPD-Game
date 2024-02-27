@@ -5,9 +5,12 @@ using UnityEngine;
 public class SwordAttack : MonoBehaviour
 {
     [SerializeField] private int damage = 10;
+    [HideInInspector] static public bool hasHeavyAttackSkill;
+    [HideInInspector] static public bool hasDashSwordAttackSkill;
 
     private Player player;
     private PolygonCollider2D polygonCollider;
+    private AudioSource audioSource;
 
     private bool isAttacking;
     private bool hasFlippedCollider;
@@ -18,10 +21,16 @@ public class SwordAttack : MonoBehaviour
     private float dashingCoolDown = 0.5f;
     private bool canDashAttack = true;
 
+    [HideInInspector] public bool canHeavyAttack = true;
+    private float heavyAttackCoolDown = 1f;
+
+    [SerializeField] private AudioClip normalSwordAttack, heavySwordAttack;
+
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         polygonCollider = gameObject.GetComponent<PolygonCollider2D>();
+        audioSource = GameObject.FindGameObjectWithTag("Player").GetComponent<AudioSource>();
 
         Slime.damageTakenFromSword = damage;
         MediumSlimeWithOldMan.damageTakenFromSword = damage;
@@ -66,17 +75,31 @@ public class SwordAttack : MonoBehaviour
                 player.anim.Play("SwordAttackTwo");
 
             }
+
+            audioSource.pitch = Random.Range(0.9f, 1.2f);
+            audioSource.PlayOneShot(normalSwordAttack, 0.05f);
         }
 
-        if (Input.GetKeyDown(KeyCode.RightControl))
+        if (Input.GetKeyDown(KeyCode.RightControl) && hasHeavyAttackSkill && canHeavyAttack)
         {
             if (player.IsGrounded())
             {
+                player.canMove = false;
+                player.rgdb.velocity = Vector2.zero;
+                Invoke("PlayerCanMoveAgain", 0.6f);
+
+                canHeavyAttack = false;
                 player.anim.Play("HeavySwordAttackGrounded");
+
+                audioSource.pitch = Random.Range(1f, 1.2f);
+                audioSource.PlayOneShot(normalSwordAttack, 0.05f);
+                audioSource.PlayOneShot(heavySwordAttack, 0.1f);
+
+                Invoke("CanHeavyAttackAgain", heavyAttackCoolDown);
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.RightShift))
+        if (Input.GetKeyDown(KeyCode.RightShift) && hasDashSwordAttackSkill)
         {
             if (player.IsGrounded() && canDashAttack)
             {
@@ -101,6 +124,10 @@ public class SwordAttack : MonoBehaviour
         player.GetComponent<CapsuleCollider2D>().enabled = false;
         player.rgdb.velocity = new Vector2(transform.localScale.x * dashingPower, 0f);
 
+        audioSource.pitch = Random.Range(0.8f, 1f);
+        audioSource.PlayOneShot(normalSwordAttack, 0.15f);
+        audioSource.PlayOneShot(heavySwordAttack, 0.02f);
+
         yield return new WaitForSeconds(dashingTime);
 
         player.GetComponent<CapsuleCollider2D>().enabled = true;
@@ -118,6 +145,11 @@ public class SwordAttack : MonoBehaviour
     {
         if (!player.canMove)
         player.canMove = true;
+    }
+
+    private void CanHeavyAttackAgain()
+    {
+        canHeavyAttack = true;
     }
 
     private void FlipCollider()

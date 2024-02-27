@@ -9,9 +9,25 @@ public class SkillTreeButtonController : MonoBehaviour
     [SerializeField] private TMP_Text infoText, errorText;
     private Player player;
 
+    [SerializeField] private Button heavyAttack, dashSwordAttack, doubleJump;
+
+
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+
+        if (SwordAttack.hasDashSwordAttackSkill)
+        {
+            dashSwordAttack.interactable = false;
+        }
+        if (SwordAttack.hasHeavyAttackSkill)
+        {
+            heavyAttack.interactable = false;
+        }
+        if (Player.canDoubleJump)
+        {
+            doubleJump.interactable = false;
+        }
     }
 
     public void DisableButton(Button button)
@@ -31,7 +47,7 @@ public class SkillTreeButtonController : MonoBehaviour
 
     private bool CanAcquireSkill(Button button)
     {
-        if ((button.CompareTag("Skill_HeavyAttack") && !Player.hasSword) || (button.CompareTag("Skill_TwoSwords") && !Player.hasSword))
+        if ((button.CompareTag("Skill_HeavyAttack") && !Player.hasSword) || (button.CompareTag("Skill_TwoSwords") && !Player.hasSword) || (button.CompareTag("Skill_Dash") && !Player.hasSword))
         {
             errorText.text = "-- You need a sword to learn this skill --";
             return false;
@@ -50,7 +66,15 @@ public class SkillTreeButtonController : MonoBehaviour
     {
         if (button.CompareTag("Skill_DoubleJump"))
         {
-            player.canDoubleJump = true;
+            Player.canDoubleJump = true;
+        }
+        else if (button.CompareTag("Skill_Dash"))
+        {
+            SwordAttack.hasDashSwordAttackSkill = true;
+        }
+        else if (button.CompareTag("Skill_HeavyAttack"))
+        {
+            SwordAttack.hasHeavyAttackSkill = true;
         }
     }
 
@@ -58,11 +82,15 @@ public class SkillTreeButtonController : MonoBehaviour
     {
         if (button.CompareTag("Skill_DoubleJump"))
         {
-            infoText.text = "Jump once more while in the air by pressing [space] after a jump";
+            infoText.text = "Jump once more while in the air by pressing [ Space ] after a jump";
         }
         else if (button.CompareTag("Skill_HeavyAttack"))
         {
-            infoText.text = "Heavy sword attack";
+            infoText.text = "Press [ Right Control ] to make a heavy attack";
+        }
+        else if (button.CompareTag("Skill_Dash"))
+        {
+            infoText.text = "Do a dash attack by pressing [ Right Shift ]";
         }
         else if (button.CompareTag("Skill_TwoSwords"))
         {

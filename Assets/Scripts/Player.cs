@@ -24,13 +24,13 @@ public class Player : MonoBehaviour
     [HideInInspector] public Rigidbody2D rgdb;
     [HideInInspector] public SpriteRenderer rend;
     [HideInInspector] public Animator anim;
+    [HideInInspector] public AudioSource audioSource;
     private Hotbar hotbar;
-    private AudioSource audioSource;
     private Color originalColor;
 
     [Header("Collectables")]
     [SerializeField] private TMP_Text SkillTokensText;
-    [HideInInspector] public static int skillTokens = 0;
+    [HideInInspector] public static int skillTokens = 2;
     [SerializeField] private TMP_Text jarsOfSlimeText;
     [HideInInspector] public static int jarsOfSlime = 0;
 
@@ -54,7 +54,7 @@ public class Player : MonoBehaviour
 
     [Header("Jump")]
     [SerializeField] private float jumpForce = 9.5f;
-    [HideInInspector] public bool canDoubleJump = false;
+    [HideInInspector] static public bool canDoubleJump = false;
     private bool doubleJump;
 
     [Header("Dash")]
@@ -157,13 +157,6 @@ public class Player : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Return))
             {
                 StartCoroutine(AttackingWithSword());
-            }
-
-            if (Input.GetKeyDown(KeyCode.RightControl))
-            {
-                canMove = false;
-                rgdb.velocity = Vector2.zero;
-                Invoke("CanMove", 0.6f);
             }
         }
 
