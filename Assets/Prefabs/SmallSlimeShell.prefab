@@ -62,9 +62,9 @@ MonoBehaviour:
   vForce: 4
   hForce: -2
   giveBounceForce: 5
-  giveVKnockback: 4
+  giveVKnockback: 5
   giveHKnockback: 3
-  damageGiven: 10
+  damageGiven: 12
   boxCollider: {fileID: 5068491859889650774}
   capsuleCollider: {fileID: 8458431705549890377}
 --- !u!212 &4160473464890103895

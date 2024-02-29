@@ -531,7 +531,7 @@ MonoBehaviour:
   startingHealth: 100
   healthbar: {fileID: 0}
   healthCounter: {fileID: 0}
-  getHealth: 30
+  getHealth: 20
   moveSpeed: 160
   canMove: 0
   jumpForce: 7
