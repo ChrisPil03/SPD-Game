@@ -9,6 +9,7 @@ public class SkillTreeButtonController : MonoBehaviour
     private Player player;
 
     [SerializeField] private Button heavyAttack, dashSwordAttack, doubleJump, twoSwordAttack, mysterySkillOne, mysterySkillTwo;
+    private Color32 lockedColor, unlockedColor;
 
 
     private void Start()
@@ -21,6 +22,13 @@ public class SkillTreeButtonController : MonoBehaviour
         InitializeButton(twoSwordAttack, "Skill_Locked");
         InitializeButton(mysterySkillOne, "Skill_Locked");
         InitializeButton(mysterySkillTwo, "Skill_Locked");
+
+        lockedColor = new Color32(160, 160, 160, 100);
+        unlockedColor = new Color32(255, 255, 255, 100);
+
+        twoSwordAttack.GetComponent<Image>().color = lockedColor;
+        mysterySkillOne.GetComponent<Image>().color = lockedColor;
+        mysterySkillTwo.GetComponent<Image>().color = lockedColor;
 
         if (SwordAttack.hasDashSwordAttackSkill)
         {
@@ -36,6 +44,47 @@ public class SkillTreeButtonController : MonoBehaviour
         }
 
         infoText.text = "Use skill tokens to learn new skills\r\nAcquire skill tokens by defeating slimes and receiving essence";
+    }
+
+    private void Update()
+    {
+        if (GameObject.FindGameObjectWithTag("SkillTree").GetComponent<SkillTree>().canAccessSkillTree)
+        {
+            ButtonColorManager();
+        }
+    }
+
+    private void ButtonColorManager()
+    {
+        if (!Player.hasSword)
+        {
+            heavyAttack.GetComponent<Image>().color = lockedColor;
+            dashSwordAttack.GetComponent<Image>().color = lockedColor;
+        }
+        if (Player.skillTokens < 1)
+        {
+            if (Player.hasSword)
+            {
+                if (!SwordAttack.hasHeavyAttackSkill)
+                {
+                    heavyAttack.GetComponent<Image>().color = lockedColor;
+                }
+                if (!SwordAttack.hasDashSwordAttackSkill)
+                {
+                    dashSwordAttack.GetComponent<Image>().color = lockedColor;
+                }
+            }
+            if (!Player.canDoubleJump)
+            {
+                doubleJump.GetComponent<Image>().color = lockedColor;
+            }
+        }
+        else
+        {
+            doubleJump.GetComponent<Image>().color = unlockedColor;
+            heavyAttack.GetComponent<Image>().color = unlockedColor;
+            dashSwordAttack.GetComponent<Image>().color = unlockedColor;
+        }
     }
 
     private void InitializeButton(Button button, string tag)
@@ -137,13 +186,13 @@ public class SkillTreeButtonController : MonoBehaviour
         {
             errorText.text = "-- You need a sword to learn this skill --";
         }
-        else if (Player.skillTokens < 1)
-        {
-            errorText.text = "-- You don't have enough skill tokens to learn this skill --";
-        }
         else if (button.CompareTag("Skill_Locked"))
         {
             errorText.text = "-- This skill is locked --";
+        }
+        else if (Player.skillTokens < 1 && button.interactable)
+        {
+            errorText.text = "-- You don't have enough skill tokens to learn this skill --";
         }
         else
         {

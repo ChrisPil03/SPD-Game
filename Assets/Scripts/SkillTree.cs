@@ -9,7 +9,7 @@ public class SkillTree : MonoBehaviour
     [SerializeField] private GameObject skillTree;
     [SerializeField] private TMP_Text infoText, errorText;
 
-    private bool canAccessSkillTree = false;
+    [HideInInspector] public bool canAccessSkillTree = false;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
