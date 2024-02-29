@@ -112,7 +112,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9b24e099e59dda42aec2dba845f5cc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  normalDamage: 5
+  normalDamage: 10
   heavyDamage: 30
   dashDamage: 15
   canHeavyAttack: 1
@@ -220,7 +220,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9b24e099e59dda42aec2dba845f5cc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  normalDamage: 5
+  normalDamage: 10
   heavyDamage: 30
   dashDamage: 15
   canHeavyAttack: 1
@@ -328,7 +328,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9b24e099e59dda42aec2dba845f5cc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  normalDamage: 5
+  normalDamage: 10
   heavyDamage: 30
   dashDamage: 15
   canHeavyAttack: 1
@@ -830,7 +830,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9b24e099e59dda42aec2dba845f5cc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  normalDamage: 5
+  normalDamage: 10
   heavyDamage: 30
   dashDamage: 15
   canHeavyAttack: 1

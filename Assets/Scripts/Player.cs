@@ -30,7 +30,7 @@ public class Player : MonoBehaviour
 
     [Header("Collectables")]
     [SerializeField] private TMP_Text SkillTokensText;
-    [HideInInspector] public static int skillTokens = 2;
+    [HideInInspector] public static int skillTokens = 0;
     [SerializeField] private TMP_Text jarsOfSlimeText;
     [HideInInspector] public static int jarsOfSlime = 0;
 
@@ -44,7 +44,7 @@ public class Player : MonoBehaviour
     [SerializeField] private HealthBar healthbar;
     [SerializeField] private TMP_Text healthCounter;
     [HideInInspector] public static int currentHealth;
-    [SerializeField] private int getHealth = 30;
+    [SerializeField] private int getHealth = 20;
 
     [Header("Movement")]
     [SerializeField] private float moveSpeed = 150f;
