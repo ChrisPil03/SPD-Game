@@ -81,9 +81,13 @@ public class SkillTreeButtonController : MonoBehaviour
         }
         else
         {
+            if (Player.hasSword)
+            {
+                dashSwordAttack.GetComponent<Image>().color = unlockedColor;
+                heavyAttack.GetComponent<Image>().color = unlockedColor;
+            }
             doubleJump.GetComponent<Image>().color = unlockedColor;
-            heavyAttack.GetComponent<Image>().color = unlockedColor;
-            dashSwordAttack.GetComponent<Image>().color = unlockedColor;
+
         }
     }
 

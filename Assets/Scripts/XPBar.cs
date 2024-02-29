@@ -19,6 +19,12 @@ public class XPBar : MonoBehaviour
         {
             float normalizedTime = frame / totalFramesInAnimation;
 
+            if (frame == totalFramesInAnimation)
+            {
+                anim.Play("XP bar", 0, 14/15f);
+                return;
+            }
+
             if ((playerXP / 100f) <= normalizedTime)
             {
                 anim.Play("XP bar", 0, normalizedTime);

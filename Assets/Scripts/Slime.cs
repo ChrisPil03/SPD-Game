@@ -13,7 +13,7 @@ public class Slime : MonoBehaviour
 
     [SerializeField] private AudioClip slimeSound;
     [SerializeField] private GameObject slimeParticles;
-    [SerializeField] private int giveXp = 4;
+    [SerializeField] private int giveXp = 2;
     [SerializeField] private float smoothing = 2f;
     private Color alphaColor;
     private Player player;
@@ -62,11 +62,7 @@ public class Slime : MonoBehaviour
 
         currentHealth = startingHealth;
 
-        if (!canTakeDamage)
-        {
-            giveXp += giveXp;
-            Invoke("CanTakeDamageAgain", 0.4f);
-        }
+        Invoke("CanTakeDamageAgain", 0.4f);
     }
 
     void Update()

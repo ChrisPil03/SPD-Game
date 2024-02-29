@@ -24509,7 +24509,7 @@ GameObject:
   - component: {fileID: 1240734632}
   - component: {fileID: 1240734631}
   - component: {fileID: 1240734630}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Vines
   m_TagString: Vines
   m_Icon: {fileID: 0}

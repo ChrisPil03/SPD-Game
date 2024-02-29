@@ -84,7 +84,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slimeSound: {fileID: 8300000, guid: 64511419930d8064686d39a9781d5821, type: 3}
   slimeParticles: {fileID: 1374396828455446285, guid: 649acdd01756d0c4a9a45d4308fcf836, type: 3}
-  giveXp: 4
+  giveXp: 2
   smoothing: 2
   ray: {fileID: 7765826464264926211}
   whatIsGround:
