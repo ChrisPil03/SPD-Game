@@ -30,7 +30,7 @@ public class Player : MonoBehaviour
 
     [Header("Collectables")]
     [SerializeField] private TMP_Text SkillTokensText;
-    [HideInInspector] public static int skillTokens = 3;
+    [HideInInspector] public static int skillTokens = 0;
     [SerializeField] private TMP_Text jarsOfSlimeText;
     [HideInInspector] public static int jarsOfSlime = 0;
 
