@@ -8,6 +8,7 @@ public class SecretBox : MonoBehaviour
     private bool hasBeenOpened;
 
     [SerializeField] private SpriteRenderer[] childRenderers;
+    [SerializeField] private GameObject gemsParticales;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -31,6 +32,7 @@ public class SecretBox : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E) && canOpenBox)
         {
+            Instantiate(gemsParticales, transform.position, gemsParticales.transform.rotation);
             interactionIcon.SetActive(false);
             hasBeenOpened = true;
             Player.gems += Random.Range(2, 4);

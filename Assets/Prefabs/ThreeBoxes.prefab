@@ -351,6 +351,7 @@ MonoBehaviour:
   - {fileID: 2556659983040714026}
   - {fileID: 7694312939948230634}
   - {fileID: 7202120201423138705}
+  gemsParticales: {fileID: 11949210393701107, guid: d7647d846a31c404cb5598f86031316b, type: 3}
 --- !u!212 &3113976177434208669
 SpriteRenderer:
   m_ObjectHideFlags: 0
