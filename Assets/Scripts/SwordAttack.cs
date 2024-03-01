@@ -8,13 +8,17 @@ public class SwordAttack : MonoBehaviour
     [HideInInspector] static public bool hasHeavyAttackSkill;
     [HideInInspector] static public bool hasDashSwordAttackSkill;
 
+    [SerializeField] private PolygonCollider2D polygonColliderAttackOne;
+    [SerializeField] private PolygonCollider2D polygonColliderAttackTwo;
+    [SerializeField] private PolygonCollider2D polygonColliderAttackHeavyAttack;
+    [SerializeField] private PolygonCollider2D polygonColliderAttackDashAttack;
+
     private Player player;
-    private PolygonCollider2D polygonCollider;
+    private StaminaController staminaController;
     private AudioSource audioSource;
 
     private int damage;
     private bool isAttacking;
-    private bool hasFlippedCollider;
     private float timer = 0;
 
     private float dashingPower = 18f;
@@ -29,9 +33,9 @@ public class SwordAttack : MonoBehaviour
 
     private void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
-        polygonCollider = gameObject.GetComponent<PolygonCollider2D>();
-        audioSource = GameObject.FindGameObjectWithTag("Player").GetComponent<AudioSource>();
+        player = GetComponent<Player>();
+        staminaController = GetComponent<StaminaController>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -41,18 +45,6 @@ public class SwordAttack : MonoBehaviour
         SmallSlimeShell.damageTakenFromSword = damage;
 
         if (!Player.hasSword) return;
-
-        if (player.rend.flipX && !hasFlippedCollider)
-        {
-            FlipCollider();
-            hasFlippedCollider = true;
-        }
-        else if (!player.rend.flipX && hasFlippedCollider)
-        {
-            FlipCollider();
-            hasFlippedCollider = false;
-        }
-        
 
         if (isAttacking)
         {
@@ -66,20 +58,7 @@ public class SwordAttack : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Return))
         {
-            damage = normalDamage;
-            if (!isAttacking)
-            {
-                isAttacking = true;
-                player.anim.Play("SwordAttackOne");
-            }
-            else if (isAttacking && timer > 0.1f)
-            {
-                player.anim.Play("SwordAttackTwo");
-
-            }
-
-            audioSource.pitch = Random.Range(0.9f, 1.2f);
-            audioSource.PlayOneShot(normalSwordAttack, 0.05f);
+            staminaController.StaminaNormalAttack();
         }
 
         if (Input.GetKeyDown(KeyCode.RightControl) && hasHeavyAttackSkill && canHeavyAttack)
@@ -87,18 +66,7 @@ public class SwordAttack : MonoBehaviour
             if (player.IsGrounded())
             {
                 damage = heavyDamage;
-                player.canMove = false;
-                player.rgdb.velocity = Vector2.zero;
-                Invoke("PlayerCanMoveAgain", 0.6f);
-
-                canHeavyAttack = false;
-                player.anim.Play("HeavySwordAttackGrounded");
-
-                audioSource.pitch = Random.Range(1f, 1.2f);
-                audioSource.PlayOneShot(normalSwordAttack, 0.05f);
-                audioSource.PlayOneShot(heavySwordAttack, 0.1f);
-
-                Invoke("CanHeavyAttackAgain", heavyAttackCoolDown);
+                staminaController.StaminaHeavyAttack();
             }
         }
 
@@ -107,12 +75,47 @@ public class SwordAttack : MonoBehaviour
             if (player.IsGrounded() && canDashAttack)
             {
                 damage = dashDamage;
-                StartCoroutine(DashSwordAttackGrounded());
+                staminaController.StaminaDashSwordAttack();
             }
         }
     }
 
-    private IEnumerator DashSwordAttackGrounded()
+    public void NormalAttack()
+    {
+        damage = normalDamage;
+        if (!isAttacking)
+        {
+            isAttacking = true;
+            player.anim.Play("SwordAttackOne");
+
+        }
+        else if (isAttacking && timer > 0.1f)
+        {
+            player.anim.Play("SwordAttackTwo");
+
+        }
+
+        audioSource.pitch = Random.Range(0.9f, 1.2f);
+        audioSource.PlayOneShot(normalSwordAttack, 0.05f);
+    }
+
+    public void HeavyAttack()
+    {
+        player.canMove = false;
+        player.rgdb.velocity = Vector2.zero;
+        Invoke("PlayerCanMoveAgain", 0.6f);
+
+        canHeavyAttack = false;
+        player.anim.Play("HeavySwordAttackGrounded");
+
+        audioSource.pitch = Random.Range(1f, 1.2f);
+        audioSource.PlayOneShot(normalSwordAttack, 0.05f);
+        audioSource.PlayOneShot(heavySwordAttack, 0.1f);
+
+        Invoke("CanHeavyAttackAgain", heavyAttackCoolDown);
+    }
+
+    public IEnumerator DashSwordAttackGrounded()
     {
         player.canMove = false;
         Invoke("PlayerCanMoveAgain", 0.717f);
@@ -126,7 +129,14 @@ public class SwordAttack : MonoBehaviour
         yield return new WaitForSeconds(0.06f);
 
         player.GetComponent<CapsuleCollider2D>().enabled = false;
-        player.rgdb.velocity = new Vector2(transform.localScale.x * dashingPower, 0f);
+        if (!player.rend.flipX)
+        {
+            player.rgdb.velocity = new Vector2(transform.localScale.x * dashingPower, 0f);
+        }
+        else
+        {
+            player.rgdb.velocity = new Vector2(transform.localScale.x * -dashingPower, 0f);
+        }
 
         audioSource.pitch = Random.Range(0.8f, 1f);
         audioSource.PlayOneShot(normalSwordAttack, 0.15f);
@@ -154,15 +164,5 @@ public class SwordAttack : MonoBehaviour
     private void CanHeavyAttackAgain()
     {
         canHeavyAttack = true;
-    }
-
-    private void FlipCollider()
-    {
-        // Flip the collider by inverting the x-scale
-        polygonCollider.transform.localScale = new Vector3(
-            -polygonCollider.transform.localScale.x,
-            polygonCollider.transform.localScale.y,
-            polygonCollider.transform.localScale.z
-        );
     }
 }

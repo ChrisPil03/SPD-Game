@@ -219,7 +219,10 @@ public class Player : MonoBehaviour
 
     private void FlipSprite(bool direction)
     {
-        rend.flipX = direction;
+        // Determine the new scale based on the direction
+        Vector3 playerScale = transform.localScale;
+        playerScale.x = direction ? -1 : 1; // Flip the player GameObject
+        transform.localScale = playerScale;
     }
 
     private void Jump()

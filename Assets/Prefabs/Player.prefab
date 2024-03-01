@@ -76,7 +76,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8511208745231464268}
-  - component: {fileID: 5396644517355112778}
   - component: {fileID: 1521139681888267203}
   m_Layer: 11
   m_Name: Attack_2
@@ -100,24 +99,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3045732928448825696}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5396644517355112778
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4261455524060128069}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f9b24e099e59dda42aec2dba845f5cc1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  normalDamage: 10
-  heavyDamage: 30
-  dashDamage: 15
-  canHeavyAttack: 1
-  normalSwordAttack: {fileID: 8300000, guid: 690503961b625fd47840cc278742c973, type: 3}
-  heavySwordAttack: {fileID: 8300000, guid: 6534c47fab66dc348abff335703ce712, type: 3}
 --- !u!60 &1521139681888267203
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -184,7 +165,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2602571598910105535}
-  - component: {fileID: 744025072596210917}
   - component: {fileID: 6473857266018039096}
   m_Layer: 11
   m_Name: Attack_1
@@ -208,24 +188,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3045732928448825696}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &744025072596210917
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5105236150924087849}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f9b24e099e59dda42aec2dba845f5cc1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  normalDamage: 10
-  heavyDamage: 30
-  dashDamage: 15
-  canHeavyAttack: 1
-  normalSwordAttack: {fileID: 8300000, guid: 690503961b625fd47840cc278742c973, type: 3}
-  heavySwordAttack: {fileID: 8300000, guid: 6534c47fab66dc348abff335703ce712, type: 3}
 --- !u!60 &6473857266018039096
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -292,7 +254,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 266957503549677734}
-  - component: {fileID: 8213110230116961567}
   - component: {fileID: 7442275913350872028}
   m_Layer: 11
   m_Name: HeavyAttackGrounded
@@ -316,24 +277,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3045732928448825696}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8213110230116961567
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5128191069629344953}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f9b24e099e59dda42aec2dba845f5cc1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  normalDamage: 10
-  heavyDamage: 30
-  dashDamage: 15
-  canHeavyAttack: 1
-  normalSwordAttack: {fileID: 8300000, guid: 690503961b625fd47840cc278742c973, type: 3}
-  heavySwordAttack: {fileID: 8300000, guid: 6534c47fab66dc348abff335703ce712, type: 3}
 --- !u!60 &7442275913350872028
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -467,6 +410,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3045732928448825696}
   - component: {fileID: 8553631846548754366}
+  - component: {fileID: 3515410464247953524}
+  - component: {fileID: 2190041754367630748}
   - component: {fileID: 3251839416015756445}
   - component: {fileID: 1150951128095927673}
   - component: {fileID: 6638547899169467465}
@@ -546,6 +491,48 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 8484a211ad622e148ac0789084496a0b, type: 3}
   hitFromVines: {fileID: 8300000, guid: 833c00624df4d2a42bd8c0b5fbf512c7, type: 3}
   healthPotion: {fileID: 8300000, guid: 131430a01eda46c4bb4feed41b7c392f, type: 3}
+--- !u!114 &3515410464247953524
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8580520805780224321}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f235fca65bee6a4fa3e6b4f24b809b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerStamina: 100
+  maxStamina: 100
+  normalAttackCost: 20
+  heavyAttackCost: 40
+  dashSwordAttackCost: 60
+  staminaRegen: 25
+  staminaProgressUI: {fileID: 0}
+  sliderCanvasGroup: {fileID: 0}
+--- !u!114 &2190041754367630748
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8580520805780224321}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9b24e099e59dda42aec2dba845f5cc1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  normalDamage: 10
+  heavyDamage: 30
+  dashDamage: 15
+  polygonColliderAttackOne: {fileID: 6473857266018039096}
+  polygonColliderAttackTwo: {fileID: 1521139681888267203}
+  polygonColliderAttackHeavyAttack: {fileID: 7442275913350872028}
+  polygonColliderAttackDashAttack: {fileID: 5107919920516182628}
+  canHeavyAttack: 1
+  normalSwordAttack: {fileID: 8300000, guid: 690503961b625fd47840cc278742c973, type: 3}
+  heavySwordAttack: {fileID: 8300000, guid: 6534c47fab66dc348abff335703ce712, type: 3}
 --- !u!212 &3251839416015756445
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -794,7 +781,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7899569911263127292}
-  - component: {fileID: 4775591212701123605}
   - component: {fileID: 5107919920516182628}
   m_Layer: 11
   m_Name: DashSwordAttackGrounded
@@ -818,24 +804,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3045732928448825696}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4775591212701123605
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8950676545415077898}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f9b24e099e59dda42aec2dba845f5cc1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  normalDamage: 10
-  heavyDamage: 30
-  dashDamage: 15
-  canHeavyAttack: 1
-  normalSwordAttack: {fileID: 8300000, guid: 690503961b625fd47840cc278742c973, type: 3}
-  heavySwordAttack: {fileID: 8300000, guid: 6534c47fab66dc348abff335703ce712, type: 3}
 --- !u!60 &5107919920516182628
 PolygonCollider2D:
   m_ObjectHideFlags: 0
