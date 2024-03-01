@@ -18,6 +18,7 @@ public class Player : MonoBehaviour
     private bool takeDamageFromVines;
     private bool takingDamageFromVines;
 
+    [HideInInspector] public bool newSpawnPosition;
     [HideInInspector] static public bool changeSceneOnRespawn;
     [HideInInspector] static public int respawnScene;
 
@@ -90,6 +91,8 @@ public class Player : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         hotbar = GameObject.FindGameObjectWithTag("Hotbar").GetComponent<Hotbar>();
 
+        GetComponent<SwordAttack>().canAttack = false;
+
         originalGravity = rgdb.gravityScale;
         originalColor = rend.material.color;
         originalMoveSpeed = moveSpeed;
@@ -106,6 +109,7 @@ public class Player : MonoBehaviour
             xpBar.UpdateXPBar(currentXP);
             UpdateSkillTokensText();
             UpdateJarsOfSLime();
+            UpdateGemsText();
             if (hasSword)
             {
                 anim.SetBool("HasSword", true);
@@ -113,6 +117,7 @@ public class Player : MonoBehaviour
         }
 
         Respawn();
+        Invoke("CanAttackAgain", 2f);
         Invoke("CanMove", 2);
     }
 
@@ -323,6 +328,11 @@ public class Player : MonoBehaviour
         canMove = true;
     }
 
+    private void CanAttackAgain()
+    {
+        GetComponent<SwordAttack>().canAttack = true;
+    }
+
     private void PlayDoubleJumpAnim()
     {
         if (rgdb.velocity.y < -2)
@@ -358,6 +368,7 @@ public class Player : MonoBehaviour
             GameObject.FindGameObjectWithTag("StartBossBattle").GetComponent<StartBossBattle>().playerBlock.enabled = false;
             GameObject.FindGameObjectWithTag("Boss").GetComponent<MediumSlimeWithOldMan>().startJumping = false;
             cameraController.isInBossBattle = false;
+            GameObject.FindGameObjectWithTag("Boss").GetComponent<MediumSlimeWithOldMan>().currentHealth = 30;
         }
 
         hitBox.enabled = true;
@@ -366,7 +377,7 @@ public class Player : MonoBehaviour
         transform.position = spawnPosition.position;
         FlipSprite(false);
 
-        while (cameraController.transform.position.x >= 5)
+        while (cameraController.transform.position.x >= 5 && !newSpawnPosition)
         {
             yield return null;
         }
@@ -384,12 +395,14 @@ public class Player : MonoBehaviour
             anim.Play("SpawningNoSword");
         }
 
+        Invoke("CanAttackAgain", 2f);
         Invoke("CanMove", 2f);
     }
 
     private IEnumerator Die()
     {
         canMove = false;
+        GetComponent<SwordAttack>().canAttack = false;
         yield return new WaitForSeconds(0.31f);
         if (canMove)
         {

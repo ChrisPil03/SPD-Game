@@ -28,7 +28,7 @@ public class MediumSlimeWithOldMan : MonoBehaviour
 
     [Header("Health")]
     [SerializeField] private int startingHealth = 20;
-    private int currentHealth;
+    [HideInInspector] public int currentHealth;
     private bool isDead = false;
 
     [Header("Jump")]

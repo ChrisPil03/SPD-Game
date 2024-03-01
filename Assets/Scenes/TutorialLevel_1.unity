@@ -8353,6 +8353,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerBlock: {fileID: 1005418221}
   boss: {fileID: 1311009036}
+  spawnPoint: {fileID: 376801256}
 --- !u!61 &821322386
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -28068,8 +28069,8 @@ Tilemap:
   - first: {x: 20, y: -1, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 10
-      m_TileSpriteIndex: 5
+      m_TileIndex: 28
+      m_TileSpriteIndex: 21
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -48917,7 +48918,7 @@ Tilemap:
     m_Data: {fileID: 11400000, guid: 742e0b7dac25fc8429c51b73dbf5cea6, type: 2}
   - m_RefCount: 8
     m_Data: {fileID: 11400000, guid: 997ccbb45f7204446bcba57c68d6d45c, type: 2}
-  - m_RefCount: 7
+  - m_RefCount: 6
     m_Data: {fileID: 11400000, guid: 6aab951c524b598409647b4ee699ba6f, type: 2}
   - m_RefCount: 2
     m_Data: {fileID: 11400000, guid: aea00a4c93b4a1643ba768ad38d6d96b, type: 2}
@@ -48953,8 +48954,8 @@ Tilemap:
     m_Data: {fileID: 11400000, guid: 045d3efe864b7004e90023780bb1b01b, type: 2}
   - m_RefCount: 1
     m_Data: {fileID: 11400000, guid: 68082237e050dbd4e839b0aec7218b57, type: 2}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
+  - m_RefCount: 1
+    m_Data: {fileID: 11400000, guid: d1826b58616897a40a29f55703ce904f, type: 2}
   m_TileSpriteArray:
   - m_RefCount: 2682
     m_Data: {fileID: 831480558, guid: 8e7afb451f635cc4cbded4662b196f10, type: 3}
@@ -48966,7 +48967,7 @@ Tilemap:
     m_Data: {fileID: 990354337, guid: 8e7afb451f635cc4cbded4662b196f10, type: 3}
   - m_RefCount: 2
     m_Data: {fileID: -106488204, guid: 8e7afb451f635cc4cbded4662b196f10, type: 3}
-  - m_RefCount: 7
+  - m_RefCount: 6
     m_Data: {fileID: 784807401, guid: 8e7afb451f635cc4cbded4662b196f10, type: 3}
   - m_RefCount: 8
     m_Data: {fileID: 444088810, guid: 8e7afb451f635cc4cbded4662b196f10, type: 3}
@@ -48998,8 +48999,8 @@ Tilemap:
     m_Data: {fileID: 0}
   - m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
+  - m_RefCount: 1
+    m_Data: {fileID: -781775649, guid: 8148b53b95aebc146a8b2461369a7698, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: -546726421, guid: 8e7afb451f635cc4cbded4662b196f10, type: 3}
   - m_RefCount: 9
@@ -59340,11 +59341,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3045732928448825696, guid: d113a9c64b04e2c4a9bd1399999919d9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.24
+      value: -3.31
       objectReference: {fileID: 0}
     - target: {fileID: 3045732928448825696, guid: d113a9c64b04e2c4a9bd1399999919d9, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.08
       objectReference: {fileID: 0}
     - target: {fileID: 3045732928448825696, guid: d113a9c64b04e2c4a9bd1399999919d9, type: 3}
       propertyPath: m_LocalPosition.z

@@ -17,6 +17,7 @@ public class SwordAttack : MonoBehaviour
     private StaminaController staminaController;
     private AudioSource audioSource;
 
+    [HideInInspector] public bool canAttack = true;
     private int damage;
     private bool isAttacking;
     private float timer = 0;
@@ -56,12 +57,12 @@ public class SwordAttack : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.Return))
+        if (Input.GetKeyDown(KeyCode.Return) && canAttack)
         {
             staminaController.StaminaNormalAttack();
         }
 
-        if (Input.GetKeyDown(KeyCode.RightControl) && hasHeavyAttackSkill && canHeavyAttack)
+        if (Input.GetKeyDown(KeyCode.RightControl) && hasHeavyAttackSkill && canHeavyAttack && canAttack)
         {
             if (player.IsGrounded())
             {
@@ -70,7 +71,7 @@ public class SwordAttack : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.RightShift) && hasDashSwordAttackSkill)
+        if (Input.GetKeyDown(KeyCode.RightShift) && hasDashSwordAttackSkill && canAttack)
         {
             if (player.IsGrounded() && canDashAttack)
             {
