@@ -33,6 +33,8 @@ public class SecretBox : MonoBehaviour
         {
             interactionIcon.SetActive(false);
             hasBeenOpened = true;
+            Player.gems += Random.Range(2, 4);
+            GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().UpdateGemsText();
             Destroy(gameObject, 2f);
         }
     }

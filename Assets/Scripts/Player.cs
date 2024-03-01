@@ -29,10 +29,13 @@ public class Player : MonoBehaviour
     private Color originalColor;
 
     [Header("Collectables")]
-    [SerializeField] private TMP_Text SkillTokensText;
+    [SerializeField] private TMP_Text skillTokensSkillTreeText;
+    [SerializeField] private TMP_Text skillTokensText;
     [HideInInspector] public static int skillTokens = 0;
     [SerializeField] private TMP_Text jarsOfSlimeText;
     [HideInInspector] public static int jarsOfSlime = 0;
+    [SerializeField] private TMP_Text gemsText;
+    [HideInInspector] public static int gems = 0;
 
     [Header("Level")]
     [SerializeField] private XPBar xpBar;
@@ -497,11 +500,17 @@ public class Player : MonoBehaviour
 
     public void UpdateSkillTokensText()
     {
-        SkillTokensText.text = skillTokens.ToString();
+        skillTokensSkillTreeText.text = skillTokens.ToString();
+        skillTokensText.text = skillTokens.ToString();
     }
 
     public void UpdateJarsOfSLime()
     {
         jarsOfSlimeText.text = jarsOfSlime.ToString();
+    }
+
+    public void UpdateGemsText()
+    {
+        gemsText.text = gems.ToString();
     }
 }
