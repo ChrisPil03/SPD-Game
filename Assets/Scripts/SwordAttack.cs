@@ -18,6 +18,7 @@ public class SwordAttack : MonoBehaviour
     private AudioSource audioSource;
 
     [HideInInspector] public bool canAttack = true;
+    [HideInInspector] static public int extraDamage = 0;
     private int damage;
     private bool isAttacking;
     private float timer = 0;
@@ -41,9 +42,9 @@ public class SwordAttack : MonoBehaviour
 
     private void Update()
     {
-        Slime.damageTakenFromSword = damage;
-        MediumSlimeWithOldMan.damageTakenFromSword = damage;
-        SmallSlimeShell.damageTakenFromSword = damage;
+        Slime.damageTakenFromSword = damage + extraDamage;
+        MediumSlimeWithOldMan.damageTakenFromSword = damage + extraDamage;
+        SmallSlimeShell.damageTakenFromSword = damage + extraDamage;
 
         if (!Player.hasSword) return;
 

@@ -235,6 +235,48 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Empty
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 49
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d4106291f35388d4581bed4dfbe5193e
+      internalID: 324219936
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pause
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 25
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 83eb48322c1cf3248aaf5a2a8fdeb52f
+      internalID: 724889418
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -249,8 +291,10 @@ TextureImporter:
       Dash: -1110165997
       DoubleJump: -1059693383
       DoubleSwordSkill: -1592302704
+      Empty: 324219936
       HeavySwordAttack: -910667578
       NotUnlockeble: -2031880729
+      Pause: 724889418
       VariableJumpHeight: -240321261
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0

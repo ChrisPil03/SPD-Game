@@ -29,6 +29,7 @@ public class Player : MonoBehaviour
     [HideInInspector] public AudioSource audioSource;
     private Hotbar hotbar;
     private Color originalColor;
+    private StaminaController staminaController;
 
     [Header("Collectables")]
     [SerializeField] private TMP_Text skillTokensSkillTreeText;
@@ -36,9 +37,9 @@ public class Player : MonoBehaviour
     [HideInInspector] public static int skillTokens = 0;
     [SerializeField] private GameObject skillTokenAnim;
     [SerializeField] private TMP_Text jarsOfSlimeText;
-    [HideInInspector] public static int jarsOfSlime = 0;
+    [HideInInspector] public static int jarsOfSlime = 70;
     [SerializeField] private TMP_Text gemsText;
-    [HideInInspector] public static int gems = 0;
+    [HideInInspector] public static int gems = 18;
 
     [Header("Level")]
     [SerializeField] private XPBar xpBar;
@@ -50,7 +51,8 @@ public class Player : MonoBehaviour
     [SerializeField] private HealthBar healthbar;
     [SerializeField] private TMP_Text healthCounter;
     [HideInInspector] public static int currentHealth;
-    [SerializeField] private int getHealth = 20;
+    private int getHealth = 20;
+    [HideInInspector] static public int extraHealth = 0;
 
     [Header("Movement")]
     [SerializeField] private float moveSpeed = 150f;
@@ -92,6 +94,7 @@ public class Player : MonoBehaviour
         anim = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
         hotbar = GameObject.FindGameObjectWithTag("Hotbar").GetComponent<Hotbar>();
+        staminaController = GetComponent<StaminaController>();
 
         GetComponent<SwordAttack>().canAttack = false;
 
@@ -153,7 +156,7 @@ public class Player : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.LeftShift) && canDash)
         {
-            StartCoroutine(Dash());
+            staminaController.StaminaDash();
         }
 
         if (Input.GetKeyDown(KeyCode.R) && hotbar.isFull[0] && currentHealth < startingHealth)
@@ -264,7 +267,7 @@ public class Player : MonoBehaviour
         doubleJump = false;
     }
 
-    private IEnumerator Dash()
+    public IEnumerator Dash()
     {
         canDash = false;
         isDashing = true;
@@ -442,7 +445,7 @@ public class Player : MonoBehaviour
         }
         else
         {
-            currentHealth += getHealth;
+            currentHealth += getHealth + extraHealth;
         }
         healthbar.UpdateHealthBar(currentHealth);
         healthCounter.text = currentHealth + "/" + startingHealth;

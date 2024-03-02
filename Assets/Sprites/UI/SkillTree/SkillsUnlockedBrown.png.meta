@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 8899717e39d961240ba72724497d521e
+guid: f6c53b0674efefa4b8f423b21d72ac11
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,7 +110,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: VariableJumpHeigth
+      name: SkillsUnlockedBrown_0
       rect:
         serializedVersion: 2
         x: 0
@@ -118,119 +118,14 @@ TextureImporter:
         width: 18
         height: 18
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ab79c51fe32b03349bbb984964f3407b
-      internalID: 110360295
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: HeavySwordAttack
-      rect:
-        serializedVersion: 2
-        x: 38
-        y: 49
-        width: 18
-        height: 18
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a7f1bfebc2790b44a8b18bcf015342c3
-      internalID: -1283454580
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: DoubleJump
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 25
-        width: 18
-        height: 18
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 177d876f4a6180c479e61b14bf55ad0c
-      internalID: 2017842513
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: DoubleSwordSkill
-      rect:
-        serializedVersion: 2
-        x: 38
-        y: 24
-        width: 18
-        height: 18
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 5d64eecfdab87a04b8421d8cb250748c
-      internalID: -1631242704
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Dash
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 0
-        width: 18
-        height: 18
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 5e595c85cab7de544b6c08fa68b072ed
-      internalID: -385302401
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: NotUnlockeble
-      rect:
-        serializedVersion: 2
-        x: 38
-        y: 0
-        width: 18
-        height: 18
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 440701e7aeabc984496918b437e6861c
-      internalID: -1415026151
+      spriteID: 9b81b04bba7720d47935d641a5e48d05
+      internalID: -1825744329
       vertices: []
       indices: 
       edges: []
@@ -250,17 +145,59 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 951aed9eed2397e41ba942c6357eabe1
-      internalID: 690264581
+      spriteID: b24efb215aff7d340aa3c334cfbee438
+      internalID: 722063686
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Pause
+      name: SkillsUnlockedBrown_2
       rect:
         serializedVersion: 2
-        x: 19
+        x: 38
+        y: 49
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9eec81138481fdd47b3d8226e3aca2bf
+      internalID: 1506850504
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkillsUnlockedBrown_3
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 24
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ed3ccfd04a0aa2b44af95f761d36309e
+      internalID: 1584532887
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkillsUnlockedBrown_4
+      rect:
+        serializedVersion: 2
+        x: 0
         y: 25
         width: 18
         height: 18
@@ -271,8 +208,50 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5ba7860c7609a874e9c2a2ce74cb173f
-      internalID: 633412615
+      spriteID: a5384a0273462fa4c99b8d8fc38f5ee3
+      internalID: 1193356773
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkillsUnlockedBrown_5
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 0
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 865c0422bf74c6f4994fac981a2d687d
+      internalID: -1120027369
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkillsUnlockedBrown_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c9942884ca9b99343ac4e7a6f03c64a0
+      internalID: 1971327240
       vertices: []
       indices: 
       edges: []
@@ -288,14 +267,13 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Dash: -385302401
-      DoubleJump: 2017842513
-      DoubleSwordSkill: -1631242704
-      Empty: 690264581
-      HeavySwordAttack: -1283454580
-      NotUnlockeble: -1415026151
-      Pause: 633412615
-      VariableJumpHeigth: 110360295
+      Empty: 722063686
+      SkillsUnlockedBrown_0: -1825744329
+      SkillsUnlockedBrown_2: 1506850504
+      SkillsUnlockedBrown_3: 1584532887
+      SkillsUnlockedBrown_4: 1193356773
+      SkillsUnlockedBrown_5: -1120027369
+      SkillsUnlockedBrown_6: 1971327240
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

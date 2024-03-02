@@ -25,6 +25,13 @@ TagManager:
   - Boss
   - SwordAttackOne
   - HeavyAttackGrounded
+  - Stat_Strength
+  - Stat_Stamina
+  - Stat_Health
+  - Stat_Loot
+  - Stat_Speed
+  - Stat_Magic
+  - OldManCamp
   layers:
   - Default
   - TransparentFX

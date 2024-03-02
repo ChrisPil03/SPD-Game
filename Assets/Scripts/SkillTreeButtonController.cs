@@ -25,7 +25,7 @@ public class SkillTreeButtonController : MonoBehaviour
         InitializeButton(mysterySkillTwo, "Skill_Locked");
 
         lockedColor = new Color32(160, 160, 160, 100);
-        unlockedColor = new Color32(255, 255, 255, 100);
+        unlockedColor = new Color32(255, 255, 255, 255);
 
         twoSwordAttack.GetComponent<Image>().color = lockedColor;
         mysterySkillOne.GetComponent<Image>().color = lockedColor;

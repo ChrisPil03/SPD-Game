@@ -5,7 +5,7 @@ public class CameraController : MonoBehaviour
     [SerializeField] private Transform playerTransform;
     [SerializeField] private float smoothing = 2f;
     [SerializeField] private float maxX; // Maximum X value for the camera boundary
-    [SerializeField] private float minX; // Minimum X value for the camera boundary
+    [SerializeField] public float minX; // Minimum X value for the camera boundary
     [SerializeField] private float maxY; // Maximum Y value for the camera boundary
     [SerializeField] private float minY; // Minimum Y value for the camera boundary
 
@@ -22,8 +22,8 @@ public class CameraController : MonoBehaviour
         {
             // Calculate the desired position for the camera
             Vector3 desiredPosition = new Vector3(
-                Mathf.Clamp(playerTransform.position.x + 1, minX, maxX),
-                Mathf.Clamp(playerTransform.position.y + 2, minY, maxY),
+                Mathf.Clamp(playerTransform.position.x, minX, maxX),
+                Mathf.Clamp(playerTransform.position.y + 1.5f, minY, maxY),
                 transform.position.z
             );
 
