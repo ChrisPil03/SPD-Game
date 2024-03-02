@@ -9,7 +9,7 @@ public class SkillTreeButtonController : MonoBehaviour
     [SerializeField] private GameObject skillTokenInText;
     private Player player;
 
-    [SerializeField] private Button heavyAttack, dashSwordAttack, doubleJump, twoSwordAttack, mysterySkillOne, mysterySkillTwo;
+    [SerializeField] private Button heavyAttack, dashSwordAttack, doubleJump, twoSwordAttack, mysterySkillOne, alchemy;
     private Color32 lockedColor, unlockedColor;
 
 
@@ -22,14 +22,14 @@ public class SkillTreeButtonController : MonoBehaviour
         InitializeButton(doubleJump, "Skill_DoubleJump");
         InitializeButton(twoSwordAttack, "Skill_Locked");
         InitializeButton(mysterySkillOne, "Skill_Locked");
-        InitializeButton(mysterySkillTwo, "Skill_Locked");
+        InitializeButton(alchemy, "Skill_alchemy");
 
         lockedColor = new Color32(160, 160, 160, 100);
         unlockedColor = new Color32(255, 255, 255, 255);
 
         twoSwordAttack.GetComponent<Image>().color = lockedColor;
         mysterySkillOne.GetComponent<Image>().color = lockedColor;
-        mysterySkillTwo.GetComponent<Image>().color = lockedColor;
+        alchemy.GetComponent<Image>().color = lockedColor;
 
         if (SwordAttack.hasDashSwordAttackSkill)
         {
@@ -42,6 +42,10 @@ public class SkillTreeButtonController : MonoBehaviour
         if (Player.canDoubleJump)
         {
             doubleJump.interactable = false;
+        }
+        if (Player.hasAlechemySkill)
+        {
+            alchemy.interactable = false;
         }
 
         infoText.text = "Use skill tokens        to learn new skills\r\nAcquire skill tokens by defeating slimes and receiving essence";
@@ -58,6 +62,10 @@ public class SkillTreeButtonController : MonoBehaviour
 
     private void ButtonColorManager()
     {
+        if (OldMan.firstInteraction)
+        {
+            alchemy.GetComponent<Image>().color = lockedColor;
+        }
         if (!Player.hasSword)
         {
             heavyAttack.GetComponent<Image>().color = lockedColor;
@@ -80,6 +88,10 @@ public class SkillTreeButtonController : MonoBehaviour
             {
                 doubleJump.GetComponent<Image>().color = lockedColor;
             }
+            if (!Player.hasAlechemySkill && !OldMan.firstInteraction)
+            {
+                alchemy.GetComponent<Image>().color = lockedColor;
+            }
         }
         else
         {
@@ -89,7 +101,7 @@ public class SkillTreeButtonController : MonoBehaviour
                 heavyAttack.GetComponent<Image>().color = unlockedColor;
             }
             doubleJump.GetComponent<Image>().color = unlockedColor;
-
+            alchemy.GetComponent<Image>().color = unlockedColor;
         }
     }
 
@@ -134,7 +146,7 @@ public class SkillTreeButtonController : MonoBehaviour
 
     private bool CanAcquireSkill(Button button)
     {
-        if ((button.CompareTag("Skill_HeavyAttack") && !Player.hasSword) || (button.CompareTag("Skill_TwoSwords") && !Player.hasSword) || (button.CompareTag("Skill_Dash") && !Player.hasSword))
+        if ((button.CompareTag("Skill_HeavyAttack") && !Player.hasSword) || (button.CompareTag("Skill_TwoSwords") && !Player.hasSword) || (button.CompareTag("Skill_Dash") && !Player.hasSword)  || (button.CompareTag("Skill_Alchemy") && OldMan.firstInteraction == true))
         {
             return false;
         }
@@ -161,6 +173,10 @@ public class SkillTreeButtonController : MonoBehaviour
         {
             SwordAttack.hasHeavyAttackSkill = true;
         }
+        else if (button.CompareTag("Skill_Alchemy"))
+        {
+            Player.hasAlechemySkill = true;
+        }
     }
 
     private void ShowSkillInfo(Button button)
@@ -177,9 +193,9 @@ public class SkillTreeButtonController : MonoBehaviour
         {
             infoText.text = "Do a dash attack by pressing [ Right Shift ]";
         }
-        else if (button.CompareTag("Skill_TwoSwords"))
+        else if (button.CompareTag("Skill_Alchemy"))
         {
-            infoText.text = "Two swords skill";
+            infoText.text = "Learn alchemy and be able to open up the stats upgrade table anywhere by pressing [ Tab ]";
         }
         else if (button.CompareTag("Skill_Locked"))
         {

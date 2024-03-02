@@ -12,7 +12,7 @@ public class OldMan : MonoBehaviour
     private float textSpeed = 0.05f;
     private bool dialogueActive;
     private bool skipDialogue;
-    static private bool firstInteraction = true;
+    [HideInInspector] static public bool firstInteraction = true;
 
     [SerializeField] private GameObject statUpgradesTable;
     [HideInInspector] public bool canOpenStatUpgrades;

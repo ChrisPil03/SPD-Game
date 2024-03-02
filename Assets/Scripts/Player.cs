@@ -12,8 +12,10 @@ public class Player : MonoBehaviour
     [SerializeField] private Transform leftFoot, rightFoot;
     [SerializeField] private LayerMask whatIsGround;
     [SerializeField] private CapsuleCollider2D hitBox;
+    [SerializeField] private GameObject statUpgradeTable = null;
 
-    public static bool keepValues = false;
+    [HideInInspector] public static bool keepValues = false;
+    [HideInInspector] public static bool hasAlechemySkill;
     private float originalGravity;
     private float rayDistance = 0.1f;
     private bool takeDamageFromVines;
@@ -173,6 +175,11 @@ public class Player : MonoBehaviour
             {
                 StartCoroutine(AttackingWithSword());
             }
+        }
+
+        if (hasAlechemySkill && Input.GetKeyDown(KeyCode.Tab) && statUpgradeTable != null)
+        {
+            statUpgradeTable.SetActive(true);
         }
 
         currentTimeWalk = Time.time;

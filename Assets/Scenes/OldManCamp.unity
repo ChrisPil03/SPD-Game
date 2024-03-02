@@ -526,7 +526,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!50 &34624372
 Rigidbody2D:
   serializedVersion: 4
@@ -1215,8 +1215,8 @@ GameObject:
   - component: {fileID: 136037533}
   - component: {fileID: 136037536}
   m_Layer: 5
-  m_Name: NotUnlockeble (1)
-  m_TagString: Skill_Locked
+  m_Name: Alchemy
+  m_TagString: Skill_Alchemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1237,7 +1237,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -150, y: -200}
+  m_AnchoredPosition: {x: -150, y: -20}
   m_SizeDelta: {x: 18, y: 18}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &136037533
@@ -1269,10 +1269,10 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: -2031880729, guid: 594bd01d29843e34c8e0ca128fc0c091, type: 3}
-    m_PressedSprite: {fileID: -2001548556, guid: 85719d03cf08e4b43a257a604c601e85, type: 3}
-    m_SelectedSprite: {fileID: -2031880729, guid: 594bd01d29843e34c8e0ca128fc0c091, type: 3}
-    m_DisabledSprite: {fileID: -50212562, guid: be5e27c953cd6fc4dba30de2285ed910, type: 3}
+    m_HighlightedSprite: {fileID: -240321261, guid: 594bd01d29843e34c8e0ca128fc0c091, type: 3}
+    m_PressedSprite: {fileID: 333978155, guid: 85719d03cf08e4b43a257a604c601e85, type: 3}
+    m_SelectedSprite: {fileID: -240321261, guid: 594bd01d29843e34c8e0ca128fc0c091, type: 3}
+    m_DisabledSprite: {fileID: 872188508, guid: be5e27c953cd6fc4dba30de2285ed910, type: 3}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted
@@ -1316,7 +1316,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -1415026151, guid: 8899717e39d961240ba72724497d521e, type: 3}
+  m_Sprite: {fileID: 110360295, guid: 8899717e39d961240ba72724497d521e, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -29307,7 +29307,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -150, y: -20}
+  m_AnchoredPosition: {x: -150, y: -200}
   m_SizeDelta: {x: 18, y: 18}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1312681983
@@ -73170,7 +73170,7 @@ MonoBehaviour:
   doubleJump: {fileID: 645103698}
   twoSwordAttack: {fileID: 1312681983}
   mysterySkillOne: {fileID: 1117663874}
-  mysterySkillTwo: {fileID: 136037533}
+  alchemy: {fileID: 136037533}
 --- !u!1 &1801985250
 GameObject:
   m_ObjectHideFlags: 0
@@ -76490,6 +76490,10 @@ PrefabInstance:
       propertyPath: skillTokensText
       value: 
       objectReference: {fileID: 2037771629}
+    - target: {fileID: 8553631846548754366, guid: d113a9c64b04e2c4a9bd1399999919d9, type: 3}
+      propertyPath: statUpgradeTable
+      value: 
+      objectReference: {fileID: 1403811002}
     - target: {fileID: 8553631846548754366, guid: d113a9c64b04e2c4a9bd1399999919d9, type: 3}
       propertyPath: skillTokensSkillTreeText
       value: 

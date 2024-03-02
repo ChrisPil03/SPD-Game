@@ -32,6 +32,7 @@ TagManager:
   - Stat_Speed
   - Stat_Magic
   - OldManCamp
+  - Skill_Alchemy
   layers:
   - Default
   - TransparentFX
