@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class SkillTreeButtonController : MonoBehaviour
 {
     [SerializeField] private TMP_Text infoText, errorText;
+    [SerializeField] private GameObject skillTokenInText;
     private Player player;
 
     [SerializeField] private Button heavyAttack, dashSwordAttack, doubleJump, twoSwordAttack, mysterySkillOne, mysterySkillTwo;
@@ -43,7 +44,8 @@ public class SkillTreeButtonController : MonoBehaviour
             doubleJump.interactable = false;
         }
 
-        infoText.text = "Use skill tokens to learn new skills\r\nAcquire skill tokens by defeating slimes and receiving essence";
+        infoText.text = "Use skill tokens        to learn new skills\r\nAcquire skill tokens by defeating slimes and receiving essence";
+        skillTokenInText.SetActive(true);
     }
 
     private void Update()
@@ -107,14 +109,16 @@ public class SkillTreeButtonController : MonoBehaviour
 
     private void OnPointerEnter(Button button, string tag)
     {
+        skillTokenInText.SetActive(false);
         ShowSkillInfo(button);
         ShowSkillError(button);
     }
 
     private void OnPointerExit()
     {
-        infoText.text = "Use skill tokens to learn new skills\r\nAcquire skill tokens by defeating slimes and receiving essence";
+        infoText.text = "Use skill tokens        to learn new skills\r\nAcquire skill tokens by defeating slimes and receiving essence";
         errorText.text = "";
+        skillTokenInText.SetActive(true);
     }
 
     public void DisableButton(Button button)
@@ -192,11 +196,11 @@ public class SkillTreeButtonController : MonoBehaviour
         }
         else if (button.CompareTag("Skill_Locked"))
         {
-            errorText.text = "-- This skill is locked --";
+            errorText.text = "-- Reach the camp outside the kingdom's walls to unlock this skill --";
         }
         else if (Player.skillTokens < 1 && button.interactable)
         {
-            errorText.text = "-- You don't have enough skill tokens to learn this skill --";
+            errorText.text = "-- You need 1 skill token to learn this skill --";
         }
         else
         {

@@ -4,6 +4,7 @@ using System.Data;
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -33,6 +34,7 @@ public class Player : MonoBehaviour
     [SerializeField] private TMP_Text skillTokensSkillTreeText;
     [SerializeField] private TMP_Text skillTokensText;
     [HideInInspector] public static int skillTokens = 0;
+    [SerializeField] private GameObject skillTokenAnim;
     [SerializeField] private TMP_Text jarsOfSlimeText;
     [HideInInspector] public static int jarsOfSlime = 0;
     [SerializeField] private TMP_Text gemsText;
@@ -92,6 +94,8 @@ public class Player : MonoBehaviour
         hotbar = GameObject.FindGameObjectWithTag("Hotbar").GetComponent<Hotbar>();
 
         GetComponent<SwordAttack>().canAttack = false;
+
+        skillTokenAnim.SetActive(false);
 
         originalGravity = rgdb.gravityScale;
         originalColor = rend.material.color;
@@ -501,7 +505,10 @@ public class Player : MonoBehaviour
         {
             currentXP = (currentXP + xpAmount) % xpToLevelUp;
             skillTokens++;
-            UpdateSkillTokensText();
+
+            skillTokenAnim.SetActive(true);
+            skillTokenAnim.GetComponent<Animator>().Play("SkillTokenAnimation");
+            Invoke("UpdateSkillTokensText", 1.5f);
         }
         else 
         {
@@ -515,6 +522,7 @@ public class Player : MonoBehaviour
     {
         skillTokensSkillTreeText.text = skillTokens.ToString();
         skillTokensText.text = skillTokens.ToString();
+        skillTokenAnim.SetActive(false);
     }
 
     public void UpdateJarsOfSLime()
