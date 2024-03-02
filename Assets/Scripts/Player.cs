@@ -37,9 +37,9 @@ public class Player : MonoBehaviour
     [HideInInspector] public static int skillTokens = 0;
     [SerializeField] private GameObject skillTokenAnim;
     [SerializeField] private TMP_Text jarsOfSlimeText;
-    [HideInInspector] public static int jarsOfSlime = 70;
+    [HideInInspector] public static int jarsOfSlime = 0;
     [SerializeField] private TMP_Text gemsText;
-    [HideInInspector] public static int gems = 18;
+    [HideInInspector] public static int gems = 0;
 
     [Header("Level")]
     [SerializeField] private XPBar xpBar;
@@ -232,7 +232,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void FlipSprite(bool direction)
+    public void FlipSprite(bool direction)
     {
         // Determine the new scale based on the direction
         Vector3 playerScale = transform.localScale;
