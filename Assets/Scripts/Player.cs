@@ -24,6 +24,7 @@ public class Player : MonoBehaviour
     [HideInInspector] public bool newSpawnPosition;
     [HideInInspector] static public bool changeSceneOnRespawn;
     [HideInInspector] static public int respawnScene;
+    [HideInInspector] static public int checkpointScenePlayerHasReached = 1;
 
     [HideInInspector] public Rigidbody2D rgdb;
     [HideInInspector] public SpriteRenderer rend;
@@ -116,21 +117,19 @@ public class Player : MonoBehaviour
         healthbar.UpdateHealthBar(currentHealth);
         healthCounter.text = currentHealth + "/" + startingHealth;
 
-        if (keepValues)
+
+        xpBar.UpdateXPBar(currentXP);
+        UpdateSkillTokensText();
+        UpdateJarsOfSLime();
+        UpdateGemsText();
+
+        if (hasSword)
         {
-            xpBar.UpdateXPBar(currentXP);
-            UpdateSkillTokensText();
-            UpdateJarsOfSLime();
-            UpdateGemsText();
-            if (hasSword)
-            {
-                anim.SetBool("HasSword", true);
-            }
+            anim.SetBool("HasSword", true);
         }
 
-        Respawn();
-        Invoke("CanAttackAgain", 2f);
-        Invoke("CanMove", 2);
+        StartCoroutine(Respawn());
+
     }
 
     void Update()

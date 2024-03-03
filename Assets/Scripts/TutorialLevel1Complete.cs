@@ -12,7 +12,7 @@ public class TutorialLevel1Complete : MonoBehaviour
     private float textSpeed = 0.05f;
     private bool dialogueActive;
 
-    private int camp = 1;
+    private int camp = 2;
 
     private void Start()
     {
@@ -53,6 +53,7 @@ public class TutorialLevel1Complete : MonoBehaviour
         Player.keepValues = true;
         Player.changeSceneOnRespawn = true;
         Player.respawnScene = camp;
+        Player.checkpointScenePlayerHasReached = camp;
         SceneManager.LoadScene(camp);
     }
 }

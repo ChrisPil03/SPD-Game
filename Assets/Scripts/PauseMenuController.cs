@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class PauseMenuController : MonoBehaviour
@@ -13,6 +14,7 @@ public class PauseMenuController : MonoBehaviour
     void Start()
     {
         pauseMenu.SetActive(false);
+        pauseButton.interactable = true;
     }
 
     void Update()
@@ -48,7 +50,9 @@ public class PauseMenuController : MonoBehaviour
 
     public void BackToMenu()
     {
-
+        Time.timeScale = 1f;
+        isPaused = false;
+        SceneManager.LoadScene(0);
     }
 
     public void QuitGame()
