@@ -174,7 +174,7 @@ public class SmallSlimeShell : MonoBehaviour
         boxCollider.enabled = false;
         capsuleCollider.enabled = false;
         anim.Play("ShellLost");
-        player.GainXP(4);
+        player.GainXP(3);
         Instantiate(slime, transform.position, slime.transform.rotation);
         Destroy(gameObject, 0.25f);
     }

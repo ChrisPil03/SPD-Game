@@ -28,11 +28,11 @@ TagManager:
   - Stat_Strength
   - Stat_Stamina
   - Stat_Health
-  - Stat_Loot
   - Stat_Speed
   - Stat_Magic
   - OldManCamp
   - Skill_Alchemy
+  - Stat_Essence
   layers:
   - Default
   - TransparentFX

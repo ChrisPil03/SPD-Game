@@ -47,6 +47,7 @@ public class Player : MonoBehaviour
     [SerializeField] private XPBar xpBar;
     private int xpToLevelUp = 100;
     private static int currentXP;
+    [HideInInspector] static public int extraXP = 0;
 
     [Header("Health")]
     [SerializeField] private int startingHealth = 100;
@@ -512,9 +513,9 @@ public class Player : MonoBehaviour
 
     public void GainXP(int xpAmount)
     {
-        if ((currentXP + xpAmount) >= xpToLevelUp)
+        if ((currentXP + xpAmount + extraXP) >= xpToLevelUp)
         {
-            currentXP = (currentXP + xpAmount) % xpToLevelUp;
+            currentXP = (currentXP + xpAmount + extraXP) % xpToLevelUp;
             skillTokens++;
 
             skillTokenAnim.SetActive(true);
@@ -523,10 +524,12 @@ public class Player : MonoBehaviour
         }
         else 
         {
-            currentXP += xpAmount;
+            currentXP += (xpAmount + extraXP);
         }
 
         xpBar.UpdateXPBar(currentXP);
+
+        Debug.Log(currentXP);
     }
 
     public void UpdateSkillTokensText()

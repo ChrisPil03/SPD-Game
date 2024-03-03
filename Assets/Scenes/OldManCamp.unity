@@ -14955,17 +14955,23 @@ MonoBehaviour:
   strength: {fileID: 1479555578}
   stamina: {fileID: 1229076113}
   health: {fileID: 503416142}
-  loot: {fileID: 498114736}
+  essence: {fileID: 498114736}
   speed: {fileID: 1733219751}
   magic: {fileID: 1592868020}
   strengthText: {fileID: 1509852834}
   staminaText: {fileID: 1548289587}
   healthText: {fileID: 1257137470}
-  jarsOfSlimeNeeded: 20
-  gemsNeeded: 6
+  essenceText: {fileID: 1034996066}
+  jarsOfSlimeNeeded: 10
+  gemsNeeded: 2
   plusDamage: 2
   minusStaminaCost: 2
   plusHealthFromPotion: 2
+  plusEssence: 1
+  maxPlusDamage: 20
+  maxMinusStaminaCost: 20
+  maxPlusHealth: 20
+  maxEssence: 5
 --- !u!1 &339963315
 GameObject:
   m_ObjectHideFlags: 0
@@ -16987,8 +16993,8 @@ GameObject:
   - component: {fileID: 498114736}
   - component: {fileID: 498114735}
   m_Layer: 5
-  m_Name: Loot
-  m_TagString: Skill_Locked
+  m_Name: Essence
+  m_TagString: Stat_Essence
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -23159,7 +23165,7 @@ GameObject:
   - component: {fileID: 975701392}
   - component: {fileID: 975701391}
   m_Layer: 5
-  m_Name: Text (TMP)_Skills
+  m_Name: Text (TMP)_Stats
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -23204,7 +23210,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: -- Power --
+  m_text: -- Stats--
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -23980,7 +23986,7 @@ GameObject:
   - component: {fileID: 1034996067}
   - component: {fileID: 1034996066}
   m_Layer: 5
-  m_Name: Text_Loot
+  m_Name: Text_Essence
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -24025,7 +24031,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Loot
+  m_text: 'Essence
 
     + 0'
   m_isRightToLeft: 0
@@ -24036,8 +24042,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 1694498815
-  m_fontColor: {r: 1, g: 1, b: 1, a: 0.39215687}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -24282,7 +24288,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1075662741}
   m_Layer: 5
-  m_Name: Skills
+  m_Name: Stats
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28556,8 +28562,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4291809231
-  m_fontColor: {r: 0.8117648, g: 0.8117648, b: 0.8117648, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -33030,8 +33036,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4291809231
-  m_fontColor: {r: 0.8113208, g: 0.8113208, b: 0.8113208, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -33869,8 +33875,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4291809231
-  m_fontColor: {r: 0.8117648, g: 0.8117648, b: 0.8117648, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:

@@ -8,8 +8,8 @@ public class StatUpgradesButtonController : MonoBehaviour
     [SerializeField] private TMP_Text infoText, errorText;
     private Player player;
 
-    [SerializeField] private Button strength, stamina, health, loot, speed, magic;
-    [SerializeField] private TMP_Text strengthText, staminaText, healthText;
+    [SerializeField] private Button strength, stamina, health, essence, speed, magic;
+    [SerializeField] private TMP_Text strengthText, staminaText, healthText, essenceText;
 
     [Header("Stat Upgrade costs")]
     [SerializeField] private int jarsOfSlimeNeeded = 30;
@@ -19,6 +19,11 @@ public class StatUpgradesButtonController : MonoBehaviour
     [SerializeField] private int plusDamage = 2;
     [SerializeField] private int minusStaminaCost = 2;
     [SerializeField] private int plusHealthFromPotion = 2;
+    [SerializeField] private int plusEssence = 1;
+    [SerializeField] private int maxPlusDamage = 20;
+    [SerializeField] private int maxMinusStaminaCost = 20;
+    [SerializeField] private int maxPlusHealth = 20;
+    [SerializeField] private int maxEssence = 5;
 
     private Color32 lockedColor, unlockedColor;
 
@@ -27,23 +32,40 @@ public class StatUpgradesButtonController : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
 
-        InitializeButton(strength, "Stat_Strength");
-        InitializeButton(stamina, "Stat_Stamina");
-        InitializeButton(health, "Stat_Health");
-        InitializeButton(loot, "Skill_Locked");
-        InitializeButton(speed, "Skill_Locked");
-        InitializeButton(magic, "Skill_Locked");
+        InitializeButton(strength);
+        InitializeButton(stamina);
+        InitializeButton(health);
+        InitializeButton(essence);
+        InitializeButton(speed);
+        InitializeButton(magic);
 
         lockedColor = new Color32(255, 255, 255, 100);
         unlockedColor = new Color32(255, 255, 255, 255);
 
-        loot.GetComponent<Image>().color = lockedColor;
         speed.GetComponent<Image>().color = lockedColor;
         magic.GetComponent<Image>().color = lockedColor;
 
         strengthText.text = "Strength\r\n+ " + SwordAttack.extraDamage;
         staminaText.text = "Stamina\r\n+ " + StaminaController.minusStaminaCost;
         healthText.text = "Health Potion\r\n+ " + Player.extraHealth;
+        essenceText.text = "Essence\r\n+ " + Player.extraXP;
+
+        if (SwordAttack.extraDamage == maxPlusDamage)
+        {
+            strength.interactable = false;
+        }
+        if (StaminaController.minusStaminaCost == maxMinusStaminaCost)
+        {
+            stamina.interactable = false;
+        }
+        if (Player.extraHealth == maxPlusDamage)
+        {
+            health.interactable = false;
+        }
+        if (Player.extraXP == maxEssence)
+        {
+            essence.interactable = false;
+        }
 
         infoText.text = "Upgrade stats and become stronger";
         errorText.text = string.Empty;
@@ -59,34 +81,81 @@ public class StatUpgradesButtonController : MonoBehaviour
 
     private void ButtonColorManager()
     {
-        if (Player.jarsOfSlime >= jarsOfSlimeNeeded && Player.gems >= gemsNeeded)
+        if (strength.interactable == false)
         {
             strength.GetComponent<Image>().color = unlockedColor;
-            stamina.GetComponent<Image>().color = unlockedColor;
-            health.GetComponent<Image>().color = unlockedColor;
-
             strengthText.color = unlockedColor;
-            staminaText.color = unlockedColor;
+        }
+        if (health.interactable == false)
+        {
+            health.GetComponent<Image>().color = unlockedColor;
             healthText.color = unlockedColor;
+        }
+        if (stamina.interactable == false)
+        {
+            stamina.GetComponent<Image>().color = unlockedColor;
+            staminaText.color = unlockedColor;
+        }
+        if (essence.interactable == false)
+        {
+            essence.GetComponent<Image>().color = unlockedColor;
+            essenceText.color = unlockedColor;
+        }
+
+        if (Player.jarsOfSlime >= jarsOfSlimeNeeded && Player.gems >= gemsNeeded)
+        {
+            if (strength.interactable == true)
+            {
+                strength.GetComponent<Image>().color = unlockedColor;
+                strengthText.color = unlockedColor;
+            }
+            if (health.interactable == true)
+            {
+                health.GetComponent<Image>().color = unlockedColor;
+                healthText.color = unlockedColor;
+            }
+            if (stamina.interactable == true)
+            {
+                stamina.GetComponent<Image>().color = unlockedColor;
+                staminaText.color = unlockedColor;
+            }
+            if (essence.interactable == true)
+            {
+                essence.GetComponent<Image>().color = unlockedColor;
+                essenceText.color = unlockedColor;
+            }
         }
         else
         {
-            strength.GetComponent<Image>().color = lockedColor;
-            stamina.GetComponent<Image>().color = lockedColor;
-            health.GetComponent<Image>().color = lockedColor;
-
-            strengthText.color = lockedColor;
-            staminaText.color = lockedColor;
-            healthText.color = lockedColor;
+            if (strength.interactable == true)
+            {
+                strength.GetComponent<Image>().color = lockedColor;
+                strengthText.color = lockedColor;
+            }
+            if (health.interactable == true)
+            {
+                health.GetComponent<Image>().color = lockedColor;
+                healthText.color = lockedColor;
+            }
+            if (stamina.interactable == true)
+            {
+                stamina.GetComponent<Image>().color = lockedColor;
+                staminaText.color = lockedColor;
+            }
+            if (essence.interactable == true)
+            {
+                essence.GetComponent<Image>().color = lockedColor;
+                essenceText.color = lockedColor;
+            }
         }
     }
 
-    private void InitializeButton(Button button, string tag)
+    private void InitializeButton(Button button)
     {
         // Add event listeners for OnPointerEnter and OnPointerExit
         EventTrigger.Entry entryPointerEnter = new EventTrigger.Entry();
         entryPointerEnter.eventID = EventTriggerType.PointerEnter;
-        entryPointerEnter.callback.AddListener((eventData) => { OnPointerEnter(button, tag); });
+        entryPointerEnter.callback.AddListener((eventData) => { OnPointerEnter(button); });
         button.GetComponent<EventTrigger>().triggers.Add(entryPointerEnter);
 
         EventTrigger.Entry entryPointerExit = new EventTrigger.Entry();
@@ -95,7 +164,7 @@ public class StatUpgradesButtonController : MonoBehaviour
         button.GetComponent<EventTrigger>().triggers.Add(entryPointerExit);
     }
 
-    private void OnPointerEnter(Button button, string tag)
+    private void OnPointerEnter(Button button)
     {
         ShowStatInfo(button);
         ShowStatError(button);
@@ -113,18 +182,57 @@ public class StatUpgradesButtonController : MonoBehaviour
         {
             if (button.CompareTag("Stat_Strength"))
             {
-                SwordAttack.extraDamage += plusDamage;
+                if (SwordAttack.extraDamage + plusDamage >= maxPlusDamage)
+                {
+                    SwordAttack.extraDamage = maxPlusDamage;
+                    DisableButton(button);
+                }
+                else
+                {
+                    SwordAttack.extraDamage += plusDamage;
+                }
                 strengthText.text = "Strength\r\n+ " + SwordAttack.extraDamage;
             }
             else if (button.CompareTag("Stat_Stamina"))
             {
-                StaminaController.minusStaminaCost += minusStaminaCost;
+                if (StaminaController.minusStaminaCost + minusStaminaCost >= maxMinusStaminaCost)
+                {
+                    StaminaController.minusStaminaCost = maxMinusStaminaCost;
+                    DisableButton(button);
+                }
+                else
+                {
+                    StaminaController.minusStaminaCost += minusStaminaCost;
+                }
                 staminaText.text = "Stamina\r\n+ " + StaminaController.minusStaminaCost;
+
+
             }
             else if (button.CompareTag("Stat_Health"))
             {
-                Player.extraHealth += plusHealthFromPotion;
+                if (Player.extraHealth + plusHealthFromPotion >= maxPlusHealth)
+                {
+                    Player.extraHealth = maxPlusHealth;
+                    DisableButton(button);
+                }
+                else
+                {
+                    Player.extraHealth += plusHealthFromPotion;
+                }
                 healthText.text = "Health Potion\r\n+ " + Player.extraHealth;
+            }
+            else if (button.CompareTag("Stat_Essence"))
+            {
+                if (Player.extraXP + plusEssence >= maxEssence)
+                {
+                    Player.extraXP = maxEssence;
+                    DisableButton(button);
+                }
+                else
+                {
+                    Player.extraXP += plusEssence;
+                }
+                essenceText.text = "Essence\r\n+ " + Player.extraXP;
             }
 
             Player.jarsOfSlime -= jarsOfSlimeNeeded;
@@ -160,6 +268,10 @@ public class StatUpgradesButtonController : MonoBehaviour
         {
             infoText.text = "+2 Health potion extra health costs:\n| Jars of slime : " + jarsOfSlimeNeeded + "            |" + "\n|           Gems : " + gemsNeeded + "              |";
         }
+        else if (button.CompareTag("Stat_Essence"))
+        {
+            infoText.text = "+1 Essence from defeating slimes, costs:\n| Jars of slime : " + jarsOfSlimeNeeded + "            |" + "\n|           Gems : " + gemsNeeded + "              |";
+        }
         else if (button.CompareTag("Skill_Locked"))
         {
             infoText.text = "Not avaible";
@@ -180,5 +292,10 @@ public class StatUpgradesButtonController : MonoBehaviour
         {
             errorText.text = string.Empty;
         }
+    }
+
+    private void DisableButton(Button button)
+    {
+        button.interactable = false;
     }
 }
