@@ -14962,7 +14962,7 @@ MonoBehaviour:
   staminaText: {fileID: 1548289587}
   healthText: {fileID: 1257137470}
   jarsOfSlimeNeeded: 20
-  gemsNeeded: 5
+  gemsNeeded: 6
   plusDamage: 2
   minusStaminaCost: 2
   plusHealthFromPotion: 2

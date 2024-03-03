@@ -13,6 +13,8 @@ public class OldMan : MonoBehaviour
     private bool dialogueActive;
     private bool skipDialogue;
     [HideInInspector] static public bool firstInteraction = true;
+    private bool hasAttacked;
+    private bool hasOpenedStatUpgrades;
 
     [SerializeField] private GameObject statUpgradesTable;
     [HideInInspector] public bool canOpenStatUpgrades;
@@ -22,6 +24,14 @@ public class OldMan : MonoBehaviour
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Return) && firstInteraction)
+        {
+            hasAttacked = true;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -65,7 +75,6 @@ public class OldMan : MonoBehaviour
 
         if (firstInteraction)
         {
-            firstInteraction = false;
             player.canMove = false;
             player.rgdb.velocity = Vector3.zero;
             player.transform.position = new Vector3(transform.position.x + 3.37f, transform.position.y, 0);
@@ -81,7 +90,7 @@ public class OldMan : MonoBehaviour
             Player.hasSword = true;
             player.anim.SetBool("HasSword", true);
 
-            yield return new WaitForSeconds(2);
+            yield return new WaitUntil(EnterPressed);
             dialogueText.text = string.Empty;
 
             foreach (char c in dialogue2)
@@ -93,6 +102,9 @@ public class OldMan : MonoBehaviour
             skipButton.SetActive(false);
             statUpgradesButton.SetActive(true);
             canOpenStatUpgrades = true;
+
+            yield return new WaitUntil(FirstTimeStatUpgrades);
+            firstInteraction = false;
             player.canMove = true;
         }
         else
@@ -113,6 +125,24 @@ public class OldMan : MonoBehaviour
         dialogueActive = false;
     }
 
+    private bool EnterPressed()
+    {
+        if (hasAttacked)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    private bool FirstTimeStatUpgrades()
+    {
+        if (hasOpenedStatUpgrades)
+        {
+            return true;
+        }
+        return false;
+    }
+
     public void SkipDialogue()
     {
         skipDialogue = true;
@@ -121,6 +151,11 @@ public class OldMan : MonoBehaviour
     public void OpenStatUpgradesTable()
     {
         statUpgradesTable.SetActive(true);
+
+        if (firstInteraction)
+        {
+            hasOpenedStatUpgrades = true;
+        }
     }
 
     public void ExitStatUpgradesTable()

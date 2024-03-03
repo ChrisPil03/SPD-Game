@@ -52,7 +52,7 @@ public class StaminaController : MonoBehaviour
     {
         if (playerStamina >= (maxStamina * dashCost / maxStamina))
         {
-            playerStamina -= dashCost + minusStaminaCost;
+            playerStamina -= (dashCost - minusStaminaCost);
             player.StartCoroutine("Dash");
             UpdateStamina(1);
         }
@@ -62,7 +62,7 @@ public class StaminaController : MonoBehaviour
     {
         if (playerStamina >= (maxStamina * normalAttackCost / maxStamina))
         {
-            playerStamina -= normalAttackCost + minusStaminaCost;
+            playerStamina -= (normalAttackCost - minusStaminaCost);
             swordAttack.NormalAttack();
             UpdateStamina(1);
         }
@@ -72,7 +72,7 @@ public class StaminaController : MonoBehaviour
     {
         if (playerStamina >= (maxStamina * heavyAttackCost / maxStamina))
         {
-            playerStamina -= heavyAttackCost + minusStaminaCost;
+            playerStamina -= (heavyAttackCost - minusStaminaCost);
             swordAttack.HeavyAttack();
             UpdateStamina(1);
         }
@@ -82,7 +82,7 @@ public class StaminaController : MonoBehaviour
     {
         if (playerStamina >= (maxStamina * dashSwordAttackCost / maxStamina))
         {
-            playerStamina -= dashSwordAttackCost + minusStaminaCost;
+            playerStamina -= (dashSwordAttackCost - minusStaminaCost);
             swordAttack.StartCoroutine("DashSwordAttackGrounded");
             UpdateStamina(1);
         }

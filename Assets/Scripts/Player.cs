@@ -179,6 +179,7 @@ public class Player : MonoBehaviour
 
         if (hasAlechemySkill && Input.GetKeyDown(KeyCode.Tab) && statUpgradeTable != null)
         {
+            GameObject.FindGameObjectWithTag("OldManCamp").GetComponent<OldMan>().canOpenStatUpgrades = true;
             statUpgradeTable.SetActive(true);
         }
 
