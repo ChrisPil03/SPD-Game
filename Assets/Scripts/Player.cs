@@ -263,15 +263,15 @@ public class Player : MonoBehaviour
         }
         else if (doubleJump)
         {
-            DoubleJump();
+            staminaController.StaminaDoubleJump();
         }
     }
 
-    private void DoubleJump()
+    public void DoubleJump()
     {
         ResetGravity();
         PlayDoubleJumpAnim();
-        rgdb.velocity = new Vector2(rgdb.velocity.x, jumpForce * 1.4f);
+        rgdb.velocity = new Vector2(rgdb.velocity.x, jumpForce * 1.2f);
         doubleJump = false;
     }
 

@@ -9,6 +9,7 @@ public class StaminaController : MonoBehaviour
     public float playerStamina = 100.0f;
     [SerializeField] private float maxStamina = 100.0f;
     [SerializeField] private float dashCost = 40.0f;
+    [SerializeField] private float doubleJumpCost = 30.0f;
     [SerializeField] private float normalAttackCost = 25.0f;
     [SerializeField] private float heavyAttackCost = 60.0f;
     [SerializeField] private float dashSwordAttackCost = 80.0f;
@@ -54,6 +55,16 @@ public class StaminaController : MonoBehaviour
         {
             playerStamina -= (dashCost - minusStaminaCost);
             player.StartCoroutine("Dash");
+            UpdateStamina(1);
+        }
+    }
+
+    public void StaminaDoubleJump()
+    {
+        if (playerStamina >= (maxStamina * doubleJumpCost / maxStamina))
+        {
+            playerStamina -= (doubleJumpCost - minusStaminaCost);
+            player.DoubleJump();
             UpdateStamina(1);
         }
     }
