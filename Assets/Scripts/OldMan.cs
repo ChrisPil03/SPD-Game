@@ -28,6 +28,8 @@ public class OldMan : MonoBehaviour
 
     private void Update()
     {
+        if (PauseMenuController.isPaused) return;
+
         if (Input.GetKeyDown(KeyCode.Return) && firstInteraction)
         {
             hasAttacked = true;

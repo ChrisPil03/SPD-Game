@@ -73,6 +73,8 @@ public class StatUpgradesButtonController : MonoBehaviour
 
     private void Update()
     {
+        if (PauseMenuController.isPaused) return;
+
         if (GameObject.FindGameObjectWithTag("OldManCamp").GetComponent<OldMan>().canOpenStatUpgrades)
         {
             ButtonColorManager();

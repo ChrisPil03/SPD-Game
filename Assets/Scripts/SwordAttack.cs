@@ -46,7 +46,7 @@ public class SwordAttack : MonoBehaviour
         MediumSlimeWithOldMan.damageTakenFromSword = damage + extraDamage;
         SmallSlimeShell.damageTakenFromSword = damage + extraDamage;
 
-        if (!Player.hasSword) return;
+        if (!Player.hasSword || PauseMenuController.isPaused) return;
 
         if (isAttacking)
         {

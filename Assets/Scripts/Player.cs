@@ -211,19 +211,11 @@ public class Player : MonoBehaviour
         anim.SetFloat("VerticalSpeed", rgdb.velocity.y);
         anim.SetBool("IsGrounded", IsGrounded());
         anim.SetBool("TakingKnockback", false);
-
-
-
-        //Might want to remove after creating a real exit method
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            Application.Quit();
-        }
     }
 
     private void FixedUpdate()
     {
-        if (isDashing || !canMove) return;
+        if (isDashing || !canMove || PauseMenuController.isPaused) return;
 
         rgdb.velocity = new Vector2(horizontalValue * moveSpeed * Time.deltaTime, rgdb.velocity.y);
     }

@@ -30,6 +30,8 @@ public class SecretBox : MonoBehaviour
 
     private void Update()
     {
+        if (PauseMenuController.isPaused) return;
+
         if (Input.GetKeyDown(KeyCode.E) && canOpenBox)
         {
             Instantiate(gemsParticales, transform.position, gemsParticales.transform.rotation);

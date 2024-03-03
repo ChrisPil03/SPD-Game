@@ -54,6 +54,8 @@ public class SkillTreeButtonController : MonoBehaviour
 
     private void Update()
     {
+        if (PauseMenuController.isPaused) return;
+
         if (GameObject.FindGameObjectWithTag("SkillTree").GetComponent<SkillTree>().canAccessSkillTree)
         {
             ButtonColorManager();

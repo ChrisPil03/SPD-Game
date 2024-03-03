@@ -31,6 +31,8 @@ public class SkillTree : MonoBehaviour
 
     private void Update()
     {
+        if (PauseMenuController.isPaused) return;
+
         if (Input.GetKeyDown(KeyCode.E) && canAccessSkillTree)
         {
             infoText.text = "Use skill tokens        to learn new skills\r\nAcquire skill tokens by defeating slimes and receiving essence";
