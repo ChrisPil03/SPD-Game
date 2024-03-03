@@ -57,6 +57,8 @@ public class Player : MonoBehaviour
     private int getHealth = 20;
     [HideInInspector] static public int extraHealth = 0;
 
+    [SerializeField] private GameObject redScreen;
+
     [Header("Movement")]
     [SerializeField] private float moveSpeed = 150f;
     private float originalMoveSpeed;
@@ -194,6 +196,15 @@ public class Player : MonoBehaviour
             {
                 step = 0;
             }
+        }
+
+        if (currentHealth <= 20)
+        {
+            redScreen.SetActive(true);
+        }
+        else if (currentHealth > 20 && redScreen.activeSelf)
+        {
+            redScreen.SetActive(false);
         }
 
         anim.SetFloat("MoveSpeed", Mathf.Abs(rgdb.velocity.x));
@@ -528,8 +539,6 @@ public class Player : MonoBehaviour
         }
 
         xpBar.UpdateXPBar(currentXP);
-
-        Debug.Log(currentXP);
     }
 
     public void UpdateSkillTokensText()
