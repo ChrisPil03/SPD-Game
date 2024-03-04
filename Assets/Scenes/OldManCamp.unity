@@ -16640,10 +16640,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerTransform: {fileID: 1347007257}
   smoothing: 2
-  maxX: 84.5
+  maxX: 95
   minX: 1
   maxY: 15
-  minY: -15
+  minY: 2
   x: 84.5
   y: 11
   z: -10
@@ -41569,7 +41569,7 @@ MonoBehaviour:
   m_SpriteState:
     m_HighlightedSprite: {fileID: 283822295, guid: 02bff5114fe944545a8db4be19a72ea0, type: 3}
     m_PressedSprite: {fileID: 283822295, guid: 02bff5114fe944545a8db4be19a72ea0, type: 3}
-    m_SelectedSprite: {fileID: 283822295, guid: 02bff5114fe944545a8db4be19a72ea0, type: 3}
+    m_SelectedSprite: {fileID: -1882565263, guid: 02bff5114fe944545a8db4be19a72ea0, type: 3}
     m_DisabledSprite: {fileID: -1882565263, guid: 02bff5114fe944545a8db4be19a72ea0, type: 3}
   m_AnimationTriggers:
     m_NormalTrigger: Normal

@@ -6,6 +6,8 @@ public class EnteredThroughGate : MonoBehaviour
 {
     [SerializeField] private BoxCollider2D playerBlock;
 
+    static private int toriiNumber = 1;
+
     void Start()
     {
         playerBlock.enabled = false;
@@ -20,6 +22,11 @@ public class EnteredThroughGate : MonoBehaviour
                 GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraController>().minX = transform.position.x + 8.5f;
             }
             playerBlock.enabled = true;
+
+            if (toriiNumber == 1)
+            {
+                GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraController>().minY = -15;
+            }
         }
     }
 }

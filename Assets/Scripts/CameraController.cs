@@ -7,7 +7,7 @@ public class CameraController : MonoBehaviour
     [SerializeField] private float maxX; // Maximum X value for the camera boundary
     [SerializeField] public float minX; // Minimum X value for the camera boundary
     [SerializeField] private float maxY; // Maximum Y value for the camera boundary
-    [SerializeField] private float minY; // Minimum Y value for the camera boundary
+    [SerializeField] public float minY; // Minimum Y value for the camera boundary
 
     [Header("Boss Battle Position")]
     [SerializeField] private float x;
