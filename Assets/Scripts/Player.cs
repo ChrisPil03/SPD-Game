@@ -14,7 +14,6 @@ public class Player : MonoBehaviour
     [SerializeField] private CapsuleCollider2D hitBox;
     [SerializeField] private GameObject statUpgradeTable = null;
 
-    [HideInInspector] public static bool keepValues = false;
     [HideInInspector] public static bool hasAlechemySkill;
     private float originalGravity;
     private float rayDistance = 0.1f;
@@ -47,7 +46,7 @@ public class Player : MonoBehaviour
     [Header("Level")]
     [SerializeField] private XPBar xpBar;
     private int xpToLevelUp = 100;
-    private static int currentXP;
+    [HideInInspector] public static int currentXP;
     [HideInInspector] static public int extraXP = 0;
 
     [Header("Health")]

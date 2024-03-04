@@ -50,7 +50,6 @@ public class TutorialLevel1Complete : MonoBehaviour
 
     private void GoToCamp()
     {
-        Player.keepValues = true;
         Player.changeSceneOnRespawn = true;
         Player.respawnScene = camp;
         Player.checkpointScenePlayerHasReached = camp;

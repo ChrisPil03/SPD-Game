@@ -44,4 +44,16 @@ public class Hotbar : MonoBehaviour
             }
         }
     }
+
+    public void RemoveAllItems()
+    {
+        for (int i = slots.Length - 1; i >= 0; i--)
+        {
+            if (isFull[i])
+            {
+                isFull[i] = false;
+                Destroy(slots[i].transform.GetChild(0).gameObject);
+            }
+        }
+    }
 }

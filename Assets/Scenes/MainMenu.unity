@@ -316,7 +316,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 297182908}
         m_TargetAssemblyTypeName: MainMenuController, Assembly-CSharp
-        m_MethodName: StartGame
+        m_MethodName: StartNewGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -413,6 +413,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   credits: {fileID: 1753171856}
+  continueButton: {fileID: 1722373824}
+  continueText: {fileID: 1817523842}
+  hotbar: {fileID: 1323346077}
 --- !u!1 &531065655
 GameObject:
   m_ObjectHideFlags: 0
@@ -2131,7 +2134,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 297182908}
         m_TargetAssemblyTypeName: MainMenuController, Assembly-CSharp
-        m_MethodName: StartGame
+        m_MethodName: ContinueGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

@@ -11,7 +11,6 @@ public class NextLevel : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            Player.keepValues = true;
             SceneManager.LoadScene(nextLevel);
         }
     }

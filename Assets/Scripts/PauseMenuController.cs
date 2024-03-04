@@ -50,6 +50,7 @@ public class PauseMenuController : MonoBehaviour
 
     public void BackToMenu()
     {
+        GameObject.FindGameObjectWithTag("Hotbar").GetComponent<Hotbar>().RemoveAllItems();
         Time.timeScale = 1f;
         isPaused = false;
         SceneManager.LoadScene(0);
