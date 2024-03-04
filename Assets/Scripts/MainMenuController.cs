@@ -7,15 +7,20 @@ using UnityEngine.UI;
 
 public class MainMenuController : MonoBehaviour
 {
+    private AudioSource audioSource;
+
     [SerializeField] private GameObject credits;
     [SerializeField] private Button continueButton;
     [SerializeField] private TMP_Text continueText;
+    [SerializeField] private AudioClip buttonPress1;
 
     private bool isInCredits;
     static private bool hasStartedNewGame;
 
     private void Start()
     {
+        audioSource = GetComponent<AudioSource>();
+
         if (hasStartedNewGame)
         {
             continueButton.interactable = true;
@@ -45,11 +50,27 @@ public class MainMenuController : MonoBehaviour
 
     public void ContinueGame()
     {
+        audioSource.pitch = Random.Range(0.8f, 1.2f);
+        audioSource.PlayOneShot(buttonPress1, 0.8f);
+        StartCoroutine(ContinueGameAfterTime(0.2f));
+    }
+
+    private IEnumerator ContinueGameAfterTime(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
         SceneManager.LoadScene(Player.checkpointScenePlayerHasReached);
     }
 
     public void StartNewGame()
     {
+        audioSource.pitch = Random.Range(0.8f, 1.2f);
+        audioSource.PlayOneShot(buttonPress1, 0.8f);
+        StartCoroutine(StartNewGameAfterTime(0.2f));
+    }
+
+    private IEnumerator StartNewGameAfterTime(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
         hasStartedNewGame = true;
         ResetStaticVariables();
         SceneManager.LoadScene(1);
@@ -57,12 +78,16 @@ public class MainMenuController : MonoBehaviour
 
     public void ShowCredits()
     {
+        audioSource.pitch = Random.Range(0.8f, 1.2f);
+        audioSource.PlayOneShot(buttonPress1, 0.8f);
         credits.SetActive(true);
         isInCredits = true;
     }
 
     public void CloseCredits()
     {
+        audioSource.pitch = Random.Range(0.8f, 1.2f);
+        audioSource.PlayOneShot(buttonPress1, 0.8f);
         credits.SetActive(false);
         isInCredits = false;
     }

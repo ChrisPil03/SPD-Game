@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class StatUpgradesButtonController : MonoBehaviour
 {
+    private AudioSource playerAudioSource;
+
     [SerializeField] private TMP_Text infoText, errorText;
     private Player player;
 
@@ -25,12 +27,18 @@ public class StatUpgradesButtonController : MonoBehaviour
     [SerializeField] private int maxPlusHealth = 20;
     [SerializeField] private int maxEssence = 5;
 
+    [Header("Sound Effects")]
+    [SerializeField] private AudioClip upgradeStatSound;
+    [SerializeField] private AudioClip errorSound;
+    [SerializeField] private AudioClip statUpgradesOpened;
+
     private Color32 lockedColor, unlockedColor;
 
 
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        playerAudioSource = GameObject.FindGameObjectWithTag("Player").GetComponent<AudioSource>();
 
         InitializeButton(strength);
         InitializeButton(stamina);
@@ -69,6 +77,9 @@ public class StatUpgradesButtonController : MonoBehaviour
 
         infoText.text = "Upgrade stats and become stronger";
         errorText.text = string.Empty;
+
+        playerAudioSource.pitch = 0.8f;
+        playerAudioSource.PlayOneShot(statUpgradesOpened, 0.08f);
     }
 
     private void Update()
@@ -241,6 +252,12 @@ public class StatUpgradesButtonController : MonoBehaviour
             Player.gems -= gemsNeeded;
             player.UpdateJarsOfSLime();
             player.UpdateGemsText();
+
+            playerAudioSource.PlayOneShot(upgradeStatSound, 0.3f);
+        }
+        else
+        {
+            playerAudioSource.PlayOneShot(errorSound, 0.2f);
         }
     }
 

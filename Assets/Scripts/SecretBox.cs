@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class SecretBox : MonoBehaviour
 {
+    private AudioSource audioSource;
+
     [SerializeField] private GameObject interactionIcon;
 
     private bool canOpenBox;
@@ -9,6 +11,12 @@ public class SecretBox : MonoBehaviour
 
     [SerializeField] private SpriteRenderer[] childRenderers;
     [SerializeField] private GameObject gemsParticales;
+    [SerializeField] private AudioClip gemsSound;
+
+    private void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -34,6 +42,8 @@ public class SecretBox : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.E) && canOpenBox)
         {
+            audioSource.PlayOneShot(gemsSound, 0.3f);
+
             Instantiate(gemsParticales, transform.position, gemsParticales.transform.rotation);
             interactionIcon.SetActive(false);
             hasBeenOpened = true;

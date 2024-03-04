@@ -87,6 +87,10 @@ public class Player : MonoBehaviour
     [SerializeField] private AudioClip[] stepsOnGrass;
     [SerializeField] private AudioClip hitFromVines;
     [SerializeField] private AudioClip healthPotion;
+    [SerializeField] private AudioClip healthPotionOpen;
+    [SerializeField] private AudioClip dashSwooch;
+    [SerializeField] private AudioClip levelUp;
+    [SerializeField] private AudioClip skillTokenSound;
     private float futureTimeWalk;
     private float currentTimeWalk;
     private float intervalTimeWalk = 0.4f;
@@ -166,6 +170,7 @@ public class Player : MonoBehaviour
         {
             UseHealthPotion();
             audioSource.pitch = Random.Range(0.8f, 1.2f);
+            audioSource.PlayOneShot(healthPotionOpen, 0.1f);
             audioSource.PlayOneShot(healthPotion, 0.1f);
             hotbar.RemoveItem();
         }
@@ -283,6 +288,10 @@ public class Player : MonoBehaviour
         isDashing = true;
         anim.SetBool("IsDashing", true);
         rgdb.gravityScale = 0f;
+
+        audioSource.PlayOneShot(stepsOnGrass[0], 0.05f);
+        audioSource.PlayOneShot(dashSwooch, 0.1f);
+
         if (rend.flipX)
         {
             rgdb.velocity = new Vector2(transform.localScale.x * -dashingPower, 0f);
@@ -519,6 +528,8 @@ public class Player : MonoBehaviour
             currentXP = (currentXP + xpAmount + extraXP) % xpToLevelUp;
             skillTokens++;
 
+            StartCoroutine(PlayLevelUpSound());
+
             skillTokenAnim.SetActive(true);
             skillTokenAnim.GetComponent<Animator>().Play("SkillTokenAnimation");
             Invoke("UpdateSkillTokensText", 1.5f);
@@ -529,6 +540,13 @@ public class Player : MonoBehaviour
         }
 
         xpBar.UpdateXPBar(currentXP);
+    }
+
+    private IEnumerator PlayLevelUpSound()
+    {
+        GameObject.FindGameObjectWithTag("MainCamera").GetComponent<AudioSource>().PlayOneShot(levelUp, 0.4f);
+        yield return new WaitForSeconds(1.5f);
+        GameObject.FindGameObjectWithTag("MainCamera").GetComponent<AudioSource>().PlayOneShot(skillTokenSound, 0.4f);
     }
 
     public void UpdateSkillTokensText()

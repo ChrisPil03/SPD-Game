@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 public class SkillTreeButtonController : MonoBehaviour
 {
+    private AudioSource playerAudioSource;
+
+    [SerializeField] private AudioClip learnedSkillSound, errorSound;
     [SerializeField] private TMP_Text infoText, errorText;
     [SerializeField] private GameObject skillTokenInText;
     private Player player;
@@ -16,6 +19,7 @@ public class SkillTreeButtonController : MonoBehaviour
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        playerAudioSource = GameObject.FindGameObjectWithTag("Player").GetComponent<AudioSource>();
 
         InitializeButton(heavyAttack, "Skill_HeavyAttack");
         InitializeButton(dashSwordAttack, "Skill_Dash");
@@ -142,7 +146,12 @@ public class SkillTreeButtonController : MonoBehaviour
         if (!button.CompareTag("Skill_Locked") && CanAcquireSkill(button))
         {
             button.interactable = false;
+            playerAudioSource.PlayOneShot(learnedSkillSound, 0.3f);
             AcquireSkill(button);
+        }
+        else
+        {
+            playerAudioSource.PlayOneShot(errorSound, 0.2f);
         }
     }
 
