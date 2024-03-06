@@ -82,6 +82,7 @@ public class Player : MonoBehaviour
 
     [Header("Particales")]
     [SerializeField] private GameObject groundParticles;
+    [SerializeField] private GameObject healtPotionParticales;
 
     [Header("SoundEffects")]
     [SerializeField] private AudioClip[] stepsOnGrass;
@@ -91,6 +92,7 @@ public class Player : MonoBehaviour
     [SerializeField] private AudioClip dashSwooch;
     [SerializeField] private AudioClip levelUp;
     [SerializeField] private AudioClip skillTokenSound;
+    [SerializeField] private AudioClip statUpgradesOpened;
     private float futureTimeWalk;
     private float currentTimeWalk;
     private float intervalTimeWalk = 0.4f;
@@ -168,10 +170,7 @@ public class Player : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.R) && hotbar.isFull[0] && currentHealth < startingHealth)
         {
-            UseHealthPotion();
-            audioSource.pitch = Random.Range(0.8f, 1.2f);
-            audioSource.PlayOneShot(healthPotionOpen, 0.1f);
-            audioSource.PlayOneShot(healthPotion, 0.1f);
+            StartCoroutine(UseHealthPotion());
             hotbar.RemoveItem();
         }
 
@@ -187,6 +186,9 @@ public class Player : MonoBehaviour
         {
             GameObject.FindGameObjectWithTag("OldManCamp").GetComponent<OldMan>().canOpenStatUpgrades = true;
             statUpgradeTable.SetActive(true);
+
+            audioSource.pitch = 0.8f;
+            audioSource.PlayOneShot(statUpgradesOpened, 0.08f);
         }
 
         currentTimeWalk = Time.time;
@@ -278,6 +280,7 @@ public class Player : MonoBehaviour
     {
         ResetGravity();
         PlayDoubleJumpAnim();
+        audioSource.PlayOneShot(dashSwooch, 0.1f);
         rgdb.velocity = new Vector2(rgdb.velocity.x, jumpForce * 1.2f);
         doubleJump = false;
     }
@@ -456,7 +459,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void UseHealthPotion()
+    private IEnumerator UseHealthPotion()
     {
         if (currentHealth + getHealth >= startingHealth)
         {
@@ -468,6 +471,13 @@ public class Player : MonoBehaviour
         }
         healthbar.UpdateHealthBar(currentHealth);
         healthCounter.text = currentHealth + "/" + startingHealth;
+
+        Vector2 particalesPosition = new Vector2(transform.position.x, transform.position.y + 0.25f);
+        Instantiate(healtPotionParticales, particalesPosition, healtPotionParticales.transform.rotation);
+        audioSource.pitch = Random.Range(0.8f, 1.2f);
+        yield return new WaitForSeconds(0.2f);
+        audioSource.PlayOneShot(healthPotionOpen, 0.1f);
+        audioSource.PlayOneShot(healthPotion, 0.1f);
     }
 
     private IEnumerator TakeDamageFromVines()

@@ -5,9 +5,9 @@ using UnityEngine;
 
 public class SkillTree : MonoBehaviour
 {
-    private AudioSource audioSource;
+    private AudioSource playerAudioSource;
 
-    [SerializeField] private AudioClip openSkillTreeSound;
+    [SerializeField] private AudioClip openSkillTreeSound, buttonClick;
     [SerializeField] private GameObject interactPopUp;
     [SerializeField] private GameObject skillTree;
     [SerializeField] private TMP_Text infoText, errorText;
@@ -16,7 +16,7 @@ public class SkillTree : MonoBehaviour
 
     private void Start()
     {
-        audioSource = GetComponent<AudioSource>();
+        playerAudioSource = GameObject.FindGameObjectWithTag("Player").GetComponent<AudioSource>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -43,7 +43,8 @@ public class SkillTree : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.E) && canAccessSkillTree)
         {
-            audioSource.PlayOneShot(openSkillTreeSound);
+            playerAudioSource.pitch = 0.8f;
+            playerAudioSource.PlayOneShot(openSkillTreeSound, 0.08f);
             infoText.text = "Use skill tokens        to learn new skills\r\nAcquire skill tokens by defeating slimes and receiving essence";
             skillTree.SetActive(true);
         }
@@ -51,6 +52,7 @@ public class SkillTree : MonoBehaviour
 
     public void ExitSkillTree()
     {
+        playerAudioSource.PlayOneShot(buttonClick, 0.12f);
         skillTree.SetActive(false);
         errorText.text = "";
     }

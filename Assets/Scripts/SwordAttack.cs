@@ -98,7 +98,7 @@ public class SwordAttack : MonoBehaviour
         }
 
         audioSource.pitch = Random.Range(0.9f, 1.2f);
-        audioSource.PlayOneShot(normalSwordAttack, 0.05f);
+        audioSource.PlayOneShot(normalSwordAttack, 0.08f);
     }
 
     public void HeavyAttack()
@@ -111,8 +111,8 @@ public class SwordAttack : MonoBehaviour
         player.anim.Play("HeavySwordAttackGrounded");
 
         audioSource.pitch = Random.Range(1f, 1.2f);
-        audioSource.PlayOneShot(normalSwordAttack, 0.05f);
-        audioSource.PlayOneShot(heavySwordAttack, 0.1f);
+        audioSource.PlayOneShot(normalSwordAttack, 0.08f);
+        audioSource.PlayOneShot(heavySwordAttack, 0.12f);
 
         Invoke("CanHeavyAttackAgain", heavyAttackCoolDown);
     }

@@ -33,7 +33,6 @@ public class SkillTreeButtonController : MonoBehaviour
 
         twoSwordAttack.GetComponent<Image>().color = lockedColor;
         mysterySkillOne.GetComponent<Image>().color = lockedColor;
-        alchemy.GetComponent<Image>().color = lockedColor;
 
         if (SwordAttack.hasDashSwordAttackSkill)
         {

@@ -18,12 +18,15 @@ public class OldMan : MonoBehaviour
 
     [SerializeField] private GameObject statUpgradesTable;
     [HideInInspector] public bool canOpenStatUpgrades;
-    
+    [SerializeField] private AudioClip statUpgradesOpened, buttonClick;
+
     private Player player;
+    private AudioSource playerAudioSource;
 
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        playerAudioSource = GameObject.FindGameObjectWithTag("Player").GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -147,11 +150,16 @@ public class OldMan : MonoBehaviour
 
     public void SkipDialogue()
     {
+        playerAudioSource.PlayOneShot(buttonClick, 0.12f);
         skipDialogue = true;
     }
 
     public void OpenStatUpgradesTable()
     {
+        playerAudioSource.PlayOneShot(buttonClick, 0.12f);
+        playerAudioSource.pitch = 0.8f;
+        playerAudioSource.PlayOneShot(statUpgradesOpened, 0.08f);
+
         statUpgradesTable.SetActive(true);
 
         if (firstInteraction)
@@ -162,6 +170,7 @@ public class OldMan : MonoBehaviour
 
     public void ExitStatUpgradesTable()
     {
+        playerAudioSource.PlayOneShot(buttonClick, 0.12f);
         statUpgradesTable.SetActive(false);
     }
 }

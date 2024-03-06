@@ -466,17 +466,22 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   hitBox: {fileID: 6638547899169467465}
+  statUpgradeTable: {fileID: 0}
+  newSpawnPosition: 0
   rgdb: {fileID: 0}
   rend: {fileID: 0}
   anim: {fileID: 0}
   audioSource: {fileID: 0}
-  SkillTokensText: {fileID: 0}
+  skillTokensSkillTreeText: {fileID: 0}
+  skillTokensText: {fileID: 0}
+  skillTokenAnim: {fileID: 0}
   jarsOfSlimeText: {fileID: 0}
+  gemsText: {fileID: 0}
   xpBar: {fileID: 0}
   startingHealth: 100
   healthbar: {fileID: 0}
   healthCounter: {fileID: 0}
-  getHealth: 20
+  redScreen: {fileID: 0}
   moveSpeed: 160
   canMove: 0
   jumpForce: 7
@@ -486,11 +491,17 @@ MonoBehaviour:
   canDash: 1
   isDashing: 0
   groundParticles: {fileID: 1374396828455446285, guid: 9b5c1900012cecf4da41ff98f93af544, type: 3}
+  healtPotionParticales: {fileID: 0}
   stepsOnGrass:
   - {fileID: 8300000, guid: 403981967bb81ba4aa3aaa85d6c47249, type: 3}
   - {fileID: 8300000, guid: 8484a211ad622e148ac0789084496a0b, type: 3}
   hitFromVines: {fileID: 8300000, guid: 833c00624df4d2a42bd8c0b5fbf512c7, type: 3}
   healthPotion: {fileID: 8300000, guid: 131430a01eda46c4bb4feed41b7c392f, type: 3}
+  healthPotionOpen: {fileID: 0}
+  dashSwooch: {fileID: 0}
+  levelUp: {fileID: 0}
+  skillTokenSound: {fileID: 0}
+  statUpgradesOpened: {fileID: 0}
 --- !u!114 &3515410464247953524
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -505,6 +516,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerStamina: 100
   maxStamina: 100
+  dashCost: 40
+  doubleJumpCost: 30
   normalAttackCost: 20
   heavyAttackCost: 40
   dashSwordAttackCost: 60
@@ -525,11 +538,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   normalDamage: 10
   heavyDamage: 30
-  dashDamage: 15
+  dashDamage: 20
   polygonColliderAttackOne: {fileID: 6473857266018039096}
   polygonColliderAttackTwo: {fileID: 1521139681888267203}
   polygonColliderAttackHeavyAttack: {fileID: 7442275913350872028}
   polygonColliderAttackDashAttack: {fileID: 5107919920516182628}
+  canAttack: 1
   canHeavyAttack: 1
   normalSwordAttack: {fileID: 8300000, guid: 690503961b625fd47840cc278742c973, type: 3}
   heavySwordAttack: {fileID: 8300000, guid: 6534c47fab66dc348abff335703ce712, type: 3}

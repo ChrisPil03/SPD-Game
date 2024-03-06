@@ -5,10 +5,10 @@ using UnityEngine.UI;
 
 public class StatUpgradesButtonController : MonoBehaviour
 {
+    private Player player;
     private AudioSource playerAudioSource;
 
     [SerializeField] private TMP_Text infoText, errorText;
-    private Player player;
 
     [SerializeField] private Button strength, stamina, health, essence, speed, magic;
     [SerializeField] private TMP_Text strengthText, staminaText, healthText, essenceText;
@@ -30,7 +30,6 @@ public class StatUpgradesButtonController : MonoBehaviour
     [Header("Sound Effects")]
     [SerializeField] private AudioClip upgradeStatSound;
     [SerializeField] private AudioClip errorSound;
-    [SerializeField] private AudioClip statUpgradesOpened;
 
     private Color32 lockedColor, unlockedColor;
 
@@ -77,9 +76,6 @@ public class StatUpgradesButtonController : MonoBehaviour
 
         infoText.text = "Upgrade stats and become stronger";
         errorText.text = string.Empty;
-
-        playerAudioSource.pitch = 0.8f;
-        playerAudioSource.PlayOneShot(statUpgradesOpened, 0.08f);
     }
 
     private void Update()

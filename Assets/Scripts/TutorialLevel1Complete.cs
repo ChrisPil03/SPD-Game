@@ -8,7 +8,7 @@ public class TutorialLevel1Complete : MonoBehaviour
     [SerializeField] private GameObject dialogueBox;
     [SerializeField] private TMP_Text dialogue;
 
-    private string dialogueText = "Thank you good sir. Wait aren't you... So you were summoned here as well. It is dangerous here, let us go to my camp before more slimes appear.";
+    private string dialogueText = "Thank you good sir. So you were summoned here as well. It is dangerous here, let us go to my camp before more slimes appear.";
     private float textSpeed = 0.05f;
     private bool dialogueActive;
 
